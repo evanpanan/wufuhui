@@ -2072,8 +2072,6 @@
                 replay:  { label: '录播', chip: 'bg-red-100 text-red-700 border-red-200', icon: 'fa-solid fa-video', action: '回放' }
             };
 
-            const videoBuffer = [];
-
             function buildVideoCard(item, meta, clickAction) {
                 return `
                     <div class="card-white rounded-xl overflow-hidden cursor-pointer card-white-hover" onclick="${clickAction}">
@@ -2105,26 +2103,30 @@
                 }).join('');
                 return;
             }
+            const usedVideoIndexes = new Set();
 
-            function flushVideoBuffer() {
-                if (!videoBuffer.length) return;
-                const cards = videoBuffer.map(videoItem => {
+            function renderVideoPair(startIndex) {
+                const pair = [];
+                for (let i = startIndex; i < items.length && pair.length < 2; i++) {
+                    if (items[i].type === 'video' && !usedVideoIndexes.has(i)) {
+                        usedVideoIndexes.add(i);
+                        pair.push(items[i]);
+                    }
+                }
+                if (!pair.length) return;
+                const cards = pair.map(videoItem => {
                     const videoMeta = TYPE_META.video;
                     const videoClick = `openLiveRoom('${videoItem.title}', '智库精选内容', '${videoItem.img}')`;
                     return buildVideoCard(videoItem, videoMeta, videoClick);
                 });
-                if (cards.length === 1) {
-                    cards.push('<div class="opacity-0 pointer-events-none"></div>');
-                }
                 container.insertAdjacentHTML('beforeend', `
                     <div class="grid grid-cols-2 gap-3">
                         ${cards.join('')}
                     </div>
                 `);
-                videoBuffer.length = 0;
             }
 
-            items.forEach(item => {
+            items.forEach((item, index) => {
                 const meta = TYPE_META[item.type];
                 const clickAction = item.type === 'article'
                     ? `showToast('正在打开【${item.category}】专栏图文...')`
@@ -2133,13 +2135,10 @@
                 let cardHtml = '';
 
                 if (item.type === 'video') {
-                    videoBuffer.push(item);
-                    if (videoBuffer.length === 2) {
-                        flushVideoBuffer();
-                    }
+                    if (usedVideoIndexes.has(index)) return;
+                    renderVideoPair(index);
                     return;
                 } else if (item.type === 'article') {
-                    flushVideoBuffer();
                     cardHtml = `
                         <div class="card-white rounded-2xl overflow-hidden card-white-hover cursor-pointer border border-slate-200 p-3" onclick="${clickAction}">
                             <div class="flex items-start gap-3">
@@ -2162,7 +2161,6 @@
                         </div>
                     `;
                 } else {
-                    flushVideoBuffer();
                     cardHtml = `
                         <div class="rounded-2xl overflow-hidden cursor-pointer border border-slate-800 bg-slate-950 shadow-[0_18px_40px_rgba(15,23,42,0.28)]" onclick="${clickAction}">
                             <div class="flex items-stretch">
@@ -2195,8 +2193,6 @@
 
                 container.insertAdjacentHTML('beforeend', cardHtml);
             });
-
-            flushVideoBuffer();
         }
 
         function switchChannelTab(channelKey, btn) {
