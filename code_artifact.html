@@ -3242,6 +3242,7 @@
         function showBadgeDetail(type) {
             const meta = BADGE_META[type];
             if (!meta) return;
+            const displayName = (meta.desc || meta.name).replace('赛道', '');
 
             const badge = appState.currentUser.badges[type] || { level: 0, spent: 0 };
             const lv = badge.level;
@@ -3251,7 +3252,7 @@
             const progress = nextLv ? Math.min(100, Math.round((spent / BADGE_THRESHOLDS[nextLv]) * 100)) : 100;
 
             enterBadgeDetailView();
-            document.getElementById('badge-modal-title').innerText = `【${meta.name}】权益等级`;
+            document.getElementById('badge-modal-title').innerText = `【${displayName}】权益等级`;
 
             const levelsHtml = BADGE_LEVELS.map(l => {
                 const reached = lv >= l.lv;
@@ -3261,7 +3262,7 @@
                             <span class="badge-tier-plaque ${reached ? BADGE_LEVELS[l.lv - 1].chip : 'badge-tier-locked'}">${reached ? `Lv${l.lv}` : 'LOCK'}</span>
                             <span class="${reached ? 'text-slate-900 font-bold' : 'text-slate-400'}">Lv.${l.lv} ${l.name}</span>
                         </span>
-                        <span class="text-[10px] ${reached ? 'text-amber-800 font-bold' : 'text-slate-400'}">单类累计 ￥${BADGE_THRESHOLDS[l.lv].toLocaleString()}</span>
+                        <span class="text-[10px] ${reached ? 'text-amber-800 font-bold' : 'text-slate-400'}"><i class="fa-solid fa-coins mr-1 text-amber-500"></i>${BADGE_THRESHOLDS[l.lv].toLocaleString()}</span>
                     </div>`;
             }).join('');
 
@@ -3272,8 +3273,8 @@
                         <span class="${lv >= 1 ? 'text-amber-800 font-bold' : 'text-slate-400'}">${curName}</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-slate-500">该类服务消费</span>
-                        <span class="text-slate-900 font-bold">￥${spent.toLocaleString()}</span>
+                        <span class="text-slate-500">该类财富值</span>
+                        <span class="text-slate-900 font-bold"><i class="fa-solid fa-coins mr-1 text-amber-500"></i>${spent.toLocaleString()}</span>
                     </div>
                     ${nextLv ? `
                     <div class="space-y-1 pt-1">
@@ -3290,7 +3291,7 @@
                     <p class="text-[11px] font-bold text-slate-700">等级门槛（按该类服务单独累计）</p>
                     ${levelsHtml}
                 </div>
-                <p class="text-[10px] text-slate-400 leading-relaxed">五富徽章只统计该类服务消费，不看总消费。会员等级与徽章分开计算、互不替代。</p>
+                <p class="text-[10px] text-slate-400 leading-relaxed">五富徽章只统计该类财富值，不看整体财富总值。会员等级与徽章分开计算、互不替代。</p>
             `;
             document.getElementById('badge-modal-body').innerHTML = bodyHtml;
             document.getElementById('badge-modal').classList.remove('hidden');
@@ -3345,7 +3346,7 @@
                         <span class="w-5 h-5 rounded-full border text-[9px] font-bold flex items-center justify-center ${l.chip}">${l.lv}</span>
                         <span class="text-slate-800 font-bold">Lv.${l.lv} ${l.name}</span>
                     </span>
-                    <span class="text-[10px] text-slate-500">单类累计 ￥${BADGE_THRESHOLDS[l.lv].toLocaleString()} 以上</span>
+                    <span class="text-[10px] text-slate-500"><i class="fa-solid fa-coins mr-1 text-amber-500"></i>${BADGE_THRESHOLDS[l.lv].toLocaleString()}</span>
                 </div>`).join('');
 
             const badgeRows = Object.keys(BADGE_META).map(key => {
@@ -3384,7 +3385,7 @@
                 <div class="flex items-center justify-between p-2 rounded-lg ${idx <= currentIndex ? 'bg-amber-50 border border-amber-200' : 'bg-slate-50 border border-slate-200'}">
                     <div>
                         <p class="text-xs font-bold text-slate-900">${tier.label}</p>
-                        <p class="text-[10px] text-slate-500 mt-0.5">APP + 线下总消费满 ￥${tier.threshold.toLocaleString()}</p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">线上 / 线下财富总值满 <i class="fa-solid fa-coins mx-1 text-amber-500"></i>${tier.threshold.toLocaleString()}</p>
                     </div>
                     <span class="text-[10px] ${idx < currentIndex ? 'text-emerald-700 font-bold' : idx === currentIndex ? 'text-amber-800 font-bold' : 'text-slate-400'}">${idx < currentIndex ? '已达成' : idx === currentIndex ? '当前等级' : '待解锁'}</span>
                 </div>
@@ -3433,14 +3434,14 @@
                         <span class="text-xs font-bold text-amber-300">${currentMeta.label}</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-[11px] text-slate-300">APP / 线下总消费</span>
-                        <span class="text-sm font-bold text-white">￥${appState.currentUser.spentAmount.toLocaleString()}</span>
+                        <span class="text-[11px] text-slate-300">线上 / 线下财富总值</span>
+                        <span class="text-sm font-bold text-white"><i class="fa-solid fa-coins mr-1 text-amber-300"></i>${appState.currentUser.spentAmount.toLocaleString()}</span>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="text-[11px] text-slate-300">已点亮特权</span>
                         <span class="text-sm font-bold text-white">${unlockedRights.length} / ${rights.length}</span>
                     </div>
-                    <p class="text-[10px] text-slate-400">${nextMeta ? `再累计 ￥${(nextMeta.threshold - appState.currentUser.spentAmount).toLocaleString()} 可升级至 ${nextMeta.label}` : '已解锁最高会员等级'}</p>
+                    <p class="text-[10px] text-slate-400">${nextMeta ? `再累计财富总值 <i class="fa-solid fa-coins mx-1 text-amber-400"></i>${(nextMeta.threshold - appState.currentUser.spentAmount).toLocaleString()} 可升级至 ${nextMeta.label}` : '已解锁最高会员等级'}</p>
                 </div>
                 <div class="space-y-1.5">
                     <p class="text-[11px] font-bold text-slate-700">已点亮</p>
