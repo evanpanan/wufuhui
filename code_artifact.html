@@ -373,37 +373,33 @@
 
                 <div class="px-4 space-y-4">
                     <!-- 赛道横向切换标签 (主一级标签) -->
-                    <div id="channel-tabs" class="flex space-x-2 overflow-x-auto pb-1 text-xs no-scrollbar">
-                        <button onclick="switchChannelTab('all', this)" class="channel-tab-btn px-3.5 py-1.5 rounded-full bg-amber-600 text-white font-bold whitespace-nowrap shadow-sm">全部</button>
-                        <button onclick="switchChannelTab('insurance', this)" class="channel-tab-btn px-3.5 py-1.5 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-amber-400 whitespace-nowrap">香港保险</button>
-                        <button onclick="switchChannelTab('health', this)" class="channel-tab-btn px-3.5 py-1.5 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-amber-400 whitespace-nowrap">高端医疗</button>
-                        <button onclick="switchChannelTab('stock', this)" class="channel-tab-btn px-3.5 py-1.5 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-amber-400 whitespace-nowrap">港美股</button>
-                        <button onclick="switchChannelTab('estate', this)" class="channel-tab-btn px-3.5 py-1.5 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-amber-400 whitespace-nowrap">全球房产</button>
-                        <button onclick="switchChannelTab('family', this)" class="channel-tab-btn px-3.5 py-1.5 rounded-full bg-white text-slate-600 border border-slate-200 hover:border-amber-400 whitespace-nowrap">家族办公室</button>
+                    <div id="channel-tabs" class="flex gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
+                        <button onclick="switchChannelTab('all', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-slate-900 text-white font-bold border border-slate-900 whitespace-nowrap shadow-sm">全部</button>
+                        <button onclick="switchChannelTab('insurance', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">香港保险</button>
+                        <button onclick="switchChannelTab('health', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">高端医疗</button>
+                        <button onclick="switchChannelTab('stock', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">港美股</button>
+                        <button onclick="switchChannelTab('estate', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">全球房产</button>
+                        <button onclick="switchChannelTab('family', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">家族办公室</button>
                     </div>
 
                     <!-- 二级内容形态 Tag 筛选 (文章/精选视频/闭门录播) -->
-                    <div id="media-type-tags" class="flex items-center space-x-2 text-xs pt-1 border-t border-slate-200/80">
-                        <span class="text-[11px] text-slate-400 font-medium flex-shrink-0 mr-1"><i class="fa-solid fa-filter text-[10px] mr-1"></i>形态:</span>
-                        <button onclick="filterMediaType('all', this)" class="media-type-btn px-2.5 py-1 rounded-lg bg-amber-100 text-amber-900 font-bold border border-amber-300 whitespace-nowrap">全部</button>
-                        <button onclick="filterMediaType('video', this)" class="media-type-btn px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 hover:border-amber-300 whitespace-nowrap flex items-center space-x-1">
-                            <i class="fa-solid fa-play text-[10px] text-amber-600"></i>
+                    <div id="media-type-tags" class="flex gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
+                        <button onclick="filterMediaType('all', this)" class="media-type-btn px-3 py-2 rounded-xl bg-slate-900 text-white font-bold border border-slate-900 whitespace-nowrap flex items-center space-x-1.5">
+                            <i class="fa-solid fa-grid-2 text-[10px]"></i>
+                            <span>全部</span>
+                        </button>
+                        <button onclick="filterMediaType('video', this)" class="media-type-btn px-3 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap flex items-center space-x-1.5">
+                            <i class="fa-solid fa-play text-[10px]"></i>
                             <span>精选视频</span>
                         </button>
-                        <button onclick="filterMediaType('article', this)" class="media-type-btn px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 hover:border-amber-300 whitespace-nowrap flex items-center space-x-1">
-                            <i class="fa-regular fa-file-lines text-[10px] text-slate-500"></i>
+                        <button onclick="filterMediaType('article', this)" class="media-type-btn px-3 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap flex items-center space-x-1.5">
+                            <i class="fa-regular fa-file-lines text-[10px]"></i>
                             <span>文章研报</span>
                         </button>
-                        <button onclick="filterMediaType('replay', this)" class="media-type-btn px-2.5 py-1 rounded-lg bg-white text-slate-600 border border-slate-200 hover:border-amber-300 whitespace-nowrap flex items-center space-x-1">
-                            <i class="fa-solid fa-video text-[10px] text-red-500"></i>
+                        <button onclick="filterMediaType('replay', this)" class="media-type-btn px-3 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap flex items-center space-x-1.5">
+                            <i class="fa-solid fa-video text-[10px]"></i>
                             <span>重磅录播</span>
                         </button>
-                    </div>
-
-                    <!-- 合规免责声明 Banner -->
-                    <div class="p-3 rounded-xl bg-amber-50/80 border border-amber-200 flex items-start space-x-2.5 text-xs text-amber-900">
-                        <i class="fa-solid fa-shield-halved text-amber-600 text-sm mt-0.5 flex-shrink-0"></i>
-                        <span class="leading-relaxed text-[11px]">本平台所有赛道内容仅提供宏观研析、法规科普与学术探讨，严格遵守合规指引，不构成任何具体的金融产品推荐、引流或推荐。</span>
                     </div>
 
                     <!-- 动态展示文章/视频/录播列表 -->
@@ -478,23 +474,14 @@
                         </span>
                     </div>
 
-                    <!-- 会员消费统计栏 -->
-                    <div onclick="openConsumptionModal()" class="mt-4 pt-3 border-t border-amber-500/20 relative z-10 bg-slate-950/40 px-3 py-2.5 rounded-xl border border-white/5 flex items-center justify-between cursor-pointer">
-                        <p class="text-[10px] text-amber-200/70 font-medium">累计总消费（APP / 线下）</p>
-                        <p id="user-spent-text" class="text-sm font-bold text-amber-400 tracking-tight">￥180,000</p>
-                    </div>
-
                     <!-- 五富资产版图区 -->
                     <div class="mt-4 pt-2 relative z-10 space-y-3">
-                        <div class="flex justify-between items-start text-[10px]">
+                        <div class="text-[10px]">
                             <div class="space-y-1">
                                 <span class="text-amber-200/90 font-medium flex items-center">
                                     <i class="fa-solid fa-gem text-amber-400 mr-1.5"></i>五富资产版图
                                 </span>
                             </div>
-                            <button onclick="openBadgeExplanationModal()" class="text-amber-400/90 hover:text-amber-300 underline flex items-center whitespace-nowrap">
-                                查看等级 <i class="fa-solid fa-chevron-right text-[8px] ml-0.5"></i>
-                            </button>
                         </div>
 
                         <div class="member-radar-shell">
@@ -569,39 +556,13 @@
                     </div>
                 </div>
 
-                <!-- 适当性认证状态 -->
-                <button id="compliance-banner" onclick="openComplianceModal()" class="w-full card-white rounded-xl p-3.5 flex items-center justify-between shadow-sm text-left active:scale-[0.99] transition"></button>
-
-                <!-- 专属商务经理 1v1 联系卡 -->
-                <div class="card-white rounded-xl p-3.5 flex justify-between items-center bg-gradient-to-r from-amber-50/60 to-white border border-amber-200 shadow-sm">
-                    <div onclick="transferToHumanDirect()" class="flex items-center space-x-3 cursor-pointer">
-                        <div class="relative">
-                            <div class="w-10 h-10 rounded-full bg-amber-600 text-white flex items-center justify-center text-sm shadow">
-                                <i class="fa-solid fa-user-tie"></i>
-                            </div>
-                            <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></span>
-                        </div>
-                        <div>
-                            <div class="flex items-center space-x-1.5">
-                                <h4 class="text-xs font-bold text-slate-900">王经理</h4>
-                                <span class="text-[9px] bg-amber-100 text-amber-800 font-semibold px-1.5 py-0.2 rounded border border-amber-300">资深顾问</span>
-                            </div>
-                            <p class="text-[10px] text-slate-500 mt-0.5">全天候 1v1 商务对接与行程定制服务</p>
-                        </div>
-                    </div>
-                    <button onclick="transferToHumanDirect()" class="px-3.5 py-1.5 rounded-xl gold-gradient-bg text-slate-950 text-xs font-bold shadow hover:brightness-105 active:scale-95 transition flex items-center space-x-1">
-                        <i class="fa-solid fa-phone text-[10px]"></i>
-                        <span>呼叫经理</span>
-                    </button>
-                </div>
-
                 <!-- 会员核心特权 -->
                 <div class="card-white rounded-2xl p-4 space-y-3">
                     <div class="flex justify-between items-center border-b border-slate-100 pb-2.5">
                         <h3 class="serif-title text-sm font-bold text-slate-900 flex items-center">
                             <span class="w-1.5 h-3.5 bg-amber-600 rounded-full mr-2"></span>会员核心特权
                         </h3>
-                        <button onclick="openMemberRightsModal()" class="text-xs text-amber-700 font-medium hover:underline">全景权限 <i class="fa-solid fa-chevron-right text-[9px]"></i></button>
+                        <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50 whitespace-nowrap">二期</span>
                     </div>
                     <div id="member-rights-summary" class="flex items-center justify-between rounded-xl bg-slate-950 text-white px-3 py-2.5 border border-slate-800">
                         <div>
@@ -616,18 +577,6 @@
                     <div id="member-rights-grid" class="grid grid-cols-4 gap-3 text-center"></div>
                 </div>
 
-                <!-- 我的权益 -->
-                <button onclick="openMyRightsVault()" class="w-full card-white rounded-xl p-3.5 flex items-center justify-between shadow-sm text-left active:scale-[0.99] transition">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-900 text-amber-300 flex items-center justify-center text-sm shadow"><i class="fa-solid fa-ticket"></i></div>
-                        <div>
-                            <h4 class="text-xs font-bold text-slate-900">我的权益</h4>
-                            <p class="text-[10px] text-slate-500 mt-0.5">已购课程 · 席位 · 实物核销码</p>
-                        </div>
-                    </div>
-                    <span id="rights-vault-count" class="text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-1 rounded-lg whitespace-nowrap">0 项</span>
-                </button>
-
                 <!-- 我的行程 -->
                 <div class="card-white rounded-2xl p-4 space-y-3">
                     <div class="flex justify-between items-center border-b border-slate-100 pb-2">
@@ -639,30 +588,26 @@
                     <div id="my-itinerary-preview" class="space-y-2"></div>
                 </div>
 
-                <!-- 交易与账单 -->
+                <!-- 交易记录 -->
                 <div class="card-white rounded-2xl p-4 space-y-3">
                     <div class="border-b border-slate-100 pb-2.5 space-y-1">
                         <h3 class="serif-title text-sm font-bold text-slate-900 flex items-center">
-                            <span class="w-1.5 h-3.5 bg-amber-600 rounded-full mr-2"></span>交易与账单
+                            <span class="w-1.5 h-3.5 bg-amber-600 rounded-full mr-2"></span>订单记录
                         </h3>
-                        <p class="text-[10px] text-slate-400">订单看履约状态，账单看实际扣费与权益入账</p>
+                        <p class="text-[10px] text-slate-400">查看订单状态、退款与售后进度</p>
                     </div>
-                    <div class="grid grid-cols-2 gap-2 text-center">
-                        <button onclick="openOrdersModal()" class="flex flex-col items-center p-2 rounded-xl hover:bg-amber-50/60 transition active:scale-95">
-                            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-base mb-1.5 border border-amber-200">
+                    <button onclick="openTradeRecordsModal()" class="w-full flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 hover:bg-amber-50/60 transition active:scale-[0.99]">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-base border border-amber-200">
                                 <i class="fa-solid fa-receipt"></i>
                             </div>
-                            <p class="text-[11px] text-slate-800 font-medium">订单中心</p>
-                            <p class="text-[10px] text-slate-400 mt-0.5"><span id="order-count">6</span> 笔待履约 / 已完成</p>
-                        </button>
-                        <button onclick="openConsumptionModal()" class="flex flex-col items-center p-2 rounded-xl hover:bg-amber-50/60 transition active:scale-95">
-                            <div class="w-10 h-10 rounded-2xl bg-amber-50 text-amber-700 flex items-center justify-center text-base mb-1.5 border border-amber-200">
-                                <i class="fa-solid fa-wallet"></i>
+                            <div class="text-left">
+                                <p class="text-[11px] text-slate-800 font-medium">查看订单记录</p>
+                                <p class="text-[10px] text-slate-400 mt-0.5"><span id="order-count">6</span> 笔订单记录</p>
                             </div>
-                            <p class="text-[11px] text-slate-800 font-medium">账单流水</p>
-                            <p class="text-[10px] text-slate-400 mt-0.5"><span id="consume-count">9</span> 笔实付 / 权益入账</p>
-                        </button>
-                    </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-[11px] text-slate-400"></i>
+                    </button>
                 </div>
 
             </section>
@@ -875,6 +820,10 @@
                     <p class="text-slate-600">支付金额：<span id="booking-price" class="text-red-700 font-bold">--</span></p>
                 </div>
 
+                <div id="booking-special-access-note" class="hidden p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-[11px] text-emerald-800">
+                    本场活动已通过专属码解锁报名资格，可直接进入支付。
+                </div>
+
                 <div id="booking-form-area" class="space-y-3">
                     <div>
                         <label class="text-[11px] text-slate-500 block mb-1 font-medium">您的姓名</label>
@@ -930,16 +879,41 @@
                     </div>
                     <div class="space-y-1">
                         <p class="text-xs font-bold text-slate-900">您的会员等级尚未达到报名门槛</p>
-                        <p id="booking-restricted-text" class="text-[11px] text-slate-500">本活动设有会员门槛，您可联系商务经理申请特批席位或升级会员。</p>
+                        <p id="booking-restricted-text" class="text-[11px] text-slate-500">本活动设有会员门槛，您可输入商务经理提供的专属码后直接进入支付。</p>
                     </div>
                     <div class="pt-2 flex space-x-2">
-                        <button onclick="closeBookingModal(); transferToHumanDirect()" class="flex-1 py-2 rounded-xl bg-amber-600 text-white font-bold text-xs shadow">
-                            联系经理申请特批
+                        <button onclick="openSpecialAccessModal()" class="flex-1 py-2 rounded-xl bg-amber-600 text-white font-bold text-xs shadow">
+                            输入特批码
                         </button>
                         <button onclick="closeBookingModal()" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600 font-medium text-xs">
                             知道了
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 活动特批码 Modal -->
+        <div id="special-access-modal" class="fixed inset-0 z-[60] bg-slate-900/60 backdrop-blur-sm flex justify-center items-center p-4 hidden">
+            <div class="w-full max-w-sm bg-white border border-amber-300 rounded-2xl p-5 space-y-4 shadow-2xl">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                    <div>
+                        <h3 class="serif-title text-base font-bold text-slate-900">输入特批码</h3>
+                        <p class="text-[10px] text-slate-500">验证通过后将直接放开本场活动报名资格</p>
+                    </div>
+                    <button onclick="closeSpecialAccessModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+                    <p class="text-slate-500">当前活动</p>
+                    <p id="special-access-activity" class="font-bold text-slate-900">--</p>
+                </div>
+                <div class="space-y-1.5">
+                    <label class="text-[11px] text-slate-500 block font-medium">专属码</label>
+                    <input id="special-access-code" type="text" placeholder="请输入商务经理提供的专属码" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-xs text-slate-800 uppercase tracking-wider focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="closeSpecialAccessModal()" class="py-2 rounded-xl bg-slate-100 text-slate-600 font-medium text-xs">取消</button>
+                    <button onclick="submitSpecialAccessCode()" class="py-2 rounded-xl gold-gradient-bg text-slate-950 font-bold text-xs shadow">确认解锁</button>
                 </div>
             </div>
         </div>
@@ -961,8 +935,8 @@
                     <p>支付金额：<span id="payment-success-amount" class="font-bold text-red-700">--</span></p>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
-                    <button onclick="closePaymentSuccessModal(); openOrdersModal();" class="py-2 rounded-xl bg-slate-900 text-white font-bold text-xs">
-                        查看订单
+                    <button onclick="closePaymentSuccessModal(); openTradeRecordsModal();" class="py-2 rounded-xl bg-slate-900 text-white font-bold text-xs">
+                        查看订单记录
                     </button>
                     <button onclick="closePaymentSuccessModal()" class="py-2 rounded-xl gold-gradient-bg text-slate-950 font-bold text-xs">
                         完成
@@ -1421,56 +1395,31 @@
             </div>
         </div>
 
-        <!-- 订单中心 Modal -->
-        <div id="orders-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex justify-center items-center p-4 hidden">
+        <!-- 交易记录 Modal -->
+        <div id="trade-records-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex justify-center items-center p-4 hidden">
             <div class="w-full max-w-sm bg-white rounded-2xl p-5 space-y-4 shadow-2xl border border-amber-300">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-2.5">
                     <div>
-                        <div class="flex items-center gap-1.5">
-                            <h3 class="serif-title text-base font-bold text-slate-900">订单中心</h3>
-                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50 whitespace-nowrap">发票 · 二期</span>
-                        </div>
-                        <p class="text-[10px] text-slate-500">按订单查看活动、商品与专属服务的履约状态</p>
+                        <h3 class="serif-title text-base font-bold text-slate-900">订单记录</h3>
+                        <p id="trade-records-subtitle" class="text-[10px] text-slate-500">查看订单状态、退款与售后进度</p>
                     </div>
-                    <button onclick="closeOrdersModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    <button onclick="closeTradeRecordsModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
 
-                <div id="orders-list" class="space-y-2.5 max-h-[58vh] overflow-y-auto pr-0.5"></div>
-
-                <button onclick="closeOrdersModal()" class="w-full py-2 bg-slate-900 text-white font-bold rounded-xl text-xs">
-                    关闭
-                </button>
-            </div>
-        </div>
-
-        <!-- 账单流水 Modal -->
-        <div id="consumption-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex justify-center items-center p-4 hidden">
-            <div class="w-full max-w-sm bg-white rounded-2xl p-5 space-y-4 shadow-2xl border border-amber-300">
-                <div class="flex justify-between items-center border-b border-slate-100 pb-2.5">
-                    <div>
-                        <div class="flex items-center gap-1.5">
-                            <h3 class="serif-title text-base font-bold text-slate-900">账单流水</h3>
-                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50 whitespace-nowrap">导出 · 二期</span>
-                        </div>
-                        <p class="text-[10px] text-slate-500">包含 APP 消费与线下成交的总账单流水</p>
-                    </div>
-                    <button onclick="closeConsumptionModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2">
+                <div id="trade-records-summary" class="grid grid-cols-2 gap-2">
                     <div class="p-3 rounded-xl bg-slate-900">
                         <p class="text-[10px] text-slate-400">累计总消费</p>
                         <p id="consume-total" class="text-sm font-bold text-amber-400 mt-0.5">￥0</p>
                     </div>
                     <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
-                        <p class="text-[10px] text-amber-800/70">累计积分</p>
-                        <p id="consume-points" class="text-sm font-bold text-amber-700 mt-0.5">0 PTS</p>
+                        <p class="text-[10px] text-amber-800/70">订单数</p>
+                        <p id="trade-records-count" class="text-sm font-bold text-amber-700 mt-0.5">0</p>
                     </div>
                 </div>
 
-                <div id="consumption-list" class="space-y-2 max-h-[45vh] overflow-y-auto pr-0.5"></div>
+                <div id="trade-records-list" class="space-y-2.5 max-h-[52vh] overflow-y-auto pr-0.5"></div>
 
-                <button onclick="closeConsumptionModal()" class="w-full py-2 bg-slate-900 text-white font-bold rounded-xl text-xs">
+                <button onclick="closeTradeRecordsModal()" class="w-full py-2 bg-slate-900 text-white font-bold rounded-xl text-xs">
                     关闭
                 </button>
             </div>
@@ -1518,9 +1467,27 @@
                         <label class="text-[11px] text-slate-500 block mb-1 font-medium">手机号（商务经理联系回访）</label>
                         <input id="settings-phone" type="text" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs text-slate-800 focus:outline-none focus:border-amber-500">
                     </div>
+                    <div>
+                        <label class="text-[11px] text-slate-500 block mb-1 font-medium">邮箱</label>
+                        <input id="settings-email" type="email" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs text-slate-800 focus:outline-none focus:border-amber-500">
+                    </div>
                     <button onclick="saveAccountInfo()" class="w-full py-2.5 rounded-xl gold-gradient-bg text-slate-950 font-bold text-xs shadow-md hover:brightness-105 transition">
                         保存账号信息
                     </button>
+                </div>
+
+                <!-- 认证与安全 -->
+                <div class="space-y-2 pt-1">
+                    <p class="text-[11px] font-bold text-slate-700 flex items-center">
+                        <span class="w-1.5 h-3.5 bg-amber-600 rounded-full mr-2"></span>认证与安全
+                    </p>
+                    <div class="divide-y divide-slate-100 rounded-xl border border-slate-200 overflow-hidden">
+                        <button id="settings-compliance-entry" onclick="openComplianceModal()" class="w-full p-3 flex justify-between items-center bg-white hover:bg-slate-50 transition text-left"></button>
+                        <button onclick="openPasswordModal()" class="w-full p-3 flex justify-between items-center bg-white hover:bg-slate-50 transition text-left">
+                            <span class="text-xs text-slate-700">修改密码</span>
+                            <span class="text-[10px] text-slate-400">定期更新更安全 <i class="fa-solid fa-chevron-right text-[9px] ml-1"></i></span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- 通知偏好 -->
@@ -1567,13 +1534,13 @@
             </div>
         </div>
 
-        <!-- 适当性认证 Modal -->
+        <!-- 投资者认证 Modal -->
         <div id="compliance-modal" class="fixed inset-0 z-[70] bg-slate-900/60 backdrop-blur-sm flex justify-center items-center p-4 hidden">
             <div class="w-full max-w-sm bg-white rounded-2xl p-5 space-y-4 shadow-2xl border border-amber-300 max-h-[88vh] overflow-y-auto">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-2.5">
                     <div>
                         <div class="flex items-center gap-1.5">
-                            <h3 class="serif-title text-base font-bold text-slate-900">适当性认证</h3>
+                            <h3 class="serif-title text-base font-bold text-slate-900">投资者认证</h3>
                             <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50 whitespace-nowrap">人工审核 · 二期</span>
                         </div>
                         <p class="text-[10px] text-slate-500">实名 · 风险测评 · 合格投资者认定</p>
@@ -1628,18 +1595,22 @@
             </div>
         </div>
 
-        <!-- 我的权益 / 已购课程 Modal -->
-        <div id="my-rights-vault-modal" class="fixed inset-0 z-[70] bg-slate-900/70 backdrop-blur-sm flex justify-center items-end hidden">
-            <div class="w-full max-w-md bg-white rounded-t-2xl h-[86vh] flex flex-col shadow-2xl overflow-hidden">
-                <div class="px-4 py-3 bg-slate-900 text-white flex items-center justify-between flex-shrink-0">
+        <!-- 修改密码 Modal -->
+        <div id="password-modal" class="fixed inset-0 z-[70] bg-slate-900/60 backdrop-blur-sm flex justify-center items-center p-4 hidden">
+            <div class="w-full max-w-sm bg-white rounded-2xl p-5 space-y-4 shadow-2xl border border-amber-300">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-2.5">
                     <div>
-                        <h3 class="serif-title text-base font-bold">我的权益</h3>
-                        <p class="text-[10px] text-slate-400 mt-0.5">已购课程、席位与实物权益的核销入口</p>
+                        <h3 class="serif-title text-base font-bold text-slate-900">修改密码</h3>
+                        <p class="text-[10px] text-slate-500">建议定期更新登录密码</p>
                     </div>
-                    <button onclick="closeMyRightsVault()" class="text-slate-300 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    <button onclick="closePasswordModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
-                <div class="px-4 py-3 border-b border-slate-100 flex gap-2 flex-shrink-0 overflow-x-auto" id="rights-vault-tabs"></div>
-                <div id="rights-vault-list" class="flex-1 overflow-y-auto px-4 py-3 space-y-2.5"></div>
+                <div class="space-y-2">
+                    <input id="password-current" type="password" placeholder="当前密码" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs text-slate-800 focus:outline-none focus:border-amber-500">
+                    <input id="password-next" type="password" placeholder="新密码（至少 6 位）" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs text-slate-800 focus:outline-none focus:border-amber-500">
+                    <input id="password-confirm" type="password" placeholder="确认新密码" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs text-slate-800 focus:outline-none focus:border-amber-500">
+                </div>
+                <button onclick="submitPasswordChange()" class="w-full py-2.5 rounded-xl gold-gradient-bg text-slate-950 font-bold text-xs shadow-md active:scale-95 transition">确认修改</button>
             </div>
         </div>
 
@@ -1703,11 +1674,12 @@
 
                 <div class="relative z-10 flex-1 flex flex-col px-7 pt-16 pb-10">
                     <div class="flex-1 flex flex-col items-center justify-center text-center space-y-4">
-                        <div class="relative w-16 h-16 rounded-[18px] gold-gradient-bg shadow-xl border border-amber-200 overflow-hidden">
-                            <div class="absolute inset-[3px] rounded-[15px] bg-slate-950/90 border border-amber-200/30"></div>
+                        <div class="relative w-10 h-10 rounded-2xl gold-gradient-bg shadow-md border border-white/80 overflow-hidden">
+                            <div class="absolute inset-[2px] rounded-[14px] bg-slate-950/88 border border-amber-200/30"></div>
                             <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="text-lg tracking-[0.18em] font-black text-amber-300">WF</span>
+                                <span class="text-[12px] tracking-[0.18em] font-black text-amber-300">WF</span>
                             </div>
+                            <div class="absolute top-1.5 left-1.5 w-1.5 h-1.5 rounded-full bg-amber-200/80"></div>
                         </div>
                         <div class="space-y-1.5">
                             <h1 class="serif-title text-3xl font-bold text-slate-900 tracking-wide">五富会</h1>
@@ -1852,6 +1824,8 @@
                     company: "XX 控股集团",
                     position: "企业创始人",
                     phone: "138 8888 6666",
+                    email: "zhang@example.com",
+                    password: "888888",
                     avatar: IMG.avatar
                 },
                 badges: {
@@ -1864,6 +1838,7 @@
             },
             currentChannelTab: 'all',
             currentMediaType: 'all',
+            activitySpecialAccess: {},
             myBookings: [
                 { title: "【第12期】香港顶级家族办公室与金融机构游学团", status: "已确认", date: "2026-11-18 (3天2晚)", sortDate: "2026-11-18", manager: "王经理", img: IMG.hk, actId: "act1", ticketNo: "WF20261118-8892", checkedIn: false },
                 { title: "日本顶级精密体检与再生医学考察团", status: "审核中", date: "2026-12-05 (4天3晚)", sortDate: "2026-12-05", manager: "王经理", img: IMG.japan, actId: "act2", ticketNo: "WF20261205-7781", checkedIn: false },
@@ -1879,15 +1854,15 @@
                 { id: "WF20260708-3390", title: "港险赛道专属顾问服务（年度）", type: "专属服务", amount: 55240, status: "已完成", date: "2026-07-08 14:30", img: IMG.insurance }
             ],
             consumptionRecords: [
-                { date: "2026-11-18 09:30", item: "香港游学团席位（黑金VIP专享）", channel: "活动", amount: 0, points: 0 },
-                { date: "2026-11-02 14:20", item: "《家族传承防坑指南 2026版》精装订阅", channel: "知识商城", amount: 1280, points: 128 },
-                { date: "2026-10-21 10:05", item: "企业家领航班席位费", channel: "活动", amount: 12800, points: 1280 },
-                { date: "2026-10-05 19:40", item: "闭门私董会席位（黑金VIP专享）", channel: "活动", amount: 0, points: 0 },
-                { date: "2026-09-18 11:15", item: "日本精密体检考察团定金", channel: "活动", amount: 38000, points: 3800 },
-                { date: "2026-08-30 16:48", item: "《全球资产配置实战全书》实体精装", channel: "知识商城", amount: 680, points: 68 },
-                { date: "2026-08-12 20:10", item: "陶老师闭门研讨会 · 年度订阅", channel: "智库订阅", amount: 24000, points: 2400 },
-                { date: "2026-07-25 09:15", item: "海外房产配置研报包（年费）", channel: "智库订阅", amount: 48000, points: 4800 },
-                { date: "2026-07-08 14:30", item: "港险赛道专属顾问服务（年度）", channel: "专属服务", amount: 55240, points: 6024 }
+                { date: "2026-11-18 09:30", item: "香港游学团席位（黑金VIP专享）", channel: "活动", amount: 0 },
+                { date: "2026-11-02 14:20", item: "《家族传承防坑指南 2026版》精装订阅", channel: "知识商城", amount: 1280 },
+                { date: "2026-10-21 10:05", item: "企业家领航班席位费", channel: "活动", amount: 12800 },
+                { date: "2026-10-05 19:40", item: "闭门私董会席位（黑金VIP专享）", channel: "活动", amount: 0 },
+                { date: "2026-09-18 11:15", item: "日本精密体检考察团定金", channel: "活动", amount: 38000 },
+                { date: "2026-08-30 16:48", item: "《全球资产配置实战全书》实体精装", channel: "知识商城", amount: 680 },
+                { date: "2026-08-12 20:10", item: "陶老师闭门研讨会 · 年度订阅", channel: "智库订阅", amount: 24000 },
+                { date: "2026-07-25 09:15", item: "海外房产配置研报包（年费）", channel: "智库订阅", amount: 48000 },
+                { date: "2026-07-08 14:30", item: "港险赛道专属顾问服务（年度）", channel: "专属服务", amount: 55240 }
             ],
             livePreviews: [
                 {
@@ -1921,7 +1896,7 @@
             ],
             notifications: [
                 { id: 'nt1', title: '香港私董游学团审核已通过', desc: '专属商务经理王经理将在 2 小时内联系您确认行程细节。', time: '10:30', unread: true },
-                { id: 'nt2', title: '领航班席位支付成功', desc: '订单已写入“我的订单”，消费记录与积分已同步更新。', time: '昨天', unread: false },
+                { id: 'nt2', title: '领航班席位支付成功', desc: '订单与消费记录已同步更新。', time: '昨天', unread: false },
                 { id: 'nt3', title: '牧笛老师本周直播已开放预约', desc: '您可前往首页“全部预告”查看排期并设置提醒。', time: '2天前', unread: false }
             ],
             mallProducts: [
@@ -2245,9 +2220,7 @@
             renderMallProducts();
             renderComplianceBanner();
             renderComplianceUI();
-            updateRightsVaultCount();
             document.getElementById('order-count').innerText = appState.orders.length;
-            document.getElementById('consume-count').innerText = appState.consumptionRecords.length;
             if (!appState.currentUser.loggedIn) showLoginGate();
         };
 
@@ -2321,7 +2294,6 @@
             renderMemberRights();
             renderMyItineraryPreview();
             renderComplianceBanner();
-            updateRightsVaultCount();
             renderActivities(appState.currentActivityFilter || 'all');
         }
 
@@ -3005,25 +2977,24 @@
         function switchChannelTab(channelKey, btn) {
             appState.currentChannelTab = channelKey;
             document.querySelectorAll('.channel-tab-btn').forEach(b => {
-                b.classList.remove('bg-amber-600', 'text-white', 'font-bold');
-                b.classList.add('bg-white', 'text-slate-600');
+                b.classList.remove('bg-slate-900', 'text-white', 'font-bold', 'border-slate-900', 'shadow-sm');
+                b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
             });
-            btn.classList.remove('bg-white', 'text-slate-600');
-            btn.classList.add('bg-amber-600', 'text-white', 'font-bold');
+            btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+            btn.classList.add('bg-slate-900', 'text-white', 'font-bold', 'border-slate-900', 'shadow-sm');
             renderChannelContents(appState.currentChannelTab, appState.currentMediaType);
         }
 
         function filterMediaType(mediaType, btn) {
             appState.currentMediaType = mediaType;
             document.querySelectorAll('.media-type-btn').forEach(b => {
-                b.classList.remove('bg-amber-100', 'text-amber-900', 'font-bold', 'border-amber-300');
+                b.classList.remove('bg-slate-900', 'text-white', 'font-bold', 'border-slate-900', 'shadow-sm');
                 b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
             });
             btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
-            btn.classList.add('bg-amber-100', 'text-amber-900', 'font-bold', 'border-amber-300');
+            btn.classList.add('bg-slate-900', 'text-white', 'font-bold', 'border-slate-900', 'shadow-sm');
             
             renderChannelContents(appState.currentChannelTab, appState.currentMediaType);
-            showToast(`已筛选：${btn.innerText.trim()}`);
         }
 
         function getMemberTierMetaByKey(key) {
@@ -3056,8 +3027,16 @@
             return (badge.level || 0) >= (requiredBadge.level || 1);
         }
 
+        function hasNativeActivityAccess(act) {
+            return hasRequiredTier(act?.minTier) && hasRequiredBadge(act?.requiredBadge);
+        }
+
+        function hasSpecialActivityAccess(actId) {
+            return !!appState.activitySpecialAccess[actId];
+        }
+
         function canBookActivity(act) {
-            return hasRequiredTier(act.minTier) && hasRequiredBadge(act.requiredBadge);
+            return hasNativeActivityAccess(act) || hasSpecialActivityAccess(act?.id);
         }
 
         function getActivityGateText(act) {
@@ -3137,10 +3116,8 @@
             updateBadgeRadar();
 
             const badgeTier = document.getElementById('user-tier-badge');
-            const spentText = document.getElementById('user-spent-text');
             badgeTier.innerText = currentTierMeta.label;
             badgeTier.className = `cursor-pointer ${currentTierMeta.chipClass}`;
-            spentText.innerText = `￥${appState.currentUser.spentAmount.toLocaleString()}`;
             renderMemberRights();
         }
 
@@ -3485,9 +3462,7 @@
                     ${tierRows}
                 </div>
                 <p class="text-[10px] text-slate-400 leading-relaxed">权益会按会员等级或已购服务自动点亮，未点亮项会在这里持续展示。</p>
-                <p class="text-[10px] text-slate-400 flex items-center gap-1.5">会员有效期与续期规则
-                    <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50 whitespace-nowrap">二期</span>
-                </p>
+                <p class="text-[10px] text-slate-400">会员有效期与续期规则将按平台统一规则更新。</p>
             `;
             document.getElementById('badge-modal').classList.remove('hidden');
         }
@@ -3509,6 +3484,8 @@
             wechat: '微信支付'
         };
 
+        const SPECIAL_ACCESS_MASTER_CODE = 'WFVIP2026';
+
         function getActivityAmount(act) {
             const match = String(act?.price || '').match(/([\d,]+)/);
             return match ? Number(match[1].replace(/,/g, '')) : 0;
@@ -3522,6 +3499,16 @@
 
         function buildOrderId() {
             return `WF${Date.now().toString().slice(-10)}-${Math.floor(Math.random() * 9000 + 1000)}`;
+        }
+
+        function getSpecialAccessCodeForActivity(actId) {
+            return `WF-${String(actId || '').toUpperCase()}`;
+        }
+
+        function isValidSpecialAccessCode(act, rawCode) {
+            if (!act) return false;
+            const code = String(rawCode || '').trim().toUpperCase();
+            return !!code && (code === getSpecialAccessCodeForActivity(act.id) || code === SPECIAL_ACCESS_MASTER_CODE);
         }
 
         function setBookingPaymentMethod(method) {
@@ -3568,7 +3555,9 @@
             currentDetailAct = act;
             const detail = getActivityDetail(act);
             const isEnded = act.status === 'ended';
-            const userCanBook = !isEnded && canBookActivity(act);
+            const nativeCanBook = !isEnded && hasNativeActivityAccess(act);
+            const specialAccess = !isEnded && hasSpecialActivityAccess(act.id) && !nativeCanBook;
+            const userCanBook = nativeCanBook || specialAccess;
             const requiredTierMeta = getMemberTierMetaByKey(act.minTier || 'normal');
             const currentTierMeta = getMemberTierMetaBySpent(appState.currentUser.spentAmount);
             const tierReady = hasRequiredTier(act.minTier);
@@ -3625,6 +3614,10 @@
                 thresholdBadge.innerText = '已结束';
                 thresholdBadge.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-200 text-slate-600 border border-slate-300';
                 thresholdNote.innerText = '该活动已结束，当前仅保留门槛说明供回看参考。';
+            } else if (specialAccess) {
+                thresholdBadge.innerText = '特批通行';
+                thresholdBadge.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-700 border border-emerald-200';
+                thresholdNote.innerText = `当前身份为 ${currentTierMeta.label}；${currentBadgeText}。已通过专属码放开本场活动报名资格，可直接锁定席位。`;
             } else if (userCanBook) {
                 thresholdBadge.innerText = '当前可预约';
                 thresholdBadge.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-100 text-emerald-700 border border-emerald-200';
@@ -3678,13 +3671,21 @@
         function openBookingModal(actId, fromDetail = false) {
             const act = appState.activities.find(a => a.id === actId);
             if (!act) return;
+            const amount = getActivityAmount(act);
+            const userCanBook = canBookActivity(act);
+            if (amount > 0 && userCanBook && !isCompliant()) {
+                showToast('请先完成投资者认证，再进入支付');
+                openComplianceModal();
+                return;
+            }
             currentSelectedAct = act;
             bookingFromDetail = fromDetail;
             document.getElementById('booking-back-btn').classList.toggle('hidden', !fromDetail);
-            const amount = getActivityAmount(act);
+            const nativeCanBook = hasNativeActivityAccess(act);
+            const specialAccess = hasSpecialActivityAccess(act.id) && !nativeCanBook;
 
             document.getElementById('booking-title').innerText = act.title;
-            document.getElementById('booking-gate').innerText = getActivityGateText(act);
+            document.getElementById('booking-gate').innerText = specialAccess ? `${getActivityGateText(act)} · 特批通行` : getActivityGateText(act);
             document.getElementById('booking-price').innerText = act.price;
             document.getElementById('input-booking-name').value = appState.currentUser.account.nickname || '张总经理';
             document.getElementById('input-booking-phone').value = appState.currentUser.account.phone || '138 **** 8888';
@@ -3696,12 +3697,13 @@
             currentBookingPaymentMethod = 'alipay';
             setBookingPaymentMethod('alipay');
 
-            const userCanBook = canBookActivity(act);
             const restrictionText = getActivityRestrictionText(act);
 
             const formArea = document.getElementById('booking-form-area');
             const restrictedArea = document.getElementById('booking-restricted-area');
             const restrictedText = document.getElementById('booking-restricted-text');
+            const specialNote = document.getElementById('booking-special-access-note');
+            if (specialNote) specialNote.classList.toggle('hidden', !specialAccess);
 
             if (userCanBook) {
                 formArea.classList.remove('hidden');
@@ -3710,7 +3712,7 @@
                 formArea.classList.add('hidden');
                 restrictedArea.classList.remove('hidden');
                 if (restrictedText) {
-                    restrictedText.innerText = `当前未满足报名条件：${restrictionText}。您可联系商务经理申请特批席位或升级后再预约。`;
+                    restrictedText.innerText = `当前未满足报名条件：${restrictionText}。您可输入商务经理提供的专属码，直接进入本场支付。`;
                 }
             }
 
@@ -3719,14 +3721,48 @@
 
         function closeBookingModal() {
             document.getElementById('booking-modal').classList.add('hidden');
+            closeSpecialAccessModal();
             bookingFromDetail = false;
+        }
+
+        function openSpecialAccessModal() {
+            if (!currentSelectedAct) return;
+            document.getElementById('special-access-activity').innerText = currentSelectedAct.title;
+            document.getElementById('special-access-code').value = '';
+            document.getElementById('special-access-modal').classList.remove('hidden');
+        }
+
+        function closeSpecialAccessModal() {
+            const modal = document.getElementById('special-access-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function submitSpecialAccessCode() {
+            if (!currentSelectedAct) return;
+            const code = document.getElementById('special-access-code').value.trim();
+            if (!code) {
+                showToast('请输入专属码');
+                return;
+            }
+            if (!isValidSpecialAccessCode(currentSelectedAct, code)) {
+                showToast('专属码无效，请联系商务经理确认');
+                return;
+            }
+
+            appState.activitySpecialAccess[currentSelectedAct.id] = {
+                code: code.toUpperCase(),
+                unlockedAt: getNowString()
+            };
+            closeSpecialAccessModal();
+            renderActivities(appState.currentActivityFilter);
+            openBookingModal(currentSelectedAct.id, bookingFromDetail);
+            showToast('本场活动已解锁报名资格');
         }
 
         function submitBooking() {
             if (!currentSelectedAct) return;
 
             const amount = getActivityAmount(currentSelectedAct);
-            if (amount > 0 && !requireCompliance('预约该付费活动')) return;
 
             const name = document.getElementById('input-booking-name').value.trim();
             const phone = document.getElementById('input-booking-phone').value.trim();
@@ -3767,15 +3803,12 @@
                     date: now,
                     item: currentSelectedAct.title,
                     channel: "活动",
-                    amount,
-                    points: amount > 0 ? Math.floor(amount / 10) : 0
+                    amount
                 });
 
                 appState.currentUser.spentAmount += amount;
 
                 document.getElementById('order-count').innerText = appState.orders.length;
-                document.getElementById('consume-count').innerText = appState.consumptionRecords.length;
-                updateRightsVaultCount();
                 renderMyItineraryPreview();
                 updateBadgeUI();
                 closeBookingModal();
@@ -3854,9 +3887,17 @@
             document.getElementById('my-bookings-modal').classList.add('hidden');
         }
 
-        function openOrdersModal() {
-            const list = document.getElementById('orders-list');
-            list.innerHTML = appState.orders.map(o => {
+        function renderTradeRecords() {
+            const totalEl = document.getElementById('consume-total');
+            const countEl = document.getElementById('trade-records-count');
+            const listEl = document.getElementById('trade-records-list');
+            const total = appState.consumptionRecords.reduce((s, r) => s + r.amount, 0);
+
+            if (totalEl) totalEl.innerText = `￥${total.toLocaleString()}`;
+            if (countEl) countEl.innerText = `${appState.orders.length}`;
+            if (!listEl) return;
+
+            listEl.innerHTML = appState.orders.map(o => {
                 const statusCls = o.status === '已完成' ? 'bg-emerald-100 text-emerald-800'
                     : (o.status === '已确认' || o.status === '已支付') ? 'bg-blue-100 text-blue-800'
                     : 'bg-amber-100 text-amber-800';
@@ -3881,38 +3922,31 @@
                         ${(o.status !== '已退款' && o.status !== '已取消') ? `<button onclick="openAfterSalesModal('${o.id}')" class="w-full py-1.5 rounded-lg border border-slate-300 bg-white text-slate-600 text-[11px] font-bold active:scale-95 transition"><i class="fa-solid fa-headset mr-1"></i>售后 / 退款</button>` : ''}
                     </div>`;
             }).join('');
-            document.getElementById('orders-modal').classList.remove('hidden');
+        }
+
+        function openTradeRecordsModal() {
+            renderTradeRecords();
+            document.getElementById('trade-records-modal').classList.remove('hidden');
+        }
+
+        function closeTradeRecordsModal() {
+            document.getElementById('trade-records-modal').classList.add('hidden');
+        }
+
+        function openOrdersModal() {
+            openTradeRecordsModal();
         }
 
         function closeOrdersModal() {
-            document.getElementById('orders-modal').classList.add('hidden');
+            closeTradeRecordsModal();
         }
 
         function openConsumptionModal() {
-            const total = appState.consumptionRecords.reduce((s, r) => s + r.amount, 0);
-            const points = appState.consumptionRecords.reduce((s, r) => s + r.points, 0);
-            document.getElementById('consume-total').innerText = `￥${total.toLocaleString()}`;
-            document.getElementById('consume-points').innerText = `${points.toLocaleString()} PTS`;
-
-            const list = document.getElementById('consumption-list');
-            list.innerHTML = appState.consumptionRecords.map(r => `
-                <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
-                    <div class="flex justify-between items-start space-x-2">
-                        <div class="flex-1 min-w-0">
-                            <p class="text-xs font-bold text-slate-800 leading-snug">${r.item}</p>
-                            <p class="text-[10px] text-slate-400 mt-1">${r.date} · ${r.channel}</p>
-                        </div>
-                        <div class="text-right flex-shrink-0">
-                            <p class="text-xs font-bold ${r.amount > 0 ? 'text-slate-900' : 'text-amber-700'}">${r.amount > 0 ? '-￥' + r.amount.toLocaleString() : '权益免费'}</p>
-                            <p class="text-[10px] text-amber-600 mt-0.5">+${r.points} 积分</p>
-                        </div>
-                    </div>
-                </div>`).join('');
-            document.getElementById('consumption-modal').classList.remove('hidden');
+            openTradeRecordsModal();
         }
 
         function closeConsumptionModal() {
-            document.getElementById('consumption-modal').classList.add('hidden');
+            closeTradeRecordsModal();
         }
 
         function renderMallProducts() {
@@ -3987,9 +4021,14 @@
         function openMallBuyModal(id, fromDetail = false) {
             const p = getMallProduct(id);
             if (!p) return;
+            const amount = p.price || 0;
+            if (amount > 0 && !isCompliant()) {
+                showToast('请先完成投资者认证，再进入支付');
+                openComplianceModal();
+                return;
+            }
             currentMallProduct = p;
             mallBuyFromDetail = fromDetail;
-            const amount = p.price || 0;
 
             document.getElementById('mall-buy-back-btn').classList.toggle('hidden', !fromDetail);
             document.getElementById('mall-buy-img').src = p.img;
@@ -4044,7 +4083,6 @@
             if (!currentMallProduct) return;
             const p = currentMallProduct;
             const amount = p.price || 0;
-            if (amount > 0 && !requireCompliance('购买该付费商品')) return;
 
             const name = document.getElementById('input-mall-name').value.trim();
             const phone = document.getElementById('input-mall-phone').value.trim();
@@ -4072,14 +4110,11 @@
                     date: now,
                     item: p.title,
                     channel: '严选',
-                    amount,
-                    points: amount > 0 ? Math.floor(amount / 10) : 0
+                    amount
                 });
                 appState.currentUser.spentAmount += amount;
 
                 document.getElementById('order-count').innerText = appState.orders.length;
-                document.getElementById('consume-count').innerText = appState.consumptionRecords.length;
-                updateRightsVaultCount();
                 updateBadgeUI();
                 renderMemberRights();
                 syncAccountUI();
@@ -4122,19 +4157,19 @@
         }
 
         function renderComplianceBanner() {
-            const el = document.getElementById('compliance-banner');
+            const el = document.getElementById('settings-compliance-entry');
             if (!el) return;
             const done = isCompliant();
             const count = getComplianceCount();
-            el.className = `w-full card-white rounded-xl p-3.5 flex items-center justify-between shadow-sm text-left active:scale-[0.99] transition border ${done ? 'border-emerald-200' : 'border-amber-300'}`;
+            el.className = `w-full p-3 flex justify-between items-center bg-white hover:bg-slate-50 transition text-left`;
             el.innerHTML = `
                 <div class="flex items-center space-x-3 min-w-0">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm shadow flex-shrink-0 ${done ? 'bg-emerald-600 text-white' : 'bg-amber-500 text-slate-950'}">
+                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center text-sm shadow-sm flex-shrink-0 ${done ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}">
                         <i class="fa-solid ${done ? 'fa-shield-halved' : 'fa-id-card-clip'}"></i>
                     </div>
                     <div class="min-w-0">
                         <div class="flex items-center space-x-1.5">
-                            <h4 class="text-xs font-bold text-slate-900">适当性认证</h4>
+                            <h4 class="text-xs font-bold text-slate-900">投资者认证</h4>
                             <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50 whitespace-nowrap">二期</span>
                             ${done ? '<span class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold border border-emerald-200">已完成</span>' : '<span class="text-[9px] px-1.5 py-0.5 rounded bg-red-100 text-red-700 font-bold border border-red-200">待完成</span>'}
                         </div>
@@ -4260,7 +4295,7 @@
             c.qualifiedInvestor = true;
             renderComplianceUI();
             renderComplianceBanner();
-            showToast('适当性认证已完成');
+            showToast('投资者认证已完成');
         }
 
         function submitCompliance() {
@@ -4270,12 +4305,12 @@
             }
             closeComplianceModal();
             renderComplianceBanner();
-            showToast('适当性认证已提交，付费服务已解锁');
+            showToast('投资者认证已提交，付费服务已解锁');
         }
 
         function requireCompliance(action) {
             if (isCompliant()) return true;
-            showToast(`请先完成适当性认证后${action || '继续'}`);
+            showToast(`请先完成投资者认证后${action || '继续'}`);
             openComplianceModal();
             return false;
         }
@@ -4407,10 +4442,9 @@
             if (rec) {
                 rec.item = `【已退款】${order.title}`;
                 rec.amount = 0;
-                rec.points = 0;
                 rec.refunded = true;
             } else {
-                appState.consumptionRecords.unshift({ date: getNowString(), item: `【退款】${order.title}`, channel: '退款', amount: -amount, points: 0, refunded: true });
+                appState.consumptionRecords.unshift({ date: getNowString(), item: `【退款】${order.title}`, channel: '退款', amount: -amount, refunded: true });
             }
 
             appState.myBookings = appState.myBookings.filter(b => {
@@ -4422,135 +4456,11 @@
 
             reclaimSpent(amount, order.title);
 
-            document.getElementById('consume-count').innerText = appState.consumptionRecords.length;
-            updateRightsVaultCount();
             renderMyItineraryPreview();
             renderComplianceBanner();
             updateUnreadDot();
-            openOrdersModal();
+            openTradeRecordsModal();
             showToast(`退款成功，￥${amount.toLocaleString()} 将原路退回，权益已回收`);
-        }
-
-        /* ---------- P1 我的权益 / 已购课程 ---------- */
-        const RIGHTS_CAT_META = {
-            live: { label: '闭门直播课', icon: 'fa-tv', action: '进入直播间' },
-            seat: { label: '席位 / 活动', icon: 'fa-people-roof', action: '查看电子票' },
-            goods: { label: '实物甄选', icon: 'fa-gift', action: '复制核销码' },
-            knowledge: { label: '智库内容', icon: 'fa-file-pdf', action: '查看内容' }
-        };
-
-        let currentRightsTab = 'all';
-
-        function classifyOrder(order) {
-            const t = order.title || '';
-            if (/直播课|闭门直播|直播/.test(t)) return 'live';
-            if (/私董|席位|圆桌|午宴|午餐|游学|考察|领航/.test(t) || order.type === '活动席位') return 'seat';
-            if (/茶|威士忌|礼盒|窖藏|实物|臻选/.test(t)) return 'goods';
-            if (order.type === '严选商品' && !/课|订阅|研报|全书/.test(t)) return 'goods';
-            return 'knowledge';
-        }
-
-        function buildRedeemCode(seed) {
-            let h = 7;
-            const text = String(seed || 'WF');
-            for (let i = 0; i < text.length; i++) h = (h * 131 + text.charCodeAt(i)) % 100000000;
-            const s = String(h).padStart(8, '0');
-            return `${s.slice(0, 4)} ${s.slice(4, 8)}`;
-        }
-
-        function getRightsVaultItems() {
-            return appState.orders
-                .filter(o => o.status !== '已退款' && o.status !== '已取消')
-                .map(o => ({ order: o, cat: classifyOrder(o) }));
-        }
-
-        function updateRightsVaultCount() {
-            const el = document.getElementById('rights-vault-count');
-            if (el) el.innerText = `${getRightsVaultItems().length} 项`;
-        }
-
-        function openMyRightsVault() {
-            currentRightsTab = 'all';
-            renderRightsVault();
-            document.getElementById('my-rights-vault-modal').classList.remove('hidden');
-        }
-
-        function closeMyRightsVault() {
-            document.getElementById('my-rights-vault-modal').classList.add('hidden');
-        }
-
-        function setRightsTab(tab) {
-            currentRightsTab = tab;
-            renderRightsVault();
-        }
-
-        function renderRightsVault() {
-            const tabs = [
-                { key: 'all', label: '全部' },
-                { key: 'live', label: '课程 · 直播' },
-                { key: 'seat', label: '席位 · 活动' },
-                { key: 'goods', label: '实物甄选' },
-                { key: 'knowledge', label: '智库内容' }
-            ];
-            const all = getRightsVaultItems();
-            const tabsEl = document.getElementById('rights-vault-tabs');
-            if (tabsEl) {
-                tabsEl.innerHTML = tabs.map(t => {
-                    const count = t.key === 'all' ? all.length : all.filter(i => i.cat === t.key).length;
-                    const active = currentRightsTab === t.key;
-                    return `<button onclick="setRightsTab('${t.key}')" class="flex-shrink-0 px-3 py-1.5 rounded-lg text-[11px] font-bold whitespace-nowrap border transition ${active ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-500 border-slate-200'}">${t.label} ${count}</button>`;
-                }).join('');
-            }
-
-            const listEl = document.getElementById('rights-vault-list');
-            if (!listEl) return;
-            const list = all.filter(i => currentRightsTab === 'all' || i.cat === currentRightsTab);
-            if (!list.length) {
-                listEl.innerHTML = `
-                    <div class="p-5 rounded-xl bg-slate-50 border border-slate-200 text-center space-y-1">
-                        <p class="text-xs font-bold text-slate-500">该分类下暂无已购权益</p>
-                        <p class="text-[10px] text-slate-400">购买闭门直播课、私董席位或实物甄选后，核销码会自动出现在这里</p>
-                    </div>`;
-                return;
-            }
-
-            listEl.innerHTML = list.map(({ order, cat }) => {
-                const meta = RIGHTS_CAT_META[cat];
-                const code = buildRedeemCode(order.id);
-                const titleArg = (order.title || '').replace(/'/g, '');
-                const statusCls = order.status === '已完成' ? 'bg-emerald-100 text-emerald-800'
-                    : (order.status === '已确认' || order.status === '已支付') ? 'bg-blue-100 text-blue-800'
-                    : 'bg-amber-100 text-amber-800';
-                let actionBtn = '';
-                if (cat === 'live') {
-                    actionBtn = `<button onclick="openLiveRoom('${titleArg}', '五富会 · 闭门直播')" class="w-full py-1.5 rounded-lg bg-slate-900 text-amber-300 text-[11px] font-bold active:scale-95 transition"><i class="fa-solid fa-play mr-1"></i>${meta.action}</button>`;
-                } else if (cat === 'seat') {
-                    actionBtn = `<button onclick="openETicketByOrder('${order.id}')" class="w-full py-1.5 rounded-lg border border-amber-300 bg-amber-50 text-amber-800 text-[11px] font-bold active:scale-95 transition"><i class="fa-solid fa-qrcode mr-1"></i>${meta.action}</button>`;
-                } else {
-                    actionBtn = `<button onclick="notifyRightsAction('${meta.action}')" class="w-full py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 text-[11px] font-bold active:scale-95 transition"><i class="fa-solid fa-copy mr-1"></i>${meta.action} <span class="font-mono text-amber-700 ml-1">${code}</span></button>`;
-                }
-                return `
-                    <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
-                        <div class="flex gap-2.5">
-                            <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-slate-200">
-                                <img src="${order.img || IMG.summit}" class="w-full h-full object-cover">
-                            </div>
-                            <div class="flex-1 min-w-0 space-y-1">
-                                <div class="flex justify-between items-start gap-2">
-                                    <p class="text-xs font-bold text-slate-800 leading-snug line-clamp-2 flex-1">${order.title}</p>
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap ${statusCls}">${order.status}</span>
-                                </div>
-                                <p class="text-[10px] text-slate-400">${meta.label} · ${order.date}</p>
-                                ${order.amount > 0 ? `<p class="text-[10px] text-slate-500">实付 ￥${order.amount.toLocaleString()}</p>` : '<p class="text-[10px] text-amber-700">权益免费 · 邀请制</p>'}
-                            </div>
-                        </div>
-                        ${actionBtn}
-                    </div>`;
-            }).join('');
-        }
-
-        function notifyRightsAction(action) {
-            showToast(`${action}（演示）`);
         }
 
         /* ---------- P1 活动电子票 / 签到 ---------- */
@@ -4592,7 +4502,7 @@
                 statusEl.innerHTML = `<span class="inline-flex items-center text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full"><i class="fa-solid fa-circle-check mr-1"></i>已签到</span>`;
                 btn.classList.add('hidden');
             } else {
-                statusEl.innerHTML = `<span class="inline-flex items-center text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full"><i class="fa-regular fa-clock mr-1"></i>待签到</span>`;
+                statusEl.innerHTML = '';
                 btn.classList.remove('hidden');
             }
         }
@@ -4696,6 +4606,8 @@
             document.getElementById('settings-company').value = a.company;
             document.getElementById('settings-position').value = a.position;
             document.getElementById('settings-phone').value = a.phone;
+            document.getElementById('settings-email').value = a.email || '';
+            renderComplianceBanner();
             document.getElementById('settings-modal').classList.remove('hidden');
         }
 
@@ -4709,9 +4621,49 @@
             a.company = document.getElementById('settings-company').value.trim();
             a.position = document.getElementById('settings-position').value.trim();
             a.phone = document.getElementById('settings-phone').value.trim();
+            a.email = document.getElementById('settings-email').value.trim();
             syncAccountUI();
             closeSettingsModal();
             showToast('账号信息已保存');
+        }
+
+        function openPasswordModal() {
+            document.getElementById('password-current').value = '';
+            document.getElementById('password-next').value = '';
+            document.getElementById('password-confirm').value = '';
+            document.getElementById('password-modal').classList.remove('hidden');
+        }
+
+        function closePasswordModal() {
+            document.getElementById('password-modal').classList.add('hidden');
+        }
+
+        function submitPasswordChange() {
+            const account = appState.currentUser.account;
+            const current = document.getElementById('password-current').value.trim();
+            const next = document.getElementById('password-next').value.trim();
+            const confirm = document.getElementById('password-confirm').value.trim();
+
+            if (!current || !next || !confirm) {
+                showToast('请填写完整的密码信息');
+                return;
+            }
+            if (current !== (account.password || '')) {
+                showToast('当前密码不正确');
+                return;
+            }
+            if (next.length < 6) {
+                showToast('新密码至少 6 位');
+                return;
+            }
+            if (next !== confirm) {
+                showToast('两次输入的新密码不一致');
+                return;
+            }
+
+            account.password = next;
+            closePasswordModal();
+            showToast('密码已更新');
         }
 
         function toggleSwitch(btn) {
