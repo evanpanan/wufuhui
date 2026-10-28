@@ -562,7 +562,6 @@
                         <h3 class="serif-title text-sm font-bold text-slate-900 flex items-center">
                             <span class="w-1.5 h-3.5 bg-amber-600 rounded-full mr-2"></span>会员核心特权
                         </h3>
-                        <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50 whitespace-nowrap">二期</span>
                     </div>
                     <div id="member-rights-summary" class="flex items-center justify-between rounded-xl bg-slate-950 text-white px-3 py-2.5 border border-slate-800">
                         <div>
@@ -3668,11 +3667,6 @@
             if (!act) return;
             const amount = getActivityAmount(act);
             const userCanBook = canBookActivity(act);
-            if (amount > 0 && userCanBook && !isCompliant()) {
-                showToast('请先完成投资者认证，再进入支付');
-                openComplianceModal();
-                return;
-            }
             currentSelectedAct = act;
             bookingFromDetail = fromDetail;
             document.getElementById('booking-back-btn').classList.toggle('hidden', !fromDetail);
@@ -4043,11 +4037,6 @@
             const p = getMallProduct(id);
             if (!p) return;
             const amount = p.price || 0;
-            if (amount > 0 && !isCompliant()) {
-                showToast('请先完成投资者认证，再进入支付');
-                openComplianceModal();
-                return;
-            }
             currentMallProduct = p;
             mallBuyFromDetail = fromDetail;
 
