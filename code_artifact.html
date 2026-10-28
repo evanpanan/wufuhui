@@ -1401,20 +1401,14 @@
                 <div class="flex justify-between items-center border-b border-slate-100 pb-2.5">
                     <div>
                         <h3 class="serif-title text-base font-bold text-slate-900">订单记录</h3>
-                        <p id="trade-records-subtitle" class="text-[10px] text-slate-500">查看订单状态、退款与售后进度</p>
+                        <p id="trade-records-subtitle" class="text-[10px] text-slate-500">活动与商品订单统一查看，支持售后与退款</p>
                     </div>
                     <button onclick="closeTradeRecordsModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
 
-                <div id="trade-records-summary" class="grid grid-cols-2 gap-2">
-                    <div class="p-3 rounded-xl bg-slate-900">
-                        <p class="text-[10px] text-slate-400">累计总消费</p>
-                        <p id="consume-total" class="text-sm font-bold text-amber-400 mt-0.5">￥0</p>
-                    </div>
-                    <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
-                        <p class="text-[10px] text-amber-800/70">订单数</p>
-                        <p id="trade-records-count" class="text-sm font-bold text-amber-700 mt-0.5">0</p>
-                    </div>
+                <div id="trade-records-tabs" class="flex gap-2 border-b border-slate-100 pb-2">
+                    <button id="trade-tab-activity" onclick="setTradeRecordsTab('activity')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold border transition">活动订单</button>
+                    <button id="trade-tab-goods" onclick="setTradeRecordsTab('goods')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold border transition">商品订单 <span class="ml-1 text-[9px] px-1 py-0.5 rounded-full bg-slate-900 text-amber-300 border border-amber-400/50">二期</span></button>
                 </div>
 
                 <div id="trade-records-list" class="space-y-2.5 max-h-[52vh] overflow-y-auto pr-0.5"></div>
@@ -3478,6 +3472,7 @@
         let calendarSelectedDate = null;
         let currentReplayTimeFilter = 'all';
         let currentReplayTopicFilter = 'all';
+        let currentTradeRecordsTab = 'activity';
 
         const PAYMENT_METHOD_META = {
             alipay: '支付宝',
@@ -3888,16 +3883,19 @@
         }
 
         function renderTradeRecords() {
-            const totalEl = document.getElementById('consume-total');
-            const countEl = document.getElementById('trade-records-count');
             const listEl = document.getElementById('trade-records-list');
-            const total = appState.consumptionRecords.reduce((s, r) => s + r.amount, 0);
+            const subtitleEl = document.getElementById('trade-records-subtitle');
+            const activityOrders = appState.orders.filter(o => o.type === '活动席位');
+            const goodsOrders = appState.orders.filter(o => o.type !== '活动席位');
 
-            if (totalEl) totalEl.innerText = `￥${total.toLocaleString()}`;
-            if (countEl) countEl.innerText = `${appState.orders.length}`;
             if (!listEl) return;
+            if (subtitleEl) {
+                subtitleEl.innerText = currentTradeRecordsTab === 'goods'
+                    ? '商品订单能力预留，后续商城接入后在这里统一查看'
+                    : '查看活动订单状态、退款与售后进度';
+            }
 
-            listEl.innerHTML = appState.orders.map(o => {
+            const buildOrderCard = (o) => {
                 const statusCls = o.status === '已完成' ? 'bg-emerald-100 text-emerald-800'
                     : (o.status === '已确认' || o.status === '已支付') ? 'bg-blue-100 text-blue-800'
                     : 'bg-amber-100 text-amber-800';
@@ -3921,10 +3919,33 @@
                         </div>
                         ${(o.status !== '已退款' && o.status !== '已取消') ? `<button onclick="openAfterSalesModal('${o.id}')" class="w-full py-1.5 rounded-lg border border-slate-300 bg-white text-slate-600 text-[11px] font-bold active:scale-95 transition"><i class="fa-solid fa-headset mr-1"></i>售后 / 退款</button>` : ''}
                     </div>`;
-            }).join('');
+            };
+
+            const activeOrders = currentTradeRecordsTab === 'goods' ? goodsOrders : activityOrders;
+            const emptyText = currentTradeRecordsTab === 'goods' ? '商城开放后，这里会展示商品类订单' : '当前暂无活动订单';
+            listEl.innerHTML = activeOrders.length ? activeOrders.map(buildOrderCard).join('') : `
+                <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center">
+                    <p class="text-[11px] text-slate-400">${emptyText}</p>
+                </div>
+            `;
+
+            [
+                { key: 'activity', el: document.getElementById('trade-tab-activity') },
+                { key: 'goods', el: document.getElementById('trade-tab-goods') }
+            ].forEach(({ key, el }) => {
+                if (!el) return;
+                const active = key === currentTradeRecordsTab;
+                el.className = `px-3 py-1.5 rounded-lg text-[11px] font-bold border transition ${active ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-200'}`;
+            });
+        }
+
+        function setTradeRecordsTab(tab) {
+            currentTradeRecordsTab = tab;
+            renderTradeRecords();
         }
 
         function openTradeRecordsModal() {
+            currentTradeRecordsTab = 'activity';
             renderTradeRecords();
             document.getElementById('trade-records-modal').classList.remove('hidden');
         }
