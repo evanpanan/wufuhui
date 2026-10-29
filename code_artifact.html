@@ -3262,7 +3262,7 @@
                             <span class="badge-tier-plaque ${reached ? BADGE_LEVELS[l.lv - 1].chip : 'badge-tier-locked'}">${reached ? `Lv${l.lv}` : 'LOCK'}</span>
                             <span class="${reached ? 'text-slate-900 font-bold' : 'text-slate-400'}">Lv.${l.lv} ${l.name}</span>
                         </span>
-                        <span class="text-[10px] ${reached ? 'text-amber-800 font-bold' : 'text-slate-400'}"><i class="fa-solid fa-coins mr-1 text-amber-500"></i>${BADGE_THRESHOLDS[l.lv].toLocaleString()}</span>
+                        <span class="text-[10px] ${reached ? 'text-amber-800 font-bold' : 'text-slate-400'}"><i class="fa-solid fa-star mr-1 text-amber-500"></i>${BADGE_THRESHOLDS[l.lv].toLocaleString()}</span>
                     </div>`;
             }).join('');
 
@@ -3274,7 +3274,7 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="text-slate-500">该类财富值</span>
-                        <span class="text-slate-900 font-bold"><i class="fa-solid fa-coins mr-1 text-amber-500"></i>${spent.toLocaleString()}</span>
+                        <span class="text-slate-900 font-bold"><i class="fa-solid fa-star mr-1 text-amber-500"></i>${spent.toLocaleString()}</span>
                     </div>
                     ${nextLv ? `
                     <div class="space-y-1 pt-1">
@@ -3346,7 +3346,7 @@
                         <span class="w-5 h-5 rounded-full border text-[9px] font-bold flex items-center justify-center ${l.chip}">${l.lv}</span>
                         <span class="text-slate-800 font-bold">Lv.${l.lv} ${l.name}</span>
                     </span>
-                    <span class="text-[10px] text-slate-500"><i class="fa-solid fa-coins mr-1 text-amber-500"></i>${BADGE_THRESHOLDS[l.lv].toLocaleString()}</span>
+                    <span class="text-[10px] text-slate-500"><i class="fa-solid fa-star mr-1 text-amber-500"></i>${BADGE_THRESHOLDS[l.lv].toLocaleString()}</span>
                 </div>`).join('');
 
             const badgeRows = Object.keys(BADGE_META).map(key => {
@@ -3385,7 +3385,7 @@
                 <div class="flex items-center justify-between p-2 rounded-lg ${idx <= currentIndex ? 'bg-amber-50 border border-amber-200' : 'bg-slate-50 border border-slate-200'}">
                     <div>
                         <p class="text-xs font-bold text-slate-900">${tier.label}</p>
-                        <p class="text-[10px] text-slate-500 mt-0.5">线上 / 线下财富总值满 <i class="fa-solid fa-coins mx-1 text-amber-500"></i>${tier.threshold.toLocaleString()}</p>
+                        <p class="text-[10px] text-slate-500 mt-0.5">线上 / 线下财富总值满 <i class="fa-solid fa-star mx-1 text-amber-500"></i>${tier.threshold.toLocaleString()}</p>
                     </div>
                     <span class="text-[10px] ${idx < currentIndex ? 'text-emerald-700 font-bold' : idx === currentIndex ? 'text-amber-800 font-bold' : 'text-slate-400'}">${idx < currentIndex ? '已达成' : idx === currentIndex ? '当前等级' : '待解锁'}</span>
                 </div>
@@ -3435,13 +3435,13 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="text-[11px] text-slate-300">线上 / 线下财富总值</span>
-                        <span class="text-sm font-bold text-white"><i class="fa-solid fa-coins mr-1 text-amber-300"></i>${appState.currentUser.spentAmount.toLocaleString()}</span>
+                        <span class="text-sm font-bold text-white"><i class="fa-solid fa-star mr-1 text-amber-300"></i>${appState.currentUser.spentAmount.toLocaleString()}</span>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="text-[11px] text-slate-300">已点亮特权</span>
                         <span class="text-sm font-bold text-white">${unlockedRights.length} / ${rights.length}</span>
                     </div>
-                    <p class="text-[10px] text-slate-400">${nextMeta ? `再累计财富总值 <i class="fa-solid fa-coins mx-1 text-amber-400"></i>${(nextMeta.threshold - appState.currentUser.spentAmount).toLocaleString()} 可升级至 ${nextMeta.label}` : '已解锁最高会员等级'}</p>
+                    <p class="text-[10px] text-slate-400">${nextMeta ? `再累计财富总值 <i class="fa-solid fa-star mx-1 text-amber-400"></i>${(nextMeta.threshold - appState.currentUser.spentAmount).toLocaleString()} 可升级至 ${nextMeta.label}` : '已解锁最高会员等级'}</p>
                 </div>
                 <div class="space-y-1.5">
                     <p class="text-[11px] font-bold text-slate-700">已点亮</p>
