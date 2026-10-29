@@ -210,6 +210,9 @@
         .animate-live {
             animation: pulse-red 1.5s infinite ease-in-out;
         }
+        /* ---------- 三期预览：分阶段可见性（?phase=1|2|3，默认 3） ---------- */
+        .phase-1 [data-ph="2"], .phase-1 [data-ph="3"],
+        .phase-2 [data-ph="3"] { display: none !important; }
     </style>
 </head>
 <body class="flex justify-center min-h-screen">
@@ -244,7 +247,7 @@
                 <button onclick="toggleAiChat()" class="relative px-2.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold flex items-center space-x-1 hover:bg-amber-100 transition shadow-sm">
                     <i class="fa-solid fa-headset text-amber-600"></i>
                     <span>专属客服</span>
-                    <span class="absolute -top-1.5 -right-1 bg-slate-900 text-amber-300 text-[8px] px-1 py-[1px] rounded font-bold border border-amber-400/50">二期</span>
+                    <span class="absolute -top-1.5 -right-1 bg-slate-900 text-amber-300 text-[8px] px-1 py-[1px] rounded font-bold border border-amber-400/50">三期</span>
                 </button>
             </div>
         </header>
@@ -319,7 +322,7 @@
                     <div class="flex items-center justify-between px-3.5 pt-3 pb-2.5">
                         <div class="flex items-center space-x-2 min-w-0">
                             <h3 class="serif-title text-sm font-bold text-slate-900">牧笛严选</h3>
-                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50">二期</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50">三期</span>
                         </div>
                         <button onclick="switchTab('mall')" class="text-[11px] text-amber-700 font-semibold flex items-center whitespace-nowrap">
                             进入严选 <i class="fa-solid fa-chevron-right text-[9px] ml-0.5"></i>
@@ -625,7 +628,7 @@
                     <div class="absolute left-4 right-4 bottom-3.5 space-y-1.5">
                         <div class="flex items-center space-x-2">
                             <h2 class="serif-title text-xl font-bold text-white">牧笛严选</h2>
-                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-400/90 text-slate-950 font-bold">二期</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-400/90 text-slate-950 font-bold">三期</span>
                         </div>
                         <p class="text-[11px] text-white/75">闭门直播课 · 私董会 · 实物甄选</p>
                     </div>
@@ -1193,7 +1196,7 @@
 
                         <div id="article-detail-body" class="space-y-4"></div>
 
-                        <div class="rounded-xl bg-slate-50 border border-slate-200 p-3 flex items-center justify-between gap-3">
+                        <div id="article-detail-manager-cta" class="rounded-xl bg-slate-50 border border-slate-200 p-3 flex items-center justify-between gap-3">
                             <div>
                                 <p class="text-xs font-bold text-slate-900">需要针对性解读？</p>
                                 <p class="text-[11px] text-slate-500 mt-0.5">专属商务经理可提供 1v1 方案拆解</p>
@@ -1407,7 +1410,7 @@
 
                 <div id="trade-records-tabs" class="flex gap-2 border-b border-slate-100 pb-2">
                     <button id="trade-tab-activity" onclick="setTradeRecordsTab('activity')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold border transition">活动订单</button>
-                    <button id="trade-tab-goods" onclick="setTradeRecordsTab('goods')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold border transition">商品订单 <span class="ml-1 text-[9px] px-1 py-0.5 rounded-full bg-slate-900 text-amber-300 border border-amber-400/50">二期</span></button>
+                    <button id="trade-tab-goods" onclick="setTradeRecordsTab('goods')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold border transition">商品订单 <span class="ml-1 text-[9px] px-1 py-0.5 rounded-full bg-slate-900 text-amber-300 border border-amber-400/50">三期</span></button>
                 </div>
 
                 <div id="trade-records-list" class="space-y-2.5 max-h-[52vh] overflow-y-auto pr-0.5"></div>
@@ -1534,7 +1537,7 @@
                     <div>
                         <div class="flex items-center gap-1.5">
                             <h3 class="serif-title text-base font-bold text-slate-900">投资者认证</h3>
-                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50 whitespace-nowrap">人工审核 · 二期</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50 whitespace-nowrap">人工审核 · 三期</span>
                         </div>
                         <p class="text-[10px] text-slate-500">实名 · 风险测评 · 合格投资者认定</p>
                     </div>
@@ -1751,6 +1754,12 @@
 
     <!-- JavaScript 交互与动态逻辑 -->
     <script>
+        /* ---------- 三期预览：当前阶段（?phase=1|2|3，默认 3 = 完整版） ---------- */
+        const PHASE = (function () {
+            const p = parseInt(new URLSearchParams(location.search).get('phase') || '', 10);
+            return (p >= 1 && p <= 3) ? p : 3;
+        })();
+
         // 站内生成图（统一由 text_to_image 服务产出，避免外链加载失败）
         const IMG = {
             banner:    "https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=premium%20financial%20live%20seminar%20in%20Hong%20Kong%2C%20elegant%20stage%20with%20large%20LED%20screen%20showing%20market%20charts%2C%20warm%20golden%20lighting%2C%20audience%20of%20business%20elites%2C%20cinematic%20photorealistic&image_size=landscape_16_9",
@@ -2200,7 +2209,99 @@
             }
         };
 
+        /* ---------- 三期预览：阶段可见性编排 ---------- */
+        function applyPhaseGate() {
+            document.body.classList.remove('phase-1', 'phase-2', 'phase-3');
+            document.body.classList.add('phase-' + PHASE);
+
+            const ph = (el, n) => el && el.setAttribute('data-ph', String(n));
+            const node = (sel) => document.querySelector(sel);
+            const byText = (scopeSel, sel, txt) =>
+                [...document.querySelectorAll(`${scopeSel} ${sel}`)].find(e => e.textContent.includes(txt));
+
+            if (PHASE < 3) {
+                // —— 三期功能：商城 / AI 客服 / 投资者认证 / 售后退款 ——
+                ph(document.getElementById('page-mall'), 3);
+                ph(document.getElementById('compliance-modal'), 3);
+                ph(document.getElementById('after-sales-modal'), 3);
+                ph(document.getElementById('settings-compliance-entry'), 3);
+                ph(document.getElementById('trade-tab-goods'), 3);
+                ph(document.getElementById('trade-records-subtitle'), 3);
+                ph(document.getElementById('ai-chat-modal'), 3);
+                ph(node('header button[onclick="toggleAiChat()"]'), 3);
+                ph(document.getElementById('home-mall-list')?.closest('.card-white'), 3);
+                ph(byText('#page-member', 'p', '退款与售后'), 3);
+                ph(document.getElementById('article-detail-manager-cta'), 3);
+            }
+
+            if (PHASE < 2) {
+                // —— 二期功能：会员体系 / 徽章 / 特权 / 频道完善 / 活动服务 ——
+                ph(document.getElementById('notification-modal'), 2);
+                ph(document.getElementById('activity-calendar-modal'), 2);
+                ph(document.getElementById('special-access-modal'), 2);
+                ph(document.getElementById('channel-tabs'), 2);
+                ph(document.getElementById('media-type-tags'), 2);
+                ph(document.getElementById('user-tier-badge'), 2);
+                ph(document.getElementById('member-rights-grid')?.closest('.card-white'), 2);
+                ph(node('.member-radar-shell')?.closest('.mt-4'), 2);
+                ph(document.getElementById('home-preview-list')?.parentElement, 2);
+                ph(node('#page-home > .grid.grid-cols-4'), 2);
+                ph(node('header button[onclick="openNotificationModal()"]'), 2);
+                ph(byText('#page-activity', 'button', '活动日历'), 2);
+                ph(byText('#page-channels', 'span', '5 大财富赛道'), 2);
+                ph(document.getElementById('activity-detail-threshold-badge')?.closest('div.rounded-xl'), 2);
+                ph(document.getElementById('booking-gate')?.closest('p'), 2);
+                ph(document.getElementById('booking-restricted-area'), 2);
+
+                // 一期活动不设会员等级 / 徽章双门槛
+                canBookActivity = function () { return true; };
+                getActivityGateText = function () { return '开放报名'; };
+                getActivityRestrictionText = function () { return '一期活动不设会员与徽章门槛'; };
+            }
+        }
+
+        function applyPhaseBanner() {
+            const main = document.querySelector('main');
+            const shell = main ? main.parentElement : null;
+            if (!shell) return;
+            const names = { 1: '极简基础版', 2: '内容与会员服务', 3: '交易与服务扩展' };
+            const scope = {
+                1: '直播 · 文章 · 活动支付 · 我的',
+                2: '＋ 会员等级 / 五富徽章 / 特权 / 频道完善 / 活动日历',
+                3: '＋ 牧笛严选商城 / AI 客服 / 投资者认证 / 售后退款'
+            };
+            const pills = [1, 2, 3].map(n => {
+                const active = n === PHASE;
+                const cls = active
+                    ? 'bg-amber-400 text-slate-950 border-amber-300'
+                    : 'bg-slate-900 text-slate-400 border-slate-700 hover:text-amber-300';
+                return `<a href="?phase=${n}" class="px-2 py-0.5 rounded-full text-[10px] font-bold border transition ${cls}">第${n}期</a>`;
+            }).join('');
+            const bar = document.createElement('div');
+            bar.className = 'w-full bg-slate-950 text-amber-300 px-3 py-1.5 border-b border-amber-400/30 flex items-center justify-between gap-2';
+            bar.innerHTML = `
+                <div class="min-w-0 leading-tight">
+                    <p class="text-[10px] font-bold truncate">第 ${PHASE} 期 · ${names[PHASE]}</p>
+                    <p class="text-[9px] text-slate-400 font-normal truncate">${scope[PHASE]}</p>
+                </div>
+                <div class="flex items-center gap-1 flex-shrink-0">${pills}</div>`;
+            shell.insertBefore(bar, shell.firstChild);
+            document.title = `陶笛汇 · 第${PHASE}期 ${names[PHASE]}`;
+        }
+
+        let phaseApplied = false;
+        function applyPhaseAll() {
+            if (phaseApplied) return;
+            phaseApplied = true;
+            applyPhaseGate();
+            applyPhaseBanner();
+        }
+
+        // 尽早应用期次可见性，避免完整版界面闪现
+        document.addEventListener('DOMContentLoaded', applyPhaseAll);
+
         window.onload = function() {
+            applyPhaseAll();
             renderActivities(appState.currentActivityFilter || 'all');
             renderChannelContents('all');
             renderHomePreviews();
@@ -2819,6 +2920,7 @@
         }
 
         function renderChannelContents(channelKey, mediaType = 'all') {
+            if (PHASE < 2) mediaType = 'article'; // 一期仅提供文章阅读
             const container = document.getElementById('channel-list');
             container.innerHTML = '';
             container.className = 'space-y-3';
@@ -3912,7 +4014,7 @@
                             <span class="text-[10px] text-slate-400">订单号 ${o.id}</span>
                             <span class="text-xs font-bold ${o.amount > 0 ? 'text-slate-900' : 'text-amber-700'}">${o.amount > 0 ? '￥' + o.amount.toLocaleString() : '权益免费'}</span>
                         </div>
-                        ${(o.status !== '已退款' && o.status !== '已取消') ? `<button onclick="openAfterSalesModal('${o.id}')" class="w-full py-1.5 rounded-lg border border-slate-300 bg-white text-slate-600 text-[11px] font-bold active:scale-95 transition"><i class="fa-solid fa-headset mr-1"></i>售后 / 退款</button>` : ''}
+                        ${(PHASE >= 3 && o.status !== '已退款' && o.status !== '已取消') ? `<button onclick="openAfterSalesModal('${o.id}')" class="w-full py-1.5 rounded-lg border border-slate-300 bg-white text-slate-600 text-[11px] font-bold active:scale-95 transition"><i class="fa-solid fa-headset mr-1"></i>售后 / 退款</button>` : ''}
                     </div>`;
             };
 

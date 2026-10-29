@@ -3,13 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>陶笛汇</title>
-    <meta http-equiv="refresh" content="0; url=./code_artifact.html">
-    <script>
-        window.location.replace('./code_artifact.html');
-    </script>
+    <title>陶笛汇 · 三期预览</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #05070d; }
+        .card { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+        .card:hover { transform: translateY(-3px); border-color: rgba(245,195,74,.55); box-shadow: 0 18px 40px -18px rgba(245,195,74,.35); }
+    </style>
 </head>
-<body>
-    <p>正在进入陶笛汇原型，若未自动跳转，请点击 <a href="./code_artifact.html">这里</a>。</p>
+<body class="min-h-screen text-slate-200 flex flex-col justify-center items-center px-5 py-10">
+
+    <header class="text-center mb-9">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-amber-300 to-amber-600 flex items-center justify-center shadow-lg mb-4">
+            <span class="text-slate-950 font-black tracking-[0.06em] text-sm">TDH</span>
+        </div>
+        <h1 class="text-2xl font-bold tracking-wide text-white">陶笛汇</h1>
+        <p class="text-xs text-slate-500 mt-1.5 tracking-wider">全球资产配置 · 家族传承</p>
+        <p class="text-[11px] text-slate-400 mt-5 leading-relaxed">
+            三期开发方案预览 · 选择要查看的版本
+        </p>
+    </header>
+
+    <main class="w-full max-w-3xl grid gap-4 md:grid-cols-3">
+
+        <a href="./code_artifact.html?phase=1" class="card rounded-2xl border border-slate-800 bg-slate-900/60 p-5 flex flex-col">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-[10px] font-bold tracking-wider text-slate-950 bg-amber-400 px-2 py-1 rounded-full">第 1 期</span>
+                <span class="text-[10px] text-slate-500">第 1 个月</span>
+            </div>
+            <h2 class="text-base font-bold text-white mb-1">极简基础版</h2>
+            <p class="text-[11px] text-slate-400 leading-relaxed mb-4">直播与回放 · 文章阅读 · 活动展示与支付 · 个人资料与行程</p>
+            <ul class="text-[11px] text-slate-400 space-y-1.5 mb-5">
+                <li>· 直播 / 回放</li>
+                <li>· 文章频道</li>
+                <li>· 活动支付</li>
+                <li>· 我的 / 行程 / 支付记录</li>
+            </ul>
+            <span class="mt-auto text-center text-xs font-bold text-slate-950 bg-amber-400 rounded-xl py-2.5 hover:brightness-110 transition">进入预览</span>
+        </a>
+
+        <a href="./code_artifact.html?phase=2" class="card rounded-2xl border border-slate-800 bg-slate-900/60 p-5 flex flex-col">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-[10px] font-bold tracking-wider text-white bg-slate-700 px-2 py-1 rounded-full">第 2 期</span>
+                <span class="text-[10px] text-slate-500">第 2 个月</span>
+            </div>
+            <h2 class="text-base font-bold text-white mb-1">内容与会员服务</h2>
+            <p class="text-[11px] text-slate-400 leading-relaxed mb-4">在一期基础上开放内容形态、会员体系与活动服务</p>
+            <ul class="text-[11px] text-slate-400 space-y-1.5 mb-5">
+                <li>· 专栏 / 精选视频 / 录播</li>
+                <li>· 会员等级与五富徽章</li>
+                <li>· 五富资产版图与特权</li>
+                <li>· 活动日历与通知</li>
+            </ul>
+            <span class="mt-auto text-center text-xs font-bold text-slate-950 bg-amber-400 rounded-xl py-2.5 hover:brightness-110 transition">进入预览</span>
+        </a>
+
+        <a href="./code_artifact.html?phase=3" class="card rounded-2xl border border-slate-800 bg-slate-900/60 p-5 flex flex-col">
+            <div class="flex items-center justify-between mb-3">
+                <span class="text-[10px] font-bold tracking-wider text-slate-950 bg-amber-400 px-2 py-1 rounded-full">第 3 期</span>
+                <span class="text-[10px] text-slate-500">第 3 个月</span>
+            </div>
+            <h2 class="text-base font-bold text-white mb-1">交易与服务扩展</h2>
+            <p class="text-[11px] text-slate-400 leading-relaxed mb-4">完整版本，含商城、AI 客服、认证与售后</p>
+            <ul class="text-[11px] text-slate-400 space-y-1.5 mb-5">
+                <li>· 牧笛严选商城与商品订单</li>
+                <li>· AI 客服</li>
+                <li>· 投资者认证</li>
+                <li>· 退款进度与部分退款</li>
+            </ul>
+            <span class="mt-auto text-center text-xs font-bold text-slate-950 bg-amber-400 rounded-xl py-2.5 hover:brightness-110 transition">进入预览（完整版）</span>
+        </a>
+
+    </main>
+
+    <footer class="mt-8 text-center">
+        <a href="./code_artifact.html" class="text-[11px] text-slate-500 hover:text-amber-300 transition">直接进入完整版原型</a>
+    </footer>
+
 </body>
 </html>
