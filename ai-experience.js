@@ -8,6 +8,7 @@ const TEACHER_AVATARS = {
         name: '王牧笛老师', focus: '全球视野 · 产业与趋势',
         image: './assets/teachers/wang-mudi.jpeg', hasPhoto: true,
         video: './assets/teachers/wang-mudi-reference.mp4',
+        audio: './assets/teachers/wang-mudi-voice.m4a',
         videoTopic: '2026 油价暴涨，对普通人的影响',
         greeting: '想聊全球趋势，还是家庭资产配置？我们先从你的目标开始。',
         prompts: ['怎样看全球资产配置？', '如何平衡现金流与长期配置？', '如何规划家人的健康保障？']
@@ -16,11 +17,51 @@ const TEACHER_AVATARS = {
         name: '陶矜老师', focus: '家族规划 · 保障与传承',
         image: './assets/teachers/tao-jin.webp', hasPhoto: true,
         video: './assets/teachers/tao-jin-reference.mp4',
+        audio: './assets/teachers/tao-jin-voice.m4a',
         videoTopic: '智慧人生与认知成长',
         greeting: '想先梳理家庭保障，还是传承安排？把最关心的问题告诉我。',
         prompts: ['如何选择香港高端医疗服务？', '家族传承应该从哪里开始？', '香港保险需要关注哪些条款？']
     }
 };
+const HOME_COLUMNS = {
+    tao: { title: '陶老师专栏', description: '家庭保障与传承规划 · 视频回放', replayIds: ['rp1', 'rp3'] },
+    mudi: { title: '牧笛专栏', description: '全球视野与市场观察 · 视频回放', replayIds: ['rp4'] },
+    closed: { title: '闭门专题', description: '闭门研讨与交流精华 · 视频回放', replayIds: ['rp1', 'rp6'] },
+    harbour: { title: '维港夜话', description: '全球市场与健康议题 · 视频回放', replayIds: ['rp4', 'rp2'] }
+};
+function getHomeColumnReplays(key) {
+    const column = HOME_COLUMNS[key];
+    return column ? (appState.replayLibrary || []).filter(item => column.replayIds.includes(item.id)) : [];
+}
+function openHomeColumn(key) {
+    const column = HOME_COLUMNS[key];
+    if (!column) return;
+    document.getElementById('home-column-title').textContent = column.title;
+    document.getElementById('home-column-description').textContent = column.description;
+    const list = document.getElementById('home-column-list');
+    list.replaceChildren();
+    getHomeColumnReplays(key).forEach(item => {
+        const card = document.createElement('button');
+        card.className = 'home-column-replay';
+        card.onclick = () => {
+            closeExperienceModal('home-column-modal');
+            openLiveRoom(item.title, item.speaker, item.img);
+        };
+        const image = document.createElement('img');
+        image.src = item.img;
+        image.alt = item.title;
+        const copy = document.createElement('span');
+        const title = document.createElement('strong');
+        title.textContent = item.title;
+        const detail = document.createElement('span');
+        detail.textContent = `${item.speaker} · ${item.duration} · ${item.views}`;
+        copy.append(title, detail);
+        card.append(image, copy);
+        list.append(card);
+    });
+    if (!list.childElementCount) list.textContent = '该专栏暂无回放内容。';
+    openExperienceModal('home-column-modal');
+}
 const TEACHER_PORTRAIT_KEY = 'tdh-teacher-portrait-v1-';
 function loadTeacherPortraits() {
     Object.entries(TEACHER_AVATARS).forEach(([key, teacher]) => {
@@ -137,6 +178,7 @@ let currentTeacher = 'mudi';
 const teacherConversations = { mudi: [], tao: [] };
 const modalFocus = {};
 function openExperienceModal(id) {
+    if (PHASE < 3 && ['ai-chat-modal', 'teacher-reference-modal', 'wealth-assessment-modal'].includes(id)) return;
     modalFocus[id] = document.activeElement;
     const modal = document.getElementById(id);
     document.querySelectorAll('.experience-overlay:not(.hidden)').forEach(overlay => { overlay.inert = true; });
@@ -148,6 +190,8 @@ function openExperienceModal(id) {
 function closeExperienceModal(id) {
     if (id === 'teacher-reference-modal') stopTeacherReference();
     if (id === 'ai-chat-modal') {
+        callReadyToFinish = false;
+        callTranscript = '';
         stopVoiceRecognition();
         stopTeacherVoice();
         setTeacherMode('text');
@@ -159,11 +203,11 @@ function closeExperienceModal(id) {
     modalFocus[id]?.focus({ preventScroll: true });
 }
 function stopTeacherReference() {
-    const video = document.getElementById('teacher-reference-video');
-    if (video) {
-        video.pause();
-        video.removeAttribute('src');
-        video.load();
+    const audio = document.getElementById('teacher-reference-audio');
+    if (audio) {
+        audio.pause();
+        audio.removeAttribute('src');
+        audio.load();
     }
 }
 function openTeacherReference() {
@@ -172,7 +216,7 @@ function openTeacherReference() {
     const teacher = TEACHER_AVATARS[currentTeacher];
     document.getElementById('teacher-reference-title').textContent = `${teacher.name} · 原声素材`;
     document.getElementById('teacher-reference-topic').textContent = teacher.videoTopic;
-    document.getElementById('teacher-reference-video').src = teacher.video;
+    document.getElementById('teacher-reference-audio').src = teacher.audio;
     openExperienceModal('teacher-reference-modal');
 }
 
@@ -181,7 +225,64 @@ function toggleAiChat() {
     if (modal.classList.contains('hidden')) openTeacherChat(currentTeacher);
     else closeExperienceModal('ai-chat-modal');
 }
+const customerServiceMessages = [];
+function toggleCustomerService() {
+    const modal = document.getElementById('customer-service-modal');
+    if (!modal.classList.contains('hidden')) {
+        closeExperienceModal(modal.id);
+        return;
+    }
+    const box = document.getElementById('customer-service-box');
+    box.replaceChildren();
+    appendCustomerServiceMessage('assistant', PHASE >= 3
+        ? '您好！这里是陶笛汇专属客服。您可以咨询活动报名、订单售后、会员与五富徽章，或联系商务经理。'
+        : '您好！这里是陶笛汇专属客服。活动报名与服务问题可联系商务经理；智能问答将在第三期开放。当前为联系入口演示，尚未连接人工服务。');
+    customerServiceMessages.forEach(message => appendCustomerServiceMessage(message.role, message.text));
+    openExperienceModal(modal.id);
+}
+function appendCustomerServiceMessage(role, text) {
+    const box = document.getElementById('customer-service-box');
+    const bubble = document.createElement('div');
+    bubble.className = `teacher-message ${role === 'user' ? 'user' : 'assistant'}`;
+    const label = document.createElement('span');
+    label.className = 'teacher-message-label';
+    label.textContent = role === 'user' ? '你' : '陶笛汇专属客服';
+    const content = document.createElement('p');
+    content.textContent = text;
+    bubble.append(label, content);
+    box.append(bubble);
+    box.scrollTop = box.scrollHeight;
+}
+function sendCustomerServiceMessage(question = '') {
+    if (PHASE < 3) return;
+    const input = document.getElementById('customer-service-input');
+    const text = (question || input.value).trim().slice(0, 1000);
+    if (!text) return;
+    input.value = '';
+    let reply = '已收到您的咨询。当前为客服原型演示，正式 APP 将接入客服与专属商务经理服务。';
+    if (/会员|徽章|勋章|财富值/.test(text)) {
+        reply = '会员等级看线上与线下累计消费，五富徽章按各类服务独立累计，两者是不同体系。您可在“我的”查看相应记录与权益；具体开放范围以当前期次为准。';
+    } else if (/订单|退款|售后|改期/.test(text)) {
+        reply = '请到“我的”查看订单与支付记录。售后退款在第三期开放，活动改期及转让以订单可用操作为准；这里的支付与售后均为原型演示。';
+    } else if (/活动|报名|游学/.test(text)) {
+        reply = '在“活动”选择场次，确认时间、地点与费用后填写报名信息。模拟支付完成后，订单和行程会同步到“我的”。';
+    } else if (/直播|回放/.test(text)) {
+        reply = '直播与精选回放都在首页，点击“查看更多”进入全部回放。';
+    }
+    [{ role: 'user', text }, { role: 'assistant', text: reply }].forEach(message => {
+        customerServiceMessages.push(message);
+        appendCustomerServiceMessage(message.role, message.text);
+    });
+}
+function contactCustomerManager() {
+    const message = { role: 'assistant', text: '当前是客服演示，尚未连接真实人工客服；正式 APP 将由专属商务经理承接咨询。' };
+    customerServiceMessages.push(message);
+    appendCustomerServiceMessage(message.role, message.text);
+}
 function openTeacherChat(key = 'mudi', question = '') {
+    if (PHASE < 3) return;
+    callReadyToFinish = false;
+    callTranscript = '';
     stopVoiceRecognition();
     stopTeacherVoice();
     setTeacherMode('text');
@@ -197,6 +298,8 @@ function discussViewingTopic() {
 }
 function switchTeacher(key) {
     if (!TEACHER_AVATARS[key]) return;
+    callReadyToFinish = false;
+    callTranscript = '';
     stopVoiceRecognition();
     stopTeacherVoice();
     currentTeacher = key;
@@ -313,6 +416,8 @@ let recognition = null;
 let recognitionSequence = 0;
 let speechSequence = 0;
 let teacherSpeaking = false;
+let callReadyToFinish = false;
+let callTranscript = '';
 function setVoiceStatus(text) {
     ['teacher-voice-status', 'teacher-call-status'].forEach(id => {
         const element = document.getElementById(id);
@@ -335,15 +440,19 @@ function setTeacherMode(mode) {
     document.getElementById('teacher-call-panel').hidden = teacherMode !== 'voice';
 }
 function startTeacherCall() {
+    callReadyToFinish = false;
+    callTranscript = '';
     stopVoiceRecognition();
     stopTeacherVoice();
     setTeacherMode('voice');
-    updateCallCaption();
+    document.getElementById('teacher-call-question').textContent = '点击说话，再点击“说完了”。';
+    document.getElementById('teacher-call-caption').textContent = '说完后播放老师原声素材，体验语音对话流程；素材内容不随问题生成。';
     setVoiceStatus('点击下方麦克风开始说话');
     document.getElementById('teacher-call-mic').focus({ preventScroll: true });
-    if (!voiceMuted) previewTeacherVoice();
 }
 function endTeacherCall() {
+    callReadyToFinish = false;
+    callTranscript = '';
     stopVoiceRecognition();
     stopTeacherVoice();
     setTeacherMode('text');
@@ -352,10 +461,11 @@ function endTeacherCall() {
 }
 function toggleVoiceMuted() {
     voiceMuted = !voiceMuted;
-    if (voiceMuted) stopTeacherVoice();
+    document.getElementById('teacher-call-audio').muted = voiceMuted;
+    if (voiceMuted && !document.querySelector('.teacher-dialog').classList.contains('original-playing')) stopTeacherVoice();
     const button = document.getElementById('teacher-call-speaker');
     button.setAttribute('aria-pressed', String(voiceMuted));
-    button.innerHTML = `<i class="fa-solid ${voiceMuted ? 'fa-volume-xmark' : 'fa-volume-high'}"></i><span>${voiceMuted ? '已静音' : '朗读开启'}</span>`;
+    button.innerHTML = `<i class="fa-solid ${voiceMuted ? 'fa-volume-xmark' : 'fa-volume-high'}"></i><span>${voiceMuted ? '已静音' : '原声开启'}</span>`;
 }
 function setListeningUI(listening) {
     document.querySelector('.teacher-dialog')?.classList.toggle('listening', listening);
@@ -363,10 +473,66 @@ function setListeningUI(listening) {
         const button = document.getElementById(id);
         if (!button) return;
         button.setAttribute('aria-pressed', String(listening));
-        button.setAttribute('aria-label', listening ? '结束说话' : '开始语音输入');
+        button.setAttribute('aria-label', id === 'teacher-call-mic' && callReadyToFinish ? '说完了，播放老师原声' : listening ? '结束说话' : '开始语音输入');
     });
     const label = document.querySelector('#teacher-call-mic span');
-    if (label) label.textContent = listening ? '说完点这里' : '点击说话';
+    if (label) label.textContent = callReadyToFinish ? '说完了' : '点击说话';
+}
+function toggleTeacherCallInput() {
+    if (callReadyToFinish) {
+        callReadyToFinish = false;
+        stopVoiceRecognition();
+        if (callTranscript.trim()) {
+            const text = callTranscript.trim().slice(0, 1000);
+            teacherConversations[currentTeacher].push({ role: 'user', text });
+            appendTeacherMessage('user', text);
+            document.getElementById('teacher-call-question').textContent = `你：${text}`;
+        } else {
+            document.getElementById('teacher-call-question').textContent = '你已说完 · 语音流程演示';
+        }
+        playTeacherOriginal();
+        return;
+    }
+    stopTeacherVoice();
+    callReadyToFinish = true;
+    callTranscript = '';
+    toggleVoiceInput();
+    setListeningUI(Boolean(recognition));
+    if (!recognition) setVoiceStatus('当前无法识别语音；仍可点击“说完了”体验原声播放。');
+}
+function playTeacherOriginal() {
+    callReadyToFinish = false;
+    stopVoiceRecognition();
+    stopTeacherVoice();
+    const audio = document.getElementById('teacher-call-audio');
+    const teacher = TEACHER_AVATARS[currentTeacher];
+    const session = speechSequence;
+    audio.src = teacher.audio;
+    audio.muted = voiceMuted;
+    document.getElementById('teacher-call-badge').textContent = '老师正在回复 · 原声演示';
+    document.getElementById('teacher-call-replay').hidden = false;
+    document.getElementById('teacher-call-caption').textContent = '正在为你播放老师的声音，模拟语音回复。本次使用预录原声，内容不随问题生成。';
+    audio.onplaying = () => {
+        if (session !== speechSequence) return;
+        teacherSpeaking = true;
+        document.querySelector('.teacher-dialog').classList.add('speaking', 'original-playing');
+        setVoiceStatus('老师正在回复 · 原声演示');
+    };
+    audio.onended = () => {
+        if (session !== speechSequence) return;
+        teacherSpeaking = false;
+        document.querySelector('.teacher-dialog').classList.remove('speaking');
+        setVoiceStatus('原声播放结束，可以继续说话或重播。');
+    };
+    const unavailable = () => {
+        if (session !== speechSequence) return;
+        teacherSpeaking = false;
+        document.querySelector('.teacher-dialog').classList.remove('speaking');
+        setVoiceStatus('原声暂未播放，请点击“播放 / 重播原声”重试。');
+    };
+    audio.onerror = unavailable;
+    setVoiceStatus('正在准备老师原声…');
+    try { audio.play()?.catch(unavailable); } catch (_) { unavailable(); }
 }
 function stopVoiceRecognition() {
     recognitionSequence++;
@@ -414,7 +580,10 @@ function toggleVoiceInput() {
         }
         const transcript = (finalText + interim).slice(0, 1000);
         if (mode === 'text') document.getElementById('chat-input').value = (existingText + transcript).slice(0, 1000);
-        else document.getElementById('teacher-call-question').textContent = `你：${transcript}`;
+        else {
+            callTranscript = transcript;
+            document.getElementById('teacher-call-question').textContent = `你：${transcript}`;
+        }
     };
     active.onerror = event => {
         if (session !== recognitionSequence) return;
@@ -427,7 +596,7 @@ function toggleVoiceInput() {
             network: '语音识别网络不可用，请检查网络或切回打字。',
             aborted: '已停止语音输入。'
         };
-        setVoiceStatus(errors[event.error] || '语音识别暂不可用，请继续打字。');
+        setVoiceStatus((errors[event.error] || '语音识别暂不可用，请继续打字。') + (mode === 'voice' ? '也可点击“说完了”播放老师原声。' : ''));
         recognition = null;
         setListeningUI(false);
     };
@@ -436,18 +605,16 @@ function toggleVoiceInput() {
         recognition = null;
         setListeningUI(false);
         if (failed) return;
+        if (mode === 'voice') {
+            setVoiceStatus('点击“说完了”，直接播放老师原声素材。');
+            return;
+        }
         if (!finalText.trim()) {
             setVoiceStatus('没有识别到完整语句，请重试或切回打字。');
             return;
         }
-        if (mode === 'voice') {
-            document.getElementById('chat-input').value = finalText.slice(0, 1000);
-            sendMessage(true);
-            if (!teacherSpeaking) setVoiceStatus('点击麦克风，继续下一句。');
-        } else {
-            setVoiceStatus('已转为文字，请确认后发送。');
-            document.getElementById('chat-input').focus({ preventScroll: true });
-        }
+        setVoiceStatus('已转为文字，请确认后发送。');
+        document.getElementById('chat-input').focus({ preventScroll: true });
     };
     try { active.start(); } catch (_) {
         stopVoiceRecognition();
@@ -456,9 +623,15 @@ function toggleVoiceInput() {
 }
 function stopTeacherVoice() {
     speechSequence++;
+    const audio = document.getElementById('teacher-call-audio');
+    if (audio) audio.pause();
+    const replay = document.getElementById('teacher-call-replay');
+    if (replay) replay.hidden = true;
+    const badge = document.getElementById('teacher-call-badge');
+    if (badge) badge.textContent = 'AI 分身 · 语音对话';
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     teacherSpeaking = false;
-    document.querySelector('.teacher-dialog')?.classList.remove('speaking');
+    document.querySelector('.teacher-dialog')?.classList.remove('speaking', 'original-playing');
     const button = document.getElementById('teacher-voice-button');
     if (button) button.textContent = '朗读回答';
 }
@@ -526,6 +699,7 @@ function getAssessmentPriorities(answers) {
         .sort((a, b) => a.score - b.score);
 }
 function openWealthAssessment() {
+    if (PHASE < 3) return;
     const report = getSavedAssessment();
     if (report) renderAssessmentReport(report);
     else startWealthAssessment();
@@ -627,7 +801,38 @@ function updateAssessmentEntry() {
 
 document.addEventListener('DOMContentLoaded', () => {
     document.body.insertAdjacentHTML('beforeend', `
-        <div id="ai-chat-modal" role="dialog" aria-modal="true" aria-labelledby="teacher-chat-name" class="experience-overlay hidden">
+        <div id="home-column-modal" role="dialog" aria-modal="true" aria-labelledby="home-column-title" class="experience-overlay hidden">
+            <section class="experience-dialog home-column-dialog">
+                <header class="experience-modal-header">
+                    <h2 id="home-column-title">专栏回放</h2>
+                    <button onclick="closeExperienceModal('home-column-modal')" aria-label="关闭专栏"><i class="fa-solid fa-xmark"></i></button>
+                </header>
+                <p id="home-column-description" class="home-column-description"></p>
+                <div id="home-column-list" class="home-column-list"></div>
+            </section>
+        </div>
+        <div id="customer-service-modal" role="dialog" aria-modal="true" aria-labelledby="customer-service-title" class="experience-overlay hidden">
+            <section class="experience-dialog customer-service-dialog">
+                <header class="experience-modal-header">
+                    <div><h2 id="customer-service-title">专属客服</h2><p class="customer-service-subtitle">陶笛汇 · ${PHASE >= 3 ? '智能商务顾问' : '商务经理联系入口'}</p></div>
+                    <button onclick="closeExperienceModal('customer-service-modal')" aria-label="关闭专属客服"><i class="fa-solid fa-xmark"></i></button>
+                </header>
+                <div id="customer-service-box" class="teacher-chat-box" role="log" aria-live="polite" aria-label="客服对话记录"></div>
+                <div class="teacher-prompts">
+                    <button data-ph="3" onclick="sendCustomerServiceMessage('活动报名')">活动报名</button>
+                    <button data-ph="3" onclick="sendCustomerServiceMessage('订单售后')">订单售后</button>
+                    <button data-ph="3" onclick="sendCustomerServiceMessage('会员与徽章')">会员与徽章</button>
+                    <button onclick="contactCustomerManager()">联系商务经理</button>
+                </div>
+                <form data-ph="3" class="teacher-input" onsubmit="event.preventDefault(); sendCustomerServiceMessage()">
+                    <label class="sr-only" for="customer-service-input">输入客服问题</label>
+                    <input id="customer-service-input" maxlength="1000" autocomplete="off" placeholder="输入您的疑问…">
+                    <button type="submit">发送</button>
+                </form>
+                <p class="customer-service-note">客服原型演示，尚未连接真实人工服务。</p>
+            </section>
+        </div>
+        <div data-ph="3" id="ai-chat-modal" role="dialog" aria-modal="true" aria-labelledby="teacher-chat-name" class="experience-overlay hidden">
             <section class="experience-dialog teacher-dialog">
                 <header class="experience-modal-header">
                     <h2 id="teacher-chat-name">老师 AI 分身</h2>
@@ -649,11 +854,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <small>系统声线 · 规则演示，非老师本人回答。</small>
                     </div>
+                    <button class="teacher-portrait-call" onclick="startTeacherCall()"><i class="fa-solid fa-headphones"></i> 语音对话</button>
                     <div class="teacher-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
                 </div>
                 <div id="chat-box" class="teacher-chat-box" role="log" aria-live="polite" aria-label="AI 对话记录"></div>
                 <div id="teacher-chat-prompts" class="teacher-prompts"></div>
-<form class="teacher-input" onsubmit="event.preventDefault(); sendMessage()">
+                <form class="teacher-input" onsubmit="event.preventDefault(); sendMessage()">
                     <button id="teacher-input-mic" class="teacher-input-mic" type="button" onclick="toggleVoiceInput()" aria-label="开始语音输入" aria-pressed="false"><i class="fa-solid fa-microphone"></i></button>
                     <label class="sr-only" for="chat-input">输入问题</label>
                     <input id="chat-input" maxlength="1000" autocomplete="off" placeholder="输入问题，或点击麦克风…" onkeydown="handleChatKeyPress(event)">
@@ -661,15 +867,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 </form>
                 <div class="teacher-chat-toolbar">
                     <p id="teacher-voice-status" role="status">支持打字与语音输入</p>
-                    <button onclick="startTeacherCall()"><i class="fa-solid fa-headphones"></i> 语音对话</button>
                 </div>
                 </div>
                 <section id="teacher-call-panel" class="teacher-call-panel" aria-label="老师分身语音对话" hidden>
                     <div class="teacher-call-stage">
                         <img id="teacher-call-avatar" alt="老师分身形象">
+                        <audio id="teacher-call-audio" preload="metadata"></audio>
                         <div class="teacher-call-shade"></div>
-                        <span class="teacher-call-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 分身 · 语音对话</span>
-                        <button class="teacher-call-photo" onclick="openTeacherReference()"><i class="fa-solid fa-circle-play"></i> 老师原声</button>
+                        <span id="teacher-call-badge" class="teacher-call-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> AI 分身 · 语音对话</span>
+                        <button class="teacher-call-photo" onclick="playTeacherOriginal()"><i class="fa-solid fa-volume-high"></i> 试听原声</button>
                         <div class="teacher-call-identity">
                             <h3 id="teacher-call-name"></h3>
                             <span id="teacher-call-source"></span>
@@ -681,13 +887,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p id="teacher-call-caption"></p>
                     </div>
                     <p id="teacher-call-status" class="teacher-call-status" role="status">点击麦克风开始说话</p>
+                    <button id="teacher-call-replay" class="teacher-call-keyboard" onclick="playTeacherOriginal()" hidden>播放 / 重播原声</button>
                     <div class="teacher-call-controls">
-                        <button id="teacher-call-speaker" onclick="toggleVoiceMuted()" aria-pressed="false"><i class="fa-solid fa-volume-high"></i><span>朗读开启</span></button>
-                        <button id="teacher-call-mic" class="call-mic" onclick="toggleVoiceInput()" aria-label="开始语音输入" aria-pressed="false"><i class="fa-solid fa-microphone"></i><span>点击说话</span></button>
+                        <button id="teacher-call-speaker" onclick="toggleVoiceMuted()" aria-pressed="false"><i class="fa-solid fa-volume-high"></i><span>原声开启</span></button>
+                        <button id="teacher-call-mic" class="call-mic" onclick="toggleTeacherCallInput()" aria-label="开始语音输入" aria-pressed="false"><i class="fa-solid fa-microphone"></i><span>点击说话</span></button>
                         <button class="call-end" onclick="endTeacherCall()"><i class="fa-solid fa-phone-slash"></i><span>结束语音</span></button>
                     </div>
                     <button class="teacher-call-keyboard" onclick="endTeacherCall()"><i class="fa-solid fa-keyboard"></i> 切回打字，保留对话</button>
-                    <p class="teacher-call-disclaimer">系统声线，非真人通话 · 识别由浏览器服务处理，需麦克风授权</p>
+                    <p class="teacher-call-disclaimer">播放预录老师原声，非实时回答 · 语音识别需麦克风授权</p>
                 </section>
             </section>
         </div>
@@ -695,14 +902,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <section class="experience-dialog teacher-reference-dialog">
                 <header class="experience-modal-header">
                     <h2 id="teacher-reference-title">老师原声素材</h2>
-                    <button onclick="closeExperienceModal('teacher-reference-modal')" aria-label="关闭原声视频"><i class="fa-solid fa-xmark"></i></button>
+                    <button onclick="closeExperienceModal('teacher-reference-modal')" aria-label="关闭原声试听"><i class="fa-solid fa-xmark"></i></button>
                 </header>
-                <video id="teacher-reference-video" controls playsinline preload="metadata" aria-label="老师原声素材视频" onerror="document.getElementById('teacher-reference-topic').textContent = '视频暂不可用，请关闭后继续对话。'"></video>
+                <audio id="teacher-reference-audio" controls preload="metadata" aria-label="老师原声试听" onerror="document.getElementById('teacher-reference-topic').textContent = '音频暂不可用，请关闭后继续对话。'"></audio>
                 <p id="teacher-reference-topic" class="teacher-reference-topic"></p>
-                <p class="teacher-reference-note">原视频第 5 至 20 秒的素材片段，保留原声。不是 AI 回答，也不是声线克隆或实时口型。</p>
+                <p class="teacher-reference-note">从用户提供视频第 5 至 20 秒提取的纯音频，保留老师原声，仅模拟回复交互，不是实时生成的回答。</p>
             </section>
         </div>
-        <div id="wealth-assessment-modal" role="dialog" aria-modal="true" aria-labelledby="wealth-assessment-title" class="experience-overlay hidden">
+        <div data-ph="3" id="wealth-assessment-modal" role="dialog" aria-modal="true" aria-labelledby="wealth-assessment-title" class="experience-overlay hidden">
             <section class="experience-dialog assessment-dialog">
                 <header class="experience-modal-header">
                     <h2 id="wealth-assessment-title">AI 五富评估</h2>

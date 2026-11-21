@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./ai-experience.css?v=20261121-ai6">
+    <link rel="stylesheet" href="./ai-experience.css?v=20261121-phase9">
     <!-- Google Fonts Inter & Noto Serif SC -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -245,9 +245,9 @@
                     <i class="fa-regular fa-bell text-lg"></i>
                     <span id="unread-dot" class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
                 </button>
-                <button onclick="toggleAiChat()" class="relative px-2.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold flex items-center space-x-1 hover:bg-amber-100 transition shadow-sm">
+                <button id="header-customer-service" onclick="toggleCustomerService()" class="relative px-2.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold flex items-center space-x-1 hover:bg-amber-100 transition shadow-sm">
                     <i class="fa-solid fa-headset text-amber-600"></i>
-                    <span>AI 分身</span>
+                    <span>专属客服</span>
                 </button>
             </div>
         </header>
@@ -289,7 +289,26 @@
                     </div>
                 </div>
 
-                <section aria-label="老师 AI 分身" class="space-y-3">
+                <nav id="home-column-shortcuts" aria-label="首页专栏" class="grid grid-cols-4 gap-2">
+                    <button onclick="openHomeColumn('tao')" class="flex flex-col items-center px-1 py-3 rounded-xl bg-white border border-slate-200 hover:border-amber-400 shadow-sm transition">
+                        <span class="w-10 h-10 rounded-full bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center text-lg mb-1.5"><i class="fa-solid fa-microphone-lines"></i></span>
+                        <span class="text-[11px] text-slate-700 font-semibold">陶老师专栏</span>
+                    </button>
+                    <button onclick="openHomeColumn('mudi')" class="flex flex-col items-center px-1 py-3 rounded-xl bg-white border border-slate-200 hover:border-amber-400 shadow-sm transition">
+                        <span class="w-10 h-10 rounded-full bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center text-lg mb-1.5"><i class="fa-solid fa-chalkboard-user"></i></span>
+                        <span class="text-[11px] text-slate-700 font-semibold">牧笛专栏</span>
+                    </button>
+                    <button onclick="openHomeColumn('closed')" class="flex flex-col items-center px-1 py-3 rounded-xl bg-white border border-slate-200 hover:border-amber-400 shadow-sm transition">
+                        <span class="w-10 h-10 rounded-full bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center text-lg mb-1.5"><i class="fa-solid fa-user-lock"></i></span>
+                        <span class="text-[11px] text-slate-700 font-semibold">闭门专题</span>
+                    </button>
+                    <button onclick="openHomeColumn('harbour')" class="flex flex-col items-center px-1 py-3 rounded-xl bg-white border border-slate-200 hover:border-amber-400 shadow-sm transition">
+                        <span class="w-10 h-10 rounded-full bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center text-lg mb-1.5"><i class="fa-solid fa-crown"></i></span>
+                        <span class="text-[11px] text-slate-700 font-semibold">维港夜话</span>
+                    </button>
+                </nav>
+
+                <section data-ph="3" aria-label="老师 AI 分身" class="space-y-3">
                     <div class="flex justify-between items-center">
                         <h3 class="serif-title text-base font-bold text-slate-900">与老师的 AI 分身对话</h3>
                         <span class="text-[10px] text-amber-700">AI 演示</span>
@@ -473,7 +492,7 @@
                     </div>
                 </div>
 
-                <button id="ai-assessment-entry" onclick="openWealthAssessment()" class="w-full text-left rounded-2xl p-4 bg-slate-950 text-white border border-amber-400/30 flex items-center justify-between gap-3 shadow-lg">
+                <button data-ph="3" id="ai-assessment-entry" onclick="openWealthAssessment()" class="w-full text-left rounded-2xl p-4 bg-slate-950 text-white border border-amber-400/30 flex items-center justify-between gap-3 shadow-lg">
                     <div class="flex items-center gap-3">
                         <div class="w-11 h-11 rounded-2xl gold-gradient-bg flex items-center justify-center text-slate-950"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
                         <div>
@@ -539,7 +558,7 @@
 
             </section>
 
-            <!-- 严选：三期共同的健康商品与医疗服务入口 -->
+            <!-- 严选：二期开放健康商品与医疗服务 -->
             <section id="page-mall" class="hidden pb-4 space-y-5">
                 <!-- 顶部头图 -->
                 <div class="relative h-44 overflow-hidden">
@@ -569,7 +588,7 @@
                         <div id="mall-product-grid" class="grid grid-cols-2 gap-3"></div>
                     </div>
 
-                    <div class="p-4 rounded-xl border border-dashed border-amber-300 text-center space-y-2 bg-amber-50/50">
+                    <div data-ph="3" class="p-4 rounded-xl border border-dashed border-amber-300 text-center space-y-2 bg-amber-50/50">
                         <p class="text-xs text-slate-600">选营养，还是规划家人的医疗保障？</p>
                         <button onclick="openTeacherChat('tao', '如何选择香港高端医疗服务？')" class="px-4 py-2 rounded-xl gold-gradient-bg text-slate-950 text-xs font-bold shadow hover:brightness-105">
                             问问 AI 分身
@@ -587,7 +606,7 @@
                 <i class="fa-solid fa-circle-play text-lg"></i>
                 <span class="text-[10px] font-bold">直播</span>
             </button>
-            <button onclick="switchTab('mall')" id="nav-mall" class="flex flex-col items-center space-y-1 text-slate-400 hover:text-slate-600 transition">
+            <button data-ph="2" onclick="switchTab('mall')" id="nav-mall" class="flex flex-col items-center space-y-1 text-slate-400 hover:text-slate-600 transition">
                 <i class="fa-solid fa-bag-shopping text-lg"></i>
                 <span class="text-[10px] font-medium">严选</span>
             </button>
@@ -984,7 +1003,7 @@
                     </div>
                 </div>
 
-                <div class="p-4 bg-slate-900 border-t border-slate-800 flex items-center space-x-3 text-white">
+                <div data-ph="3" class="p-4 bg-slate-900 border-t border-slate-800 flex items-center space-x-3 text-white">
                     <p class="flex-1 text-xs text-slate-300">听完之后，继续聊聊这个主题</p>
                     <button onclick="discussViewingTopic()" class="px-4 py-2 rounded-full gold-gradient-bg text-slate-950 text-xs font-bold">
                         问 AI 分身
@@ -1869,8 +1888,15 @@
             const byText = (scopeSel, sel, txt) =>
                 [...document.querySelectorAll(`${scopeSel} ${sel}`)].find(e => e.textContent.includes(txt));
 
+            ph(document.getElementById('page-mall'), 2);
+            ph(document.getElementById('mall-detail-modal'), 2);
+            ph(document.getElementById('mall-buy-modal'), 2);
+            ph(document.getElementById('trade-tab-goods'), 2);
+            ph(node('.replay-time-btn')?.parentElement?.parentElement, 2);
+            ph(node('#live-modal button[onclick="discussViewingTopic()"]'), 3);
+
             if (PHASE < 3) {
-                // 严选和 AI 已调整为三期共同能力；认证与售后仍在三期。
+                // 三期才开放 AI、认证与售后。
                 ph(document.getElementById('compliance-modal'), 3);
                 ph(document.getElementById('after-sales-modal'), 3);
                 ph(document.getElementById('settings-compliance-entry'), 3);
@@ -1879,7 +1905,7 @@
             }
 
             if (PHASE < 2) {
-                // —— 二期功能：会员体系 / 徽章 / 特权 / 频道完善 / 活动服务 ——
+                // 二期开放会员体系、徽章、特权与进阶活动服务。
                 ph(document.getElementById('notification-modal'), 2);
                 ph(document.getElementById('activity-calendar-modal'), 2);
                 ph(document.getElementById('special-access-modal'), 2);
@@ -1904,18 +1930,18 @@
             const main = document.querySelector('main');
             const shell = main ? main.parentElement : null;
             if (!shell) return;
-            const names = { 1: '极简基础版', 2: '内容与会员服务', 3: '交易与服务扩展' };
+            const names = { 1: '基础业务闭环', 2: '内容与会员经营', 3: 'AI 与高级服务' };
             const scope = {
-                1: '直播 · 严选 · AI 分身 · AI 五富评估',
-                2: '＋ 会员等级 / 五富徽章 / 特权 / 活动日历',
-                3: '＋ 投资者认证 / 售后退款'
+                1: '直播 / 四专栏 / 活动支付 / 行程订单',
+                2: '＋ 严选 / 医疗预约 / 会员权益 / 日历通知',
+                3: '＋ AI 分身 / 语音 / 五富评估 / 认证售后'
             };
             const pills = [1, 2, 3].map(n => {
                 const active = n === PHASE;
                 const cls = active
                     ? 'bg-amber-400 text-slate-950 border-amber-300'
                     : 'bg-slate-900 text-slate-400 border-slate-700 hover:text-amber-300';
-                return `<a href="?phase=${n}&v=20261121-ai6" class="px-2 py-0.5 rounded-full text-[10px] font-bold border transition ${cls}">第${n}期</a>`;
+                return `<a href="?phase=${n}&v=20261121-phase9" class="px-2 py-0.5 rounded-full text-[10px] font-bold border transition ${cls}">第${n}期</a>`;
             }).join('');
             const bar = document.createElement('div');
             bar.className = 'w-full bg-slate-950 text-amber-300 px-3 py-1.5 border-b border-amber-400/30 flex items-center justify-between gap-2';
@@ -2118,6 +2144,7 @@
 
         function switchTab(tabId) {
             if (tabId === 'channels') tabId = 'mall';
+            if (tabId === 'mall' && PHASE < 2) return;
             const pages = ['home', 'activity', 'member', 'mall'];
             pages.forEach(p => {
                 const el = document.getElementById(`page-${p}`);
@@ -2281,6 +2308,7 @@
         }
 
         function setReplayTimeFilter(filter, btn) {
+            if (PHASE < 2) return;
             currentReplayTimeFilter = filter;
             document.querySelectorAll('.replay-time-btn').forEach(b => {
                 b.classList.remove('bg-amber-100', 'text-amber-900', 'border-amber-300', 'font-bold');
@@ -2292,6 +2320,7 @@
         }
 
         function setReplayTopicFilter(filter, btn) {
+            if (PHASE < 2) return;
             currentReplayTopicFilter = filter;
             document.querySelectorAll('.replay-topic-btn').forEach(b => {
                 b.classList.remove('bg-amber-100', 'text-amber-900', 'border-amber-300', 'font-bold');
@@ -3516,6 +3545,7 @@
         }
 
         function setTradeRecordsTab(tab) {
+            if (tab === 'goods' && PHASE < 2) return;
             currentTradeRecordsTab = tab;
             renderTradeRecords();
         }
@@ -3577,6 +3607,7 @@
         }
 
         function openMallProductDetail(id) {
+            if (PHASE < 2) return;
             const p = getMallProduct(id);
             if (!p) return;
             currentMallProduct = p;
@@ -3615,6 +3646,7 @@
         }
 
         function openMallBuyModal(id, fromDetail = false) {
+            if (PHASE < 2) return;
             const p = getMallProduct(id);
             if (!p) return;
             const amount = p.price || 0;
@@ -3848,6 +3880,7 @@
         }
 
         function openComplianceModal() {
+            if (PHASE < 3) return;
             const nameEl = document.getElementById('input-real-name');
             const idEl = document.getElementById('input-real-id');
             if (nameEl) nameEl.value = '';
@@ -3969,6 +4002,7 @@
         }
 
         function openAfterSalesModal(orderId) {
+            if (PHASE < 3) return;
             const order = appState.orders.find(o => o.id === orderId);
             if (!order) return;
             currentAfterSalesOrder = order;
@@ -4394,6 +4428,6 @@
         }
 
     </script>
-    <script src="./ai-experience.js?v=20261121-ai6"></script>
+    <script src="./ai-experience.js?v=20261121-phase9"></script>
 </body>
 </html>
