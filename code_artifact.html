@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./ai-experience.css?v=20261121-ai6">
     <!-- Google Fonts Inter & Noto Serif SC -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -246,8 +247,7 @@
                 </button>
                 <button onclick="toggleAiChat()" class="relative px-2.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold flex items-center space-x-1 hover:bg-amber-100 transition shadow-sm">
                     <i class="fa-solid fa-headset text-amber-600"></i>
-                    <span>专属客服</span>
-                    <span class="absolute -top-1.5 -right-1 bg-slate-900 text-amber-300 text-[8px] px-1 py-[1px] rounded font-bold border border-amber-400/50">三期</span>
+                    <span>AI 分身</span>
                 </button>
             </div>
         </header>
@@ -289,48 +289,13 @@
                     </div>
                 </div>
 
-                <!-- 节目类型导航快捷入口 -->
-                <div class="grid grid-cols-4 gap-2">
-                    <button onclick="openColumnPage('taoteacher')" class="flex flex-col items-center p-3 rounded-xl bg-white border border-slate-200 hover:border-amber-400 shadow-sm transition active:scale-95">
-                        <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center text-lg mb-1.5 border border-amber-200">
-                            <i class="fa-solid fa-microphone-lines"></i>
-                        </div>
-                        <span class="text-xs text-slate-700 font-medium">陶老师专栏</span>
-                    </button>
-                    <button onclick="openColumnPage('mudi')" class="flex flex-col items-center p-3 rounded-xl bg-white border border-slate-200 hover:border-amber-400 shadow-sm transition active:scale-95">
-                        <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center text-lg mb-1.5 border border-amber-200">
-                            <i class="fa-solid fa-chalkboard-user"></i>
-                        </div>
-                        <span class="text-xs text-slate-700 font-medium">牧笛专栏</span>
-                    </button>
-                    <button onclick="openColumnPage('closed')" class="flex flex-col items-center p-3 rounded-xl bg-white border border-slate-200 hover:border-amber-400 shadow-sm transition active:scale-95">
-                        <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center text-lg mb-1.5 border border-amber-200">
-                            <i class="fa-solid fa-user-lock"></i>
-                        </div>
-                        <span class="text-xs text-slate-700 font-medium">闭门专题</span>
-                    </button>
-                    <button onclick="openColumnPage('bigshots')" class="flex flex-col items-center p-3 rounded-xl bg-white border border-slate-200 hover:border-amber-400 shadow-sm transition active:scale-95">
-                        <div class="w-10 h-10 rounded-full bg-amber-50 text-amber-700 flex items-center justify-center text-lg mb-1.5 border border-amber-200">
-                            <i class="fa-solid fa-crown"></i>
-                        </div>
-                        <span class="text-xs text-slate-700 font-medium">维港夜话</span>
-                    </button>
-                </div>
-
-                <!-- 牧笛严选入口 -->
-                <div class="card-white rounded-2xl border border-amber-200 shadow-sm overflow-hidden">
-                    <div class="flex items-center justify-between px-3.5 pt-3 pb-2.5">
-                        <div class="flex items-center space-x-2 min-w-0">
-                            <h3 class="serif-title text-sm font-bold text-slate-900">牧笛严选</h3>
-                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-900 text-amber-300 font-bold border border-amber-400/50">三期</span>
-                        </div>
-                        <button onclick="switchTab('mall')" class="text-[11px] text-amber-700 font-semibold flex items-center whitespace-nowrap">
-                            进入严选 <i class="fa-solid fa-chevron-right text-[9px] ml-0.5"></i>
-                        </button>
+                <section aria-label="老师 AI 分身" class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="serif-title text-base font-bold text-slate-900">与老师的 AI 分身对话</h3>
+                        <span class="text-[10px] text-amber-700">AI 演示</span>
                     </div>
-
-                    <div id="home-mall-list" class="grid grid-cols-2 gap-2.5 px-3.5 pb-3.5"></div>
-                </div>
+                    <div id="teacher-avatar-cards" class="grid grid-cols-2 gap-3"></div>
+                </section>
 
                 <!-- 近期重磅预告 -->
                 <div class="space-y-3">
@@ -352,63 +317,12 @@
                     <div class="flex justify-between items-center">
                         <h3 class="serif-title text-base font-bold text-slate-900 flex items-center space-x-2">
                             <span class="w-1.5 h-4 bg-amber-600 rounded-full"></span>
-                            <span>往期精华回放专题</span>
+                            <span>精选回放</span>
                         </h3>
                         <button onclick="openReplayLibraryModal()" class="text-xs text-amber-700 font-medium">查看更多 <i class="fa-solid fa-chevron-right text-[10px]"></i></button>
                     </div>
 
                     <div id="home-replay-list" class="grid grid-cols-2 gap-3"></div>
-                </div>
-            </section>
-
-            <!-- PAGE 2: 各个赛道的内容频道 -->
-            <section id="page-channels" class="hidden pb-4 space-y-4">
-                <!-- 顶部头图 -->
-                <div class="relative h-36 overflow-hidden">
-                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=abstract%20global%20financial%20technology%20network%2C%20glowing%20blue%20world%20map%20with%20connecting%20data%20lines%20over%20dark%20navy%20background%2C%20futuristic%20data%20visualization%2C%20cinematic%2C%20photorealistic&image_size=landscape_16_9" alt="频道" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/94 via-slate-950/50 to-slate-950/25"></div>
-                    <div class="absolute left-4 right-4 bottom-3.5 space-y-1.5">
-                        <span class="inline-block text-[9px] px-1.5 py-0.5 rounded-full bg-amber-400/90 text-slate-950 font-bold tracking-wide">5 大财富赛道</span>
-                        <h2 class="serif-title text-xl font-bold text-white">频道</h2>
-                        <p class="text-[11px] text-white/75">聚焦核心产业与资产沉淀，合规提供深度客观科普</p>
-                    </div>
-                </div>
-
-                <div class="px-4 space-y-4">
-                    <!-- 赛道横向切换标签 (主一级标签) -->
-                    <div id="channel-tabs" class="flex gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
-                        <button onclick="switchChannelTab('all', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-slate-900 text-white font-bold border border-slate-900 whitespace-nowrap shadow-sm">全部</button>
-                        <button onclick="switchChannelTab('insurance', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">香港保险</button>
-                        <button onclick="switchChannelTab('health', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">高端医疗</button>
-                        <button onclick="switchChannelTab('stock', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">港美股</button>
-                        <button onclick="switchChannelTab('estate', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">全球房产</button>
-                        <button onclick="switchChannelTab('family', this)" class="channel-tab-btn px-3.5 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap">家族办公室</button>
-                    </div>
-
-                    <!-- 二级内容形态 Tag 筛选 (文章/精选视频/闭门录播) -->
-                    <div id="media-type-tags" class="flex gap-2 overflow-x-auto pb-1 text-xs no-scrollbar">
-                        <button onclick="filterMediaType('all', this)" class="media-type-btn px-3 py-2 rounded-xl bg-slate-900 text-white font-bold border border-slate-900 whitespace-nowrap flex items-center space-x-1.5">
-                            <i class="fa-solid fa-grid-2 text-[10px]"></i>
-                            <span>全部</span>
-                        </button>
-                        <button onclick="filterMediaType('video', this)" class="media-type-btn px-3 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap flex items-center space-x-1.5">
-                            <i class="fa-solid fa-play text-[10px]"></i>
-                            <span>精选视频</span>
-                        </button>
-                        <button onclick="filterMediaType('article', this)" class="media-type-btn px-3 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap flex items-center space-x-1.5">
-                            <i class="fa-regular fa-file-lines text-[10px]"></i>
-                            <span>文章研报</span>
-                        </button>
-                        <button onclick="filterMediaType('replay', this)" class="media-type-btn px-3 py-2 rounded-xl bg-white text-slate-600 border border-slate-200 whitespace-nowrap flex items-center space-x-1.5">
-                            <i class="fa-solid fa-video text-[10px]"></i>
-                            <span>重磅录播</span>
-                        </button>
-                    </div>
-
-                    <!-- 动态展示文章/视频/录播列表 -->
-                    <div id="channel-list" class="space-y-3">
-                        <!-- 动态由 JavaScript 渲染 -->
-                    </div>
                 </div>
             </section>
 
@@ -559,6 +473,17 @@
                     </div>
                 </div>
 
+                <button id="ai-assessment-entry" onclick="openWealthAssessment()" class="w-full text-left rounded-2xl p-4 bg-slate-950 text-white border border-amber-400/30 flex items-center justify-between gap-3 shadow-lg">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl gold-gradient-bg flex items-center justify-center text-slate-950"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                        <div>
+                            <h3 class="serif-title text-sm font-bold">AI 五富评估</h3>
+                            <p id="ai-assessment-entry-summary" class="text-[11px] text-slate-300 mt-1">看清配置全貌，找到下一步</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-amber-300"></i>
+                </button>
+
                 <!-- 会员核心特权 -->
                 <div class="card-white rounded-2xl p-4 space-y-3">
                     <div class="flex justify-between items-center border-b border-slate-100 pb-2.5">
@@ -614,7 +539,7 @@
 
             </section>
 
-            <!-- PAGE 5: 牧笛严选预留接口界面 -->
+            <!-- 严选：三期共同的健康商品与医疗服务入口 -->
             <section id="page-mall" class="hidden pb-4 space-y-5">
                 <!-- 顶部头图 -->
                 <div class="relative h-44 overflow-hidden">
@@ -628,28 +553,29 @@
                     <div class="absolute left-4 right-4 bottom-3.5 space-y-1.5">
                         <div class="flex items-center space-x-2">
                             <h2 class="serif-title text-xl font-bold text-white">牧笛严选</h2>
-                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-400/90 text-slate-950 font-bold">三期</span>
+                            <span class="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-400/90 text-slate-950 font-bold">健康甄选</span>
                         </div>
-                        <p class="text-[11px] text-white/75">闭门直播课 · 私董会 · 实物甄选</p>
+                        <p class="text-[11px] text-white/90">好营养，好医疗。为家人多一份安心。</p>
                     </div>
                 </div>
 
                 <div class="px-4 space-y-5">
-                    <!-- 预留模块示例 -->
                     <div class="space-y-3">
-                        <div class="text-xs text-slate-500 font-bold flex justify-between">
-                            <span>二期开放品类</span>
-                            <span class="text-amber-700">后台可配置</span>
+                        <div class="flex gap-2" aria-label="严选分类">
+                            <button onclick="filterMallProducts('all')" data-mall-filter="all" class="px-4 py-2 rounded-full text-xs bg-slate-900 text-white font-bold">全部</button>
+                            <button onclick="filterMallProducts('nutrition')" data-mall-filter="nutrition" class="px-4 py-2 rounded-full text-xs bg-white text-slate-600 border border-slate-200">营养保健</button>
+                            <button onclick="filterMallProducts('medical')" data-mall-filter="medical" class="px-4 py-2 rounded-full text-xs bg-white text-slate-600 border border-slate-200">高端医疗</button>
                         </div>
                         <div id="mall-product-grid" class="grid grid-cols-2 gap-3"></div>
                     </div>
 
                     <div class="p-4 rounded-xl border border-dashed border-amber-300 text-center space-y-2 bg-amber-50/50">
-                        <p class="text-xs text-slate-600">想提前了解严选品类与上架节奏？</p>
-                        <button onclick="transferToHumanDirect()" class="px-4 py-2 rounded-xl gold-gradient-bg text-slate-950 text-xs font-bold shadow hover:brightness-105">
-                            联系商务总监
+                        <p class="text-xs text-slate-600">选营养，还是规划家人的医疗保障？</p>
+                        <button onclick="openTeacherChat('tao', '如何选择香港高端医疗服务？')" class="px-4 py-2 rounded-xl gold-gradient-bg text-slate-950 text-xs font-bold shadow hover:brightness-105">
+                            问问 AI 分身
                         </button>
                     </div>
+                    <p class="text-[10px] text-slate-500">商品与价格为预览示例；保健品不替代药物，医疗方案由执业医生确认。</p>
                 </div>
             </section>
 
@@ -661,9 +587,9 @@
                 <i class="fa-solid fa-circle-play text-lg"></i>
                 <span class="text-[10px] font-bold">直播</span>
             </button>
-            <button onclick="switchTab('channels')" id="nav-channels" class="flex flex-col items-center space-y-1 text-slate-400 hover:text-slate-600 transition">
-                <i class="fa-solid fa-layer-group text-lg"></i>
-                <span class="text-[10px] font-medium">频道</span>
+            <button onclick="switchTab('mall')" id="nav-mall" class="flex flex-col items-center space-y-1 text-slate-400 hover:text-slate-600 transition">
+                <i class="fa-solid fa-bag-shopping text-lg"></i>
+                <span class="text-[10px] font-medium">严选</span>
             </button>
             <button onclick="switchTab('activity')" id="nav-activity" class="flex flex-col items-center space-y-1 text-slate-400 hover:text-slate-600 transition">
                 <i class="fa-solid fa-compass text-lg"></i>
@@ -674,67 +600,6 @@
                 <span class="text-[10px] font-medium">我的</span>
             </button>
         </nav>
-
-        <!-- AI 客服 Drawer Panel -->
-        <div id="ai-chat-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex justify-center items-end hidden transition-all">
-            <div class="w-full max-w-md bg-white rounded-t-2xl border-t border-amber-300 h-[82vh] flex flex-col shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-300">
-                <div class="px-4 py-3 bg-slate-900 text-white flex justify-between items-center">
-                    <div class="flex items-center space-x-2.5">
-                        <div class="w-8 h-8 rounded-full gold-gradient-bg flex items-center justify-center text-slate-950 text-xs font-bold shadow">
-                            AI
-                        </div>
-                        <div>
-                            <div class="flex items-center space-x-1.5">
-                                <h3 class="text-xs font-bold text-white">陶笛汇 智能商务智库顾问</h3>
-                                <span class="text-[8px] px-1 py-[1px] rounded bg-slate-700 text-amber-300 font-bold border border-amber-400/40">二期开发</span>
-                            </div>
-                            <p class="text-[10px] text-emerald-400 flex items-center">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block mr-1"></span> 实时在线 • 可随时转接专属经理
-                            </p>
-                        </div>
-                    </div>
-                    <button onclick="toggleAiChat()" class="text-slate-300 hover:text-white p-1">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
-                </div>
-
-                <div id="chat-box" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs bg-slate-50">
-                    <div class="flex items-start space-x-2">
-                        <div class="w-7 h-7 rounded-full bg-amber-100 border border-amber-300 text-amber-800 flex items-center justify-center text-xs flex-shrink-0 font-bold">
-                            五
-                        </div>
-                        <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 text-slate-700 space-y-2 max-w-[85%] shadow-sm">
-                            <p>尊贵的会员，您好！我是“陶笛汇”AI商务智库助手。</p>
-                            <p>请问有什么可以帮助您？您可以快速点击询问：</p>
-                            <ul class="list-disc list-inside text-amber-800 space-y-1 font-medium">
-                                <li class="cursor-pointer hover:underline" onclick="quickAsk('陶老师和牧笛老师的最新直播排期')">陶老师与牧笛老师近期直播排期</li>
-                                <li class="cursor-pointer hover:underline" onclick="quickAsk('香港私董游学团需要什么级别的会员？')">香港游学团与私董会报名门槛</li>
-                                <li class="cursor-pointer hover:underline" onclick="quickAsk('如何点亮我的各赛道五富勋章？')">五富勋章点亮与累计规则</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-3 py-2 bg-white border-t border-slate-200 flex space-x-2 overflow-x-auto text-[11px] text-amber-800 no-scrollbar">
-                    <button onclick="quickAsk('我想咨询家族办公室搭建方案')" class="px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 whitespace-nowrap hover:bg-amber-100">
-                        家族办公室咨询
-                    </button>
-                    <button onclick="quickAsk('如何点亮港险或医疗勋章？')" class="px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 whitespace-nowrap hover:bg-amber-100">
-                        勋章规则查询
-                    </button>
-                    <button onclick="transferToHumanDirect()" class="px-2.5 py-1 rounded-full bg-red-50 border border-red-200 text-red-700 whitespace-nowrap font-bold flex items-center">
-                        <i class="fa-solid fa-headset mr-1"></i>转人工商务经理
-                    </button>
-                </div>
-
-                <div class="p-3 bg-white border-t border-slate-200 flex items-center space-x-2">
-                    <input id="chat-input" type="text" placeholder="输入您的疑问..." onkeypress="handleChatKeyPress(event)" class="flex-1 bg-slate-100 border border-slate-300 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-amber-500">
-                    <button onclick="sendMessage()" class="px-4 py-2 rounded-xl gold-gradient-bg text-slate-950 text-xs font-bold shadow hover:brightness-105 active:scale-95 transition">
-                        发送
-                    </button>
-                </div>
-            </div>
-        </div>
 
         <!-- 活动详情 Modal -->
         <div id="activity-detail-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex justify-center items-center p-4 hidden">
@@ -937,7 +802,7 @@
                     <p>支付金额：<span id="payment-success-amount" class="font-bold text-red-700">--</span></p>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
-                    <button onclick="closePaymentSuccessModal(); openTradeRecordsModal();" class="py-2 rounded-xl bg-slate-900 text-white font-bold text-xs">
+                    <button onclick="viewPaidOrder()" class="py-2 rounded-xl bg-slate-900 text-white font-bold text-xs">
                         查看订单记录
                     </button>
                     <button onclick="closePaymentSuccessModal()" class="py-2 rounded-xl gold-gradient-bg text-slate-950 font-bold text-xs">
@@ -1000,8 +865,8 @@
                             <i class="fa-solid fa-chevron-left text-xs"></i>
                         </button>
                         <div class="min-w-0">
-                            <h3 class="serif-title text-base font-bold text-slate-900">严选商品结算</h3>
-                            <p class="text-[10px] text-slate-500">支付成功后自动生成订单并同步消费记录</p>
+                            <h3 id="mall-buy-heading" class="serif-title text-base font-bold text-slate-900">严选结算</h3>
+                            <p class="text-[10px] text-slate-500">模拟支付，不产生真实扣款</p>
                         </div>
                     </div>
                     <button onclick="closeMallBuyModal()" class="text-slate-400 hover:text-slate-600 flex-shrink-0"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -1120,90 +985,10 @@
                 </div>
 
                 <div class="p-4 bg-slate-900 border-t border-slate-800 flex items-center space-x-3 text-white">
-                    <input type="text" placeholder="发表您的智库观点或提问..." class="flex-1 bg-slate-800 border border-slate-700 rounded-full px-4 py-2 text-xs focus:outline-none focus:border-amber-500 text-white">
-                    <button onclick="showToast('提问已提交至主持人讲台！')" class="px-4 py-2 rounded-full gold-gradient-bg text-slate-950 text-xs font-bold">
-                        发送
+                    <p class="flex-1 text-xs text-slate-300">听完之后，继续聊聊这个主题</p>
+                    <button onclick="discussViewingTopic()" class="px-4 py-2 rounded-full gold-gradient-bg text-slate-950 text-xs font-bold">
+                        问 AI 分身
                     </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 首页专栏页 Modal -->
-        <div id="column-page-modal" class="fixed inset-0 z-50 bg-slate-50 hidden">
-            <div class="w-full max-w-md h-full mx-auto flex flex-col">
-                <div class="px-4 py-3 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center justify-between shadow-sm">
-                    <div class="flex items-center space-x-3 min-w-0">
-                        <button onclick="closeColumnPage()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-chevron-left text-sm"></i>
-                        </button>
-                        <div class="min-w-0">
-                            <h3 id="column-page-title" class="serif-title text-base font-bold text-slate-900 truncate">专栏</h3>
-                            <p id="column-page-subtitle" class="text-[10px] text-slate-500 truncate">专题内容</p>
-                        </div>
-                    </div>
-                    <button onclick="closeColumnPage()" class="text-slate-400 hover:text-slate-600">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
-                </div>
-                <div id="column-page-scroll" class="flex-1 overflow-y-auto p-4 space-y-4">
-                    <div class="relative rounded-2xl overflow-hidden border border-amber-200 shadow-sm">
-                        <img id="column-page-cover" src="" class="w-full h-44 object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent"></div>
-                        <div class="absolute left-4 right-4 bottom-4 space-y-1.5">
-                            <div class="flex items-center justify-between gap-2">
-                                <span id="column-page-tag" class="bg-amber-500/90 text-slate-950 text-[10px] font-bold px-2 py-1 rounded-full">专栏</span>
-                                <span id="column-page-stats" class="text-[10px] text-amber-200 font-medium">--</span>
-                            </div>
-                            <p id="column-page-desc" class="text-[11px] leading-relaxed text-white/90">--</p>
-                        </div>
-                    </div>
-                    <div id="column-page-list" class="space-y-3"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 图文详情页 Modal -->
-        <div id="article-detail-modal" class="fixed inset-0 z-50 bg-slate-50 hidden">
-            <div class="w-full max-w-md h-full mx-auto flex flex-col">
-                <div class="px-4 py-3 bg-white/95 backdrop-blur-md border-b border-slate-200 flex items-center justify-between shadow-sm">
-                    <div class="flex items-center space-x-3 min-w-0">
-                        <button onclick="closeArticleDetail()" class="w-8 h-8 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0">
-                            <i class="fa-solid fa-chevron-left text-sm"></i>
-                        </button>
-                        <div class="min-w-0">
-                            <h3 id="article-detail-category" class="serif-title text-base font-bold text-slate-900 truncate">图文</h3>
-                            <p class="text-[10px] text-slate-500 truncate">智库研报</p>
-                        </div>
-                    </div>
-                    <button onclick="closeArticleDetail()" class="text-slate-400 hover:text-slate-600">
-                        <i class="fa-solid fa-xmark text-lg"></i>
-                    </button>
-                </div>
-
-                <div id="article-detail-scroll" class="flex-1 overflow-y-auto bg-white">
-                    <img id="article-detail-cover" src="" class="w-full h-48 object-cover">
-                    <div class="p-4 space-y-4">
-                        <div class="space-y-2">
-                            <h2 id="article-detail-title" class="serif-title text-lg font-bold text-slate-900 leading-snug">--</h2>
-                            <div class="flex items-center gap-2 text-[11px] text-slate-400">
-                                <span id="article-detail-cat-chip" class="text-[9px] font-bold px-1.5 py-0.5 rounded border border-amber-200 bg-amber-100 text-amber-800">图文</span>
-                                <span id="article-detail-time">--</span>
-                                <span id="article-detail-reads"></span>
-                            </div>
-                        </div>
-
-                        <p id="article-detail-lead" class="text-[12px] text-slate-700 leading-relaxed font-medium border-l-2 border-amber-500 pl-3">--</p>
-
-                        <div id="article-detail-body" class="space-y-4"></div>
-
-                        <div id="article-detail-manager-cta" class="rounded-xl bg-slate-50 border border-slate-200 p-3 flex items-center justify-between gap-3">
-                            <div>
-                                <p class="text-xs font-bold text-slate-900">需要针对性解读？</p>
-                                <p class="text-[11px] text-slate-500 mt-0.5">专属商务经理可提供 1v1 方案拆解</p>
-                            </div>
-                            <button onclick="closeArticleDetail(); transferToHumanDirect()" class="px-3 py-2 rounded-lg bg-slate-900 text-white text-[11px] font-bold whitespace-nowrap">联系经理</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1285,7 +1070,7 @@
             <div class="w-full max-w-sm bg-white rounded-2xl p-5 space-y-4 shadow-2xl border border-amber-300">
                 <div class="flex justify-between items-center border-b border-slate-100 pb-2.5">
                     <div>
-                        <h3 class="serif-title text-base font-bold text-slate-900">精华回放专题</h3>
+                        <h3 class="serif-title text-base font-bold text-slate-900">全部回放</h3>
                         <p class="text-[10px] text-slate-500">闭门精华 · 赛道专题 · 大咖复盘</p>
                     </div>
                     <button onclick="closeReplayLibraryModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -1410,7 +1195,7 @@
 
                 <div id="trade-records-tabs" class="flex gap-2 border-b border-slate-100 pb-2">
                     <button id="trade-tab-activity" onclick="setTradeRecordsTab('activity')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold border transition">活动订单</button>
-                    <button id="trade-tab-goods" onclick="setTradeRecordsTab('goods')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold border transition">商品订单 <span class="ml-1 text-[9px] px-1 py-0.5 rounded-full bg-slate-900 text-amber-300 border border-amber-400/50">三期</span></button>
+                    <button id="trade-tab-goods" onclick="setTradeRecordsTab('goods')" class="px-3 py-1.5 rounded-lg text-[11px] font-bold border transition">严选订单</button>
                 </div>
 
                 <div id="trade-records-list" class="space-y-2.5 max-h-[52vh] overflow-y-auto pr-0.5"></div>
@@ -1802,7 +1587,7 @@
             { key: 'closedLive', title: '闭门直播', icon: 'fa-tv', shortcut: 'live', unlockType: 'service', keywords: ['闭门研讨会', '闭门直播', '直播课', '年度订阅'], requirement: '购买闭门直播课后点亮' },
             { key: 'activity', title: '游学优先', icon: 'fa-plane-departure', shortcut: 'activity', unlockType: 'tier', minTier: 'platinum', requirement: '白金会员及以上点亮' },
             { key: 'business', title: '1v1商务', icon: 'fa-user-tie', shortcut: 'business', unlockType: 'tier', minTier: 'gold', requirement: '黄金会员及以上点亮' },
-            { key: 'report', title: '智库专研', icon: 'fa-file-pdf', shortcut: 'report', unlockType: 'service', keywords: ['智库订阅', '研报包', '实战全书', '精装订阅'], requirement: '购买智库内容后点亮' },
+            { key: 'report', title: '深度回放', icon: 'fa-circle-play', shortcut: 'report', unlockType: 'service', keywords: ['闭门研讨会', '年度订阅'], requirement: '购买闭门直播服务后点亮' },
             { key: 'travel', title: '海外礼遇', icon: 'fa-passport', shortcut: 'travel', unlockType: 'tier', minTier: 'blackgold', requirement: '黑金VIP会员点亮' },
             { key: 'medical', title: '医疗绿通', icon: 'fa-hospital-user', shortcut: 'medical', unlockType: 'service', keywords: ['医疗', '体检', '再生医学', '癌研'], requirement: '购买医疗服务后点亮' },
             { key: 'boardroom', title: '私董席位', icon: 'fa-people-roof', shortcut: 'boardroom', unlockType: 'service', keywords: ['私董会', '私董'], requirement: '购买私董会席位后点亮' },
@@ -1838,8 +1623,6 @@
                     family:    { level: 0, spent: 0      }   // 家办黑金
                 }
             },
-            currentChannelTab: 'all',
-            currentMediaType: 'all',
             activitySpecialAccess: {},
             myBookings: [
                 { title: "【第12期】香港顶级家族办公室与金融机构游学团", status: "已确认", date: "2026-11-18 (3天2晚)", sortDate: "2026-11-18", manager: "王经理", img: IMG.hk, actId: "act1", ticketNo: "WF20261118-8892", checkedIn: false },
@@ -1849,7 +1632,7 @@
             ],
             orders: [
                 { id: "WF20261118-8892", title: "【第12期】香港顶级家族办公室与金融机构深度游学团", type: "活动席位", amount: 0, status: "已确认", date: "2026-11-18 09:30", img: IMG.hk },
-                { id: "WF20261102-7781", title: "《家族传承防坑指南 2026版》精装订阅", type: "知识商城", amount: 1280, status: "已完成", date: "2026-11-02 14:20", img: IMG.family },
+                { id: "WF20261102-7781", title: "家庭营养组合", type: "严选商品", amount: 1280, status: "已完成", date: "2026-11-02 14:20", img: IMG.medical },
                 { id: "WF20261021-6620", title: "五富智库 • 全球资产配置与家族传承企业家领航班", type: "活动席位", amount: 12800, status: "已完成", date: "2026-10-21 10:05", img: IMG.summit },
                 { id: "WF20261005-5514", title: "闭门私董会席位（黑金VIP专享）", type: "活动席位", amount: 0, status: "已完成", date: "2026-10-05 19:40", img: IMG.boardroom },
                 { id: "WF20260918-4402", title: "日本顶尖精密体检与再生医学考察团", type: "活动席位", amount: 38000, status: "审核中", date: "2026-09-18 11:15", img: IMG.japan },
@@ -1857,13 +1640,13 @@
             ],
             consumptionRecords: [
                 { date: "2026-11-18 09:30", item: "香港游学团席位（黑金VIP专享）", channel: "活动", amount: 0 },
-                { date: "2026-11-02 14:20", item: "《家族传承防坑指南 2026版》精装订阅", channel: "知识商城", amount: 1280 },
+                { date: "2026-11-02 14:20", item: "家庭营养组合", channel: "严选", amount: 1280 },
                 { date: "2026-10-21 10:05", item: "企业家领航班席位费", channel: "活动", amount: 12800 },
                 { date: "2026-10-05 19:40", item: "闭门私董会席位（黑金VIP专享）", channel: "活动", amount: 0 },
                 { date: "2026-09-18 11:15", item: "日本精密体检考察团定金", channel: "活动", amount: 38000 },
-                { date: "2026-08-30 16:48", item: "《全球资产配置实战全书》实体精装", channel: "知识商城", amount: 680 },
+                { date: "2026-08-30 16:48", item: "日常营养补充组合", channel: "严选", amount: 680 },
                 { date: "2026-08-12 20:10", item: "陶老师闭门研讨会 · 年度订阅", channel: "智库订阅", amount: 24000 },
-                { date: "2026-07-25 09:15", item: "海外房产配置研报包（年费）", channel: "智库订阅", amount: 48000 },
+                { date: "2026-07-25 09:15", item: "家族健康管理服务（年费）", channel: "严选", amount: 48000 },
                 { date: "2026-07-08 14:30", item: "港险赛道专属顾问服务（年度）", channel: "专属服务", amount: 55240 }
             ],
             livePreviews: [
@@ -1901,50 +1684,7 @@
                 { id: 'nt2', title: '领航班席位支付成功', desc: '订单与消费记录已同步更新。', time: '昨天', unread: false },
                 { id: 'nt3', title: '牧笛老师本周直播已开放预约', desc: '您可前往首页“全部预告”查看排期并设置提醒。', time: '2天前', unread: false }
             ],
-            mallProducts: [
-                {
-                    id: 'mp1', title: '《全球税务重构与身份规划》闭门直播课', type: '闭门直播课', tag: '闭门', price: 3800, img: IMG.mallCourse,
-                    subtitle: '陶老师亲授 · 全程闭门 · 不设公开回放',
-                    format: '线上闭门直播 · 3 小时',
-                    desc: '聚焦全球税务居民身份重构、跨境资产持有架构与身份规划落地路径，结合真实案例拆解合规边界，全程闭门，不对外公开回放。',
-                    highlights: ['全球税务居民身份重构逻辑', '跨境资产持有与隔离架构', '真实案例拆解与合规边界']
-                },
-                {
-                    id: 'mp2', title: '新加坡私董会 · 闭门圆桌席位', type: '私董会', tag: '席位', price: 0, img: IMG.mallBoard,
-                    subtitle: '12 人闭门圆桌 · 席位邀请制',
-                    format: '线下圆桌 · 席位邀请制',
-                    desc: '新加坡场私董会圆桌，仅 12 席，围绕东南亚资产配置与家族治理展开闭门研讨，由资深家办架构师主持。',
-                    highlights: ['12 人闭门圆桌', '东南亚资产配置实操', '家族治理与传承对话']
-                },
-                {
-                    id: 'mp3', title: '陶笛汇定制 · 老班章古树茶礼盒', type: '实物甄选', tag: '限量', price: 2680, img: IMG.mallTea,
-                    subtitle: '限量编号 · 一饼一码可溯源',
-                    format: '实物寄送 · 顺丰冷链',
-                    desc: '精选老班章古树春茶，传统工艺压制，配陶笛汇定制礼盒与收藏证书，一饼一码可溯源，适合商务往来与私人收藏。',
-                    highlights: ['老班章古树春茶', '定制礼盒与收藏证书', '一饼一码可溯源']
-                },
-                {
-                    id: 'mp4', title: '《家族信托架构实操》闭门直播课', type: '闭门直播课', tag: '闭门', price: 4800, img: IMG.mallTrust,
-                    subtitle: '家办架构实操 · 附落地模板',
-                    format: '线上闭门直播 · 4 小时',
-                    desc: '从设立到落地，系统讲解家族信托架构搭建、受益人安排与跨境合规要点，配套实操模板，可直接用于自身架构规划。',
-                    highlights: ['信托架构搭建全流程', '受益人与分配条款设计', '跨境合规要点与模板']
-                },
-                {
-                    id: 'mp5', title: '单桶威士忌甄选 · 私人窖藏', type: '实物甄选', tag: '限量', price: 8800, img: IMG.mallWhisky,
-                    subtitle: '单桶甄选 · 私人窖藏定制酒标',
-                    format: '实物寄送 · 专属物流',
-                    desc: '苏格兰单一麦芽单桶甄选，可定制私人窖藏酒标，附独立编号与品鉴笔记，兼具收藏与礼赠价值。',
-                    highlights: ['单一麦芽单桶甄选', '私人窖藏定制酒标', '独立编号与品鉴笔记']
-                },
-                {
-                    id: 'mp6', title: '维港私董午餐会 · 圆桌席位', type: '私董会', tag: '席位', price: 0, img: IMG.mallDinner,
-                    subtitle: '维港 8 席圆桌 · 席位邀请制',
-                    format: '线下午餐会 · 席位邀请制',
-                    desc: '维港私董午餐会，仅 8 席，议题聚焦港澳资产与家族办公室落地实操，全程闭门，仅限受邀会员。',
-                    highlights: ['8 席私密圆桌', '港澳资产配置实务', '家办落地一对一咨询']
-                }
-            ],
+            mallProducts: [],
             replayLibrary: [
                 { id: 'rp1', tag: '闭门精华', topicKey: 'family', timeKey: '30d', publishText: '12天前', title: '陶老师：2026家族办公室架构搭建与避坑指南', speaker: '陶老师', views: '2.8万次观看', duration: '45:20', img: IMG.family },
                 { id: 'rp2', tag: '大咖深度', topicKey: 'medical', timeKey: '30d', publishText: '18天前', title: '全球高端医疗资源对接与健康信托深度剖析', speaker: '特邀嘉宾', views: '1.9万次观看', duration: '62:15', img: IMG.medical },
@@ -2052,42 +1792,7 @@
                     status: "ended",
                     img: IMG.insurance
                 }
-            ],
-            channelContents: {
-                all: [
-                    { id: 'c1', type: 'article', title: "单一家族办公室（SFO）架构选址：新加坡、香港与迪拜税务合规全对比", category: "家族办公室", time: "10分钟前", reads: "4.2k", icon: "fa-building-columns", img: IMG.family, tagColor: "amber" },
-                    { id: 'c2', type: 'video', title: "【智库解读】3分钟带你看懂2026美联储降息对离岸资产配置的影响", category: "港美股", time: "25分钟前", reads: "8.5k", icon: "fa-play-circle", duration: "03:45", img: IMG.stock, tagColor: "purple" },
-                    { id: 'c3', type: 'replay', title: "陶老师闭门精选录播：家族信托架构中的资产隔离效力与防攻防实操", category: "家族办公室", time: "2小时前", reads: "1.2万", icon: "fa-lock", duration: "48:20", img: IMG.family, tagColor: "amber" },
-                    { id: 'c4', type: 'article', title: "香港分红保单收益率精算与离岸信托隔离效力科普", category: "香港保险", time: "1小时前", reads: "6.8k", icon: "fa-shield-heart", img: IMG.insurance, tagColor: "blue" },
-                    { id: 'c5', type: 'video', title: "【实地走访视频】日本顶尖国际诊所早期癌症筛查与前沿再生医学体验", category: "高端医疗", time: "3小时前", reads: "5.1k", icon: "fa-play-circle", duration: "06:12", img: IMG.medical, tagColor: "emerald" },
-                    { id: 'c6', type: 'article', title: "日本干细胞治疗与早期防癌筛查的技术边界：高净值健康常识", category: "高端医疗", time: "3小时前", reads: "3.1k", icon: "fa-notes-medical", img: IMG.japan, tagColor: "emerald" },
-                    { id: 'c7', type: 'replay', title: "牧笛研讨会录播：美股科技巨头期权组合对冲策略深度拆解", category: "港美股", time: "昨天", reads: "9.5k", icon: "fa-video", duration: "55:10", img: IMG.stock, tagColor: "purple" }
-                ],
-                insurance: [
-                    { id: 'c4', type: 'article', title: "香港分红保单收益率精算与离岸信托隔离效力科普", category: "香港保险", time: "1小时前", reads: "6.8k", icon: "fa-shield-heart", img: IMG.insurance, tagColor: "blue" },
-                    { id: 'c8', type: 'video', title: "【视频科普】香港保险分红机制（履行比率）如何客观评估？", category: "香港保险", time: "昨天", reads: "7.2k", icon: "fa-play-circle", duration: "05:18", img: IMG.insurance, tagColor: "blue" },
-                    { id: 'c9', type: 'replay', title: "陶老师录播：大额储蓄保单在家族传承中的避坑图谱", category: "香港保险", time: "2天前", reads: "8.9k", icon: "fa-video", duration: "42:15", img: IMG.hk, tagColor: "blue" }
-                ],
-                health: [
-                    { id: 'c5', type: 'video', title: "【实地走访视频】日本顶尖国际诊所早期癌症筛查与前沿再生医学体验", category: "高端医疗", time: "3小时前", reads: "5.1k", icon: "fa-play-circle", duration: "06:12", img: IMG.medical, tagColor: "emerald" },
-                    { id: 'c6', type: 'article', title: "日本干细胞治疗与早期防癌筛查的技术边界：高净值健康常识", category: "高端医疗", time: "3小时前", reads: "3.1k", icon: "fa-notes-medical", img: IMG.japan, tagColor: "emerald" },
-                    { id: 'c10', type: 'article', title: "瑞士质子重离子治疗通道与国际医疗转诊注意事项", category: "高端医疗", time: "3天前", reads: "2.4k", icon: "fa-notes-medical", img: IMG.medical, tagColor: "emerald" }
-                ],
-                stock: [
-                    { id: 'c2', type: 'video', title: "【智库解读】3分钟带你看懂2026美联储降息对离岸资产配置的影响", category: "港美股", time: "25分钟前", reads: "8.5k", icon: "fa-play-circle", duration: "03:45", img: IMG.stock, tagColor: "purple" },
-                    { id: 'c7', type: 'replay', title: "牧笛研讨会录播：美股科技巨头期权组合对冲策略深度拆解", category: "港美股", time: "昨天", reads: "9.5k", icon: "fa-video", duration: "55:10", img: IMG.stock, tagColor: "purple" },
-                    { id: 'c11', type: 'article', title: "美股科技巨头期权组合对冲策略研判（附智库PDF摘要）", category: "港美股", time: "3天前", reads: "5.5k", icon: "fa-chart-line", img: IMG.stock, tagColor: "purple" }
-                ],
-                estate: [
-                    { id: 'c12', type: 'video', title: "【视频实拍】伦敦与新加坡核心豪宅项目租息率与持仓成本考量", category: "全球房产", time: "2天前", reads: "4.8k", icon: "fa-play-circle", duration: "08:30", img: IMG.property, tagColor: "amber" },
-                    { id: 'c13', type: 'article', title: "伦敦与新加坡优质核心资产租息率与持有成本算盘", category: "全球房产", time: "4天前", reads: "1.9k", icon: "fa-city", img: IMG.property, tagColor: "amber" }
-                ],
-                family: [
-                    { id: 'c1', type: 'article', title: "单一家族办公室（SFO）架构选址：新加坡、香港与迪拜税务合规全对比", category: "家族办公室", time: "10分钟前", reads: "4.2k", icon: "fa-building-columns", img: IMG.family, tagColor: "amber" },
-                    { id: 'c3', type: 'replay', title: "陶老师闭门精选录播：家族信托架构中的资产隔离效力与防攻防实操", category: "家族办公室", time: "2小时前", reads: "1.2万", icon: "fa-lock", duration: "48:20", img: IMG.family, tagColor: "amber" },
-                    { id: 'c14', type: 'article', title: "家族办公室年度治理清单：架构、信托、税务与身份如何同步规划", category: "家族办公室", time: "昨天", reads: "3.6k", icon: "fa-building-columns", img: IMG.boardroom, tagColor: "amber" }
-                ]
-            }
+            ]
         };
 
         const ACTIVITY_DETAILS = {
@@ -2154,61 +1859,6 @@
             family:    { name: '家办黑金', desc: '家族办公室赛道', icon: 'fa-building-columns', base: 'from-amber-300 via-amber-500 to-yellow-600', fg: 'text-slate-950' }
         };
 
-        const COLUMN_PAGES = {
-            taoteacher: {
-                title: '陶老师专栏',
-                subtitle: '家办架构 · 传承规则 · 合规避坑',
-                tag: '深度专栏',
-                stats: '12期更新 · 4.8万订阅',
-                desc: '聚焦家族办公室、资产隔离、身份规划与高净值合规框架，沉淀长期可复看的专题内容。',
-                cover: IMG.family,
-                items: [
-                    { kind: 'article', title: '单一家办架构搭建的 6 个关键节点', meta: '专题文章 · 8分钟前', action: '阅读' },
-                    { kind: 'article', title: '离岸信托与家族控股平台常见误区', meta: '深度研报 · 今天', action: '阅读' },
-                    { kind: 'replay', title: '2026 家办架构闭门课：避坑与实操图谱', meta: '闭门录播 · 48:20', action: '回放', img: IMG.family, speaker: '陶老师' }
-                ]
-            },
-            mudi: {
-                title: '牧笛专栏',
-                subtitle: '市场研判 · 波动复盘 · 组合框架',
-                tag: '研判专栏',
-                stats: '每周更新 · 5.6万订阅',
-                desc: '围绕港美股、美元资产与波动对冲展开内容输出，适合持续跟踪市场节奏和交易框架。',
-                cover: IMG.stock,
-                items: [
-                    { kind: 'video', title: '美元资产回撤期的组合防守框架', meta: '专题视频 · 06:40', action: '观看', img: IMG.stock, speaker: '牧笛老师' },
-                    { kind: 'article', title: '美股科技巨头估值切换的三个判断点', meta: '图文复盘 · 昨天', action: '阅读' },
-                    { kind: 'replay', title: '四季度市场波动与科技股对冲策略直播复盘', meta: '回放专题 · 55:10', action: '回放', img: IMG.stock, speaker: '牧笛老师' }
-                ]
-            },
-            closed: {
-                title: '闭门专题',
-                subtitle: '私密内容 · 精选纪要 · 内参回放',
-                tag: '闭门专享',
-                stats: '会员限定 · 32个专题',
-                desc: '归档陶老师、牧笛老师及特邀嘉宾的闭门内容，集中呈现实地纪要、录播与专题整理。',
-                cover: IMG.boardroom,
-                items: [
-                    { kind: 'replay', title: '香港顶级家办闭门交流纪要', meta: '闭门纪要 · 34:12', action: '回放', img: IMG.hk, speaker: '王经理' },
-                    { kind: 'replay', title: '税务合规与资产隔离圆桌复盘', meta: '闭门录播 · 42:10', action: '回放', img: IMG.boardroom, speaker: '陶老师' },
-                    { kind: 'article', title: '闭门专题摘要：高净值跨境结构规划', meta: '内部摘要 · 2天前', action: '阅读' }
-                ]
-            },
-            bigshots: {
-                title: '维港夜话',
-                subtitle: '香港视角 · 夜谈复盘 · 大咖对谈',
-                tag: '夜话栏目',
-                stats: '香港夜场 · 18期',
-                desc: '以香港视角展开的夜谈专栏，聚焦港险、家办、跨境资产与高净值圈层的一线讨论内容。',
-                cover: IMG.hk,
-                items: [
-                    { kind: 'video', title: '维港夜话 Vol.18：港险与家办协同怎么做', meta: '夜话视频 · 14:20', action: '观看', img: IMG.hk, speaker: '陶老师 × 香港顾问' },
-                    { kind: 'article', title: '香港高净值服务链条里的关键资源位', meta: '夜话笔记 · 今天', action: '阅读' },
-                    { kind: 'replay', title: '维港夜话：跨境资产与离岸身份夜谈回放', meta: '夜话回放 · 36:55', action: '回放', img: IMG.insurance, speaker: '牧笛老师 × 陶老师' }
-                ]
-            }
-        };
-
         /* ---------- 三期预览：阶段可见性编排 ---------- */
         function applyPhaseGate() {
             document.body.classList.remove('phase-1', 'phase-2', 'phase-3');
@@ -2220,18 +1870,12 @@
                 [...document.querySelectorAll(`${scopeSel} ${sel}`)].find(e => e.textContent.includes(txt));
 
             if (PHASE < 3) {
-                // —— 三期功能：商城 / AI 客服 / 投资者认证 / 售后退款 ——
-                ph(document.getElementById('page-mall'), 3);
+                // 严选和 AI 已调整为三期共同能力；认证与售后仍在三期。
                 ph(document.getElementById('compliance-modal'), 3);
                 ph(document.getElementById('after-sales-modal'), 3);
                 ph(document.getElementById('settings-compliance-entry'), 3);
-                ph(document.getElementById('trade-tab-goods'), 3);
                 ph(document.getElementById('trade-records-subtitle'), 3);
-                ph(document.getElementById('ai-chat-modal'), 3);
-                ph(node('header button[onclick="toggleAiChat()"]'), 3);
-                ph(document.getElementById('home-mall-list')?.closest('.card-white'), 3);
                 ph(byText('#page-member', 'p', '退款与售后'), 3);
-                ph(document.getElementById('article-detail-manager-cta'), 3);
             }
 
             if (PHASE < 2) {
@@ -2239,16 +1883,12 @@
                 ph(document.getElementById('notification-modal'), 2);
                 ph(document.getElementById('activity-calendar-modal'), 2);
                 ph(document.getElementById('special-access-modal'), 2);
-                ph(document.getElementById('channel-tabs'), 2);
-                ph(document.getElementById('media-type-tags'), 2);
                 ph(document.getElementById('user-tier-badge'), 2);
                 ph(document.getElementById('member-rights-grid')?.closest('.card-white'), 2);
                 ph(node('.member-radar-shell')?.closest('.mt-4'), 2);
                 ph(document.getElementById('home-preview-list')?.parentElement, 2);
-                ph(node('#page-home > .grid.grid-cols-4'), 2);
                 ph(node('header button[onclick="openNotificationModal()"]'), 2);
                 ph(byText('#page-activity', 'button', '活动日历'), 2);
-                ph(byText('#page-channels', 'span', '5 大财富赛道'), 2);
                 ph(document.getElementById('activity-detail-threshold-badge')?.closest('div.rounded-xl'), 2);
                 ph(document.getElementById('booking-gate')?.closest('p'), 2);
                 ph(document.getElementById('booking-restricted-area'), 2);
@@ -2266,16 +1906,16 @@
             if (!shell) return;
             const names = { 1: '极简基础版', 2: '内容与会员服务', 3: '交易与服务扩展' };
             const scope = {
-                1: '直播 · 文章 · 活动支付 · 我的',
-                2: '＋ 会员等级 / 五富徽章 / 特权 / 频道完善 / 活动日历',
-                3: '＋ 牧笛严选商城 / AI 客服 / 投资者认证 / 售后退款'
+                1: '直播 · 严选 · AI 分身 · AI 五富评估',
+                2: '＋ 会员等级 / 五富徽章 / 特权 / 活动日历',
+                3: '＋ 投资者认证 / 售后退款'
             };
             const pills = [1, 2, 3].map(n => {
                 const active = n === PHASE;
                 const cls = active
                     ? 'bg-amber-400 text-slate-950 border-amber-300'
                     : 'bg-slate-900 text-slate-400 border-slate-700 hover:text-amber-300';
-                return `<a href="?phase=${n}" class="px-2 py-0.5 rounded-full text-[10px] font-bold border transition ${cls}">第${n}期</a>`;
+                return `<a href="?phase=${n}&v=20261121-ai6" class="px-2 py-0.5 rounded-full text-[10px] font-bold border transition ${cls}">第${n}期</a>`;
             }).join('');
             const bar = document.createElement('div');
             bar.className = 'w-full bg-slate-950 text-amber-300 px-3 py-1.5 border-b border-amber-400/30 flex items-center justify-between gap-2';
@@ -2300,10 +1940,10 @@
         // 尽早应用期次可见性，避免完整版界面闪现
         document.addEventListener('DOMContentLoaded', applyPhaseAll);
 
-        window.onload = function() {
+        document.addEventListener('DOMContentLoaded', function() {
             applyPhaseAll();
             renderActivities(appState.currentActivityFilter || 'all');
-            renderChannelContents('all');
+            renderTeacherCards();
             renderHomePreviews();
             renderHomeReplays();
             renderMyItineraryPreview();
@@ -2316,7 +1956,7 @@
             renderComplianceUI();
             document.getElementById('order-count').innerText = appState.orders.length;
             if (!appState.currentUser.loggedIn) showLoginGate();
-        };
+        });
 
         /* ---------- 登录 / 账号体系 ---------- */
         let loginCodeSent = false;
@@ -2477,7 +2117,8 @@
         }
 
         function switchTab(tabId) {
-            const pages = ['home', 'channels', 'activity', 'member', 'mall'];
+            if (tabId === 'channels') tabId = 'mall';
+            const pages = ['home', 'activity', 'member', 'mall'];
             pages.forEach(p => {
                 const el = document.getElementById(`page-${p}`);
                 const nav = document.getElementById(`nav-${p}`);
@@ -2499,6 +2140,8 @@
             // 设置入口仅在「我的」页右上角显示
             const settingsBtn = document.getElementById('header-settings-btn');
             if (settingsBtn) settingsBtn.classList.toggle('hidden', tabId !== 'member');
+            document.getElementById('app-body').scrollTop = 0;
+            window.scrollTo({ top: 0, behavior: 'instant' });
         }
 
         function getPreviewReserveBtnClass(item, compact = false) {
@@ -2919,179 +2562,6 @@
             }).join('');
         }
 
-        function renderChannelContents(channelKey, mediaType = 'all') {
-            if (PHASE < 2) mediaType = 'article'; // 一期仅提供文章阅读
-            const container = document.getElementById('channel-list');
-            container.innerHTML = '';
-            container.className = 'space-y-3';
-            let items = appState.channelContents[channelKey] || appState.channelContents.all;
-
-            if (mediaType !== 'all') {
-                items = items.filter(item => item.type === mediaType);
-            }
-
-            if (items.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 text-slate-400 space-y-2">
-                        <i class="fa-regular fa-folder-open text-3xl"></i>
-                        <p class="text-xs">暂无该类型的精选内容，智库团队正在更新中...</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const TYPE_META = {
-                article: { label: '图文', chip: 'bg-amber-100 text-amber-800 border-amber-200', icon: 'fa-regular fa-file-lines', action: '阅读' },
-                video:   { label: '视频', chip: 'bg-fuchsia-100 text-fuchsia-800 border-fuchsia-200', icon: 'fa-solid fa-play', action: '观看' },
-                replay:  { label: '录播', chip: 'bg-red-100 text-red-700 border-red-200', icon: 'fa-solid fa-video', action: '回放' }
-            };
-
-            function buildVideoCard(item, meta, clickAction) {
-                return `
-                    <div class="card-white rounded-xl overflow-hidden cursor-pointer card-white-hover" onclick="${clickAction}">
-                        <div class="relative h-28">
-                            <img src="${item.img}" class="block w-full h-full object-cover">
-                            <span class="absolute top-1.5 left-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded border ${meta.chip} bg-white/90 backdrop-blur-sm shadow-sm">${meta.label}</span>
-                            <span class="absolute bottom-1.5 right-1.5 bg-slate-900/80 text-white text-[10px] px-1.5 py-0.5 rounded backdrop-blur-sm">${item.duration || '03:00'}</span>
-                        </div>
-                        <div class="p-2.5 space-y-1">
-                            <div class="flex items-center gap-1.5">
-                                <span class="text-[10px] text-slate-400 truncate">${item.category}</span>
-                            </div>
-                            <h4 class="text-xs font-bold text-slate-800 line-clamp-2">${item.title}</h4>
-                            <div class="flex justify-between items-center text-[10px] text-slate-400 pt-1">
-                                <span>${item.reads}</span>
-                                <span class="text-fuchsia-700 font-semibold"><i class="fa-solid fa-circle-play mr-1"></i>${meta.action}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }
-
-            if (mediaType === 'video') {
-                container.className = 'grid grid-cols-2 gap-3';
-                container.innerHTML = items.map(item => {
-                    const meta = TYPE_META.video;
-                    const clickAction = `openLiveRoom('${item.title}', '智库精选内容', '${item.img}')`;
-                    return buildVideoCard(item, meta, clickAction);
-                }).join('');
-                return;
-            }
-            const usedVideoIndexes = new Set();
-
-            function renderVideoPair(startIndex) {
-                const pair = [];
-                for (let i = startIndex; i < items.length && pair.length < 2; i++) {
-                    if (items[i].type === 'video' && !usedVideoIndexes.has(i)) {
-                        usedVideoIndexes.add(i);
-                        pair.push(items[i]);
-                    }
-                }
-                if (!pair.length) return;
-                const cards = pair.map(videoItem => {
-                    const videoMeta = TYPE_META.video;
-                    const videoClick = `openLiveRoom('${videoItem.title}', '智库精选内容', '${videoItem.img}')`;
-                    return buildVideoCard(videoItem, videoMeta, videoClick);
-                });
-                container.insertAdjacentHTML('beforeend', `
-                    <div class="grid grid-cols-2 gap-3">
-                        ${cards.join('')}
-                    </div>
-                `);
-            }
-
-            items.forEach((item, index) => {
-                const meta = TYPE_META[item.type];
-                const clickAction = item.type === 'article'
-                    ? `openArticleDetail('${item.id}')`
-                    : `openLiveRoom('${item.title}', '智库精选内容', '${item.img}')`;
-                const articleSummary = `聚焦${item.category}的一线判断与重点拆解，适合快速掌握核心信息。`;
-                let cardHtml = '';
-
-                if (item.type === 'video') {
-                    if (usedVideoIndexes.has(index)) return;
-                    renderVideoPair(index);
-                    return;
-                } else if (item.type === 'article') {
-                    cardHtml = `
-                        <div class="card-white rounded-2xl overflow-hidden card-white-hover cursor-pointer border border-slate-200 p-3" onclick="${clickAction}">
-                            <div class="flex items-start gap-3">
-                                <div class="relative w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-amber-50 border border-amber-200">
-                                    <img src="${item.img}" class="block w-full h-full object-cover">
-                                </div>
-                                <div class="flex-1 min-w-0 space-y-1.5">
-                                    <div class="flex items-center gap-1.5 flex-wrap">
-                                        <span class="text-[9px] font-bold px-1.5 py-0.5 rounded border ${meta.chip} whitespace-nowrap">${meta.label}</span>
-                                        <span class="text-[10px] text-slate-400">${item.category}</span>
-                                    </div>
-                                    <h3 class="text-sm font-bold text-slate-900 leading-snug line-clamp-2">${item.title}</h3>
-                                    <p class="text-[11px] text-slate-500 leading-relaxed line-clamp-2">${articleSummary}</p>
-                                    <div class="flex justify-between items-center text-[10px] text-slate-400 pt-1">
-                                        <span class="flex items-center"><i class="fa-regular fa-eye mr-1"></i>${item.reads}<span class="mx-1">·</span>${item.time}</span>
-                                        <span class="text-amber-700 font-semibold flex items-center whitespace-nowrap">${meta.action} <i class="fa-solid fa-chevron-right text-[8px] ml-0.5"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    cardHtml = `
-                        <div class="rounded-2xl overflow-hidden cursor-pointer border border-slate-800 bg-slate-950 shadow-[0_18px_40px_rgba(15,23,42,0.28)]" onclick="${clickAction}">
-                            <div class="flex items-stretch">
-                                <div class="relative w-28 flex-shrink-0 overflow-hidden">
-                                    <img src="${item.img}" class="absolute inset-0 block w-full h-full object-cover">
-                                    <div class="absolute inset-0 bg-gradient-to-br from-slate-950/45 via-slate-950/25 to-black/75"></div>
-                                    <span class="absolute top-2 left-2 bg-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded flex items-center shadow">
-                                        <i class="fa-solid fa-record-vinyl text-[7px] mr-1"></i>录播
-                                    </span>
-                                    <span class="absolute bottom-2 right-2 bg-black/65 text-white text-[9px] px-1.5 py-0.5 rounded backdrop-blur-sm">${item.duration || '回放'}</span>
-                                </div>
-                                <div class="flex-1 min-w-0 p-3.5 flex flex-col justify-between">
-                                    <div class="space-y-2">
-                                        <div class="flex items-center justify-between gap-2">
-                                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded border ${meta.chip} whitespace-nowrap">${meta.label}</span>
-                                            <span class="text-[10px] text-red-200/85">已归档</span>
-                                        </div>
-                                        <h3 class="text-xs font-bold text-white leading-snug line-clamp-2">${item.title}</h3>
-                                        <p class="text-[10px] text-slate-400 line-clamp-1">${item.category} · 闭门内容存档</p>
-                                    </div>
-                                    <div class="flex justify-between items-center text-[10px] pt-2">
-                                        <span class="text-slate-400 flex items-center"><i class="fa-regular fa-eye mr-1"></i>${item.reads}<span class="mx-1 text-slate-600">·</span>${item.time}</span>
-                                        <span class="text-red-300 font-semibold flex items-center whitespace-nowrap">${meta.action} <i class="fa-solid fa-chevron-right text-[8px] ml-0.5"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                container.insertAdjacentHTML('beforeend', cardHtml);
-            });
-        }
-
-        function switchChannelTab(channelKey, btn) {
-            appState.currentChannelTab = channelKey;
-            document.querySelectorAll('.channel-tab-btn').forEach(b => {
-                b.classList.remove('bg-slate-900', 'text-white', 'font-bold', 'border-slate-900', 'shadow-sm');
-                b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
-            });
-            btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
-            btn.classList.add('bg-slate-900', 'text-white', 'font-bold', 'border-slate-900', 'shadow-sm');
-            renderChannelContents(appState.currentChannelTab, appState.currentMediaType);
-        }
-
-        function filterMediaType(mediaType, btn) {
-            appState.currentMediaType = mediaType;
-            document.querySelectorAll('.media-type-btn').forEach(b => {
-                b.classList.remove('bg-slate-900', 'text-white', 'font-bold', 'border-slate-900', 'shadow-sm');
-                b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
-            });
-            btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
-            btn.classList.add('bg-slate-900', 'text-white', 'font-bold', 'border-slate-900', 'shadow-sm');
-            
-            renderChannelContents(appState.currentChannelTab, appState.currentMediaType);
-        }
-
         function getMemberTierMetaByKey(key) {
             return MEMBER_TIERS.find(t => t.key === key) || MEMBER_TIERS[0];
         }
@@ -3123,6 +2593,7 @@
         }
 
         function hasNativeActivityAccess(act) {
+            if (PHASE === 1) return true;
             return hasRequiredTier(act?.minTier) && hasRequiredBadge(act?.requiredBadge);
         }
 
@@ -3637,6 +3108,14 @@
             document.getElementById('payment-success-modal').classList.add('hidden');
         }
 
+        function viewPaidOrder() {
+            const orderId = document.getElementById('payment-success-order-id').textContent;
+            const order = appState.orders.find(item => item.id === orderId);
+            closePaymentSuccessModal();
+            openTradeRecordsModal();
+            setTradeRecordsTab(order && order.type !== '活动席位' ? 'goods' : 'activity');
+        }
+
         function getActivityDetail(act) {
             return ACTIVITY_DETAILS[act.id] || {
                 audience: '适合关注高端活动资源、实地考察与商务转化的人群。',
@@ -3988,7 +3467,7 @@
             if (!listEl) return;
             if (subtitleEl) {
                 subtitleEl.innerText = currentTradeRecordsTab === 'goods'
-                    ? '商品订单能力预留，后续商城接入后在这里统一查看'
+                    ? '查看保健品与医疗服务订单'
                     : '查看活动订单状态、退款与售后进度';
             }
 
@@ -4019,7 +3498,7 @@
             };
 
             const activeOrders = currentTradeRecordsTab === 'goods' ? goodsOrders : activityOrders;
-            const emptyText = currentTradeRecordsTab === 'goods' ? '商城开放后，这里会展示商品类订单' : '当前暂无活动订单';
+            const emptyText = currentTradeRecordsTab === 'goods' ? '暂无严选订单' : '当前暂无活动订单';
             listEl.innerHTML = activeOrders.length ? activeOrders.map(buildOrderCard).join('') : `
                 <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center">
                     <p class="text-[11px] text-slate-400">${emptyText}</p>
@@ -4068,30 +3547,29 @@
         }
 
         function renderMallProducts() {
-            const homeList = document.getElementById('home-mall-list');
             const fullGrid = document.getElementById('mall-product-grid');
 
             const cardHtml = (p) => `
-                <div class="rounded-xl overflow-hidden border border-slate-200 bg-white cursor-pointer card-white-hover" onclick="openMallProductDetail('${p.id}')">
-                    <div class="relative h-24">
-                        <img src="${p.img}" class="w-full h-full object-cover">
+                <button class="text-left rounded-2xl overflow-hidden border border-slate-200 bg-white cursor-pointer card-white-hover" onclick="openMallProductDetail('${p.id}')">
+                    <div class="relative h-44">
+                        <img src="${p.img}" alt="${p.title}" class="w-full h-full object-cover">
                         <span class="absolute top-1.5 left-1.5 text-[9px] px-1.5 py-0.5 rounded bg-slate-900/85 text-amber-300 font-bold">${p.tag}</span>
                     </div>
-                    <div class="p-2 space-y-1">
-                        <p class="text-[11px] font-bold text-slate-900 leading-snug line-clamp-2 h-8">${p.title}</p>
+                    <div class="p-3 space-y-2">
+                        <p class="text-xs font-bold text-slate-900 leading-snug line-clamp-2 min-h-[32px]">${p.title}</p>
+                        <p class="text-[10px] text-slate-500 line-clamp-1">${p.subtitle}</p>
                         <div class="flex items-center justify-between">
                             <span class="text-[11px] font-bold ${p.price > 0 ? 'text-red-600' : 'text-slate-500'}">${p.price > 0 ? `¥${p.price.toLocaleString()}` : '邀请制'}</span>
                             <span class="text-[9px] text-slate-400">${p.type}</span>
                         </div>
                     </div>
-                </div>
+                </button>
             `;
 
             const heroImg = document.getElementById('mall-hero-img');
             if (heroImg) heroImg.src = IMG.mallHero;
 
-            if (homeList) homeList.innerHTML = appState.mallProducts.slice(0, 2).map(cardHtml).join('');
-            if (fullGrid) fullGrid.innerHTML = appState.mallProducts.map(cardHtml).join('');
+            if (fullGrid) fullGrid.innerHTML = appState.mallProducts.filter(p => currentMallFilter === 'all' || p.category === currentMallFilter).map(cardHtml).join('');
         }
 
         function getMallProduct(id) {
@@ -4117,7 +3595,7 @@
                     <i class="fa-solid fa-circle-check text-amber-600 mt-0.5 flex-shrink-0"></i><span>${text}</span>
                 </div>
             `).join('');
-            document.getElementById('mall-detail-cta').innerText = p.price > 0 ? '立即购买' : '申请席位';
+            document.getElementById('mall-detail-cta').innerText = p.category === 'medical' ? '立即预约' : '立即购买';
             document.getElementById('mall-detail-modal').classList.remove('hidden');
         }
 
@@ -4142,6 +3620,7 @@
             const amount = p.price || 0;
             currentMallProduct = p;
             mallBuyFromDetail = fromDetail;
+            document.getElementById('mall-buy-heading').textContent = p.category === 'medical' ? '医疗服务预约' : '严选商品结算';
 
             document.getElementById('mall-buy-back-btn').classList.toggle('hidden', !fromDetail);
             document.getElementById('mall-buy-img').src = p.img;
@@ -4153,15 +3632,17 @@
 
             const extraLabel = document.getElementById('mall-buy-extra-label');
             const extraInput = document.getElementById('input-mall-extra');
-            if (p.type === '实物甄选') {
+            if (p.category === 'nutrition') {
+                extraInput.type = 'text';
+                extraInput.removeAttribute('min');
                 extraLabel.innerText = '收货地址';
                 extraInput.placeholder = '例：上海市浦东新区世纪大道 100 号';
-            } else if (p.type === '私董会') {
-                extraLabel.innerText = '企业与核心诉求';
-                extraInput.placeholder = '例：希望了解东南亚资产配置与家办落地';
             } else {
-                extraLabel.innerText = '备注';
-                extraInput.placeholder = '例：希望开课后收到配套资料包';
+                extraInput.type = 'date';
+                const today = new Date();
+                extraInput.min = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+                extraLabel.innerText = '期望预约日期';
+                extraInput.placeholder = '例：2026-12-10（以服务确认日期为准）';
             }
 
             document.getElementById('mall-payment-area').classList.toggle('hidden', amount === 0);
@@ -4194,6 +3675,7 @@
 
         function submitMallOrder() {
             if (!currentMallProduct) return;
+            if (document.getElementById('btn-submit-mall').disabled) return;
             const p = currentMallProduct;
             const amount = p.price || 0;
 
@@ -4201,6 +3683,15 @@
             const phone = document.getElementById('input-mall-phone').value.trim();
             if (!name || !phone) {
                 showToast('请先补全姓名和联系电话');
+                return;
+            }
+            const extra = document.getElementById('input-mall-extra').value.trim();
+            if (!extra) {
+                showToast(p.category === 'nutrition' ? '请填写收货地址' : '请填写期望预约日期');
+                return;
+            }
+            if (p.category === 'medical' && !document.getElementById('input-mall-extra').checkValidity()) {
+                showToast('请选择今天或之后的预约日期');
                 return;
             }
 
@@ -4213,7 +3704,8 @@
                 appState.orders.unshift({
                     id: orderId,
                     title: p.title,
-                    type: '严选商品',
+                    type: p.category === 'medical' ? '医疗服务' : '严选商品',
+                    contact: { name, phone, extra },
                     amount,
                     status,
                     date: now,
@@ -4811,64 +4303,6 @@
             }, 2800);
         }
 
-        function toggleAiChat() {
-            const chatModal = document.getElementById('ai-chat-modal');
-            chatModal.classList.toggle('hidden');
-        }
-
-        function handleChatKeyPress(e) {
-            if (e.key === 'Enter') sendMessage();
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const chatBox = document.getElementById('chat-box');
-            const text = input.value.trim();
-
-            if (!text) return;
-
-            const userBubble = `
-                <div class="flex items-start justify-end space-x-2">
-                    <div class="bg-amber-600 text-white p-2.5 rounded-2xl rounded-tr-none font-medium max-w-[80%] shadow-sm">
-                        ${text}
-                    </div>
-                </div>
-            `;
-            chatBox.insertAdjacentHTML('beforeend', userBubble);
-            input.value = '';
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            setTimeout(() => {
-                let reply = "您好！陶笛汇智能智库助理已收到您的咨询。涉及高端资产配置与游学活动资质，建议联系您的专属商务经理进行1v1详谈。";
-                
-                if (text.includes("陶老师") || text.includes("直播")) {
-                    reply = "陶老师与牧笛老师的大咖闭门研讨直播定于每周五晚20:00，您可以在【直播】首页点击观看或设置提醒。";
-                } else if (text.includes("勋章") || text.includes("徽章")) {
-                    reply = "五富徽章和会员等级是两套体系。会员等级看 APP 与线下总消费，五富徽章只看某一类服务的消费沉淀，各自独立计算。";
-                } else if (text.includes("游学") || text.includes("香港")) {
-                    reply = "香港顶级家族办公室游学团包含参访汇丰私人银行与瑞银亚太总部。您可以在【活动】板块查看详情并提交报名名额。";
-                }
-
-                const aiBubble = `
-                    <div class="flex items-start space-x-2">
-                        <div class="w-7 h-7 rounded-full bg-amber-100 border border-amber-300 text-amber-800 flex items-center justify-center text-xs flex-shrink-0 font-bold">
-                            五
-                        </div>
-                        <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-slate-200 text-slate-700 space-y-1 max-w-[85%] shadow-sm">
-                            <p>${reply}</p>
-                        </div>
-                    </div>
-                `;
-                chatBox.insertAdjacentHTML('beforeend', aiBubble);
-                chatBox.scrollTop = chatBox.scrollHeight;
-            }, 600);
-        }
-
-        function quickAsk(q) {
-            document.getElementById('chat-input').value = q;
-            sendMessage();
-        }
-
         function transferToHumanDirect() {
             const chatModal = document.getElementById('ai-chat-modal');
             if (chatModal && !chatModal.classList.contains('hidden')) {
@@ -4959,155 +4393,7 @@
             updateUnreadDot();
         }
 
-        function renderColumnPage(type) {
-            const column = COLUMN_PAGES[type] || COLUMN_PAGES.taoteacher;
-            document.getElementById('column-page-title').innerText = column.title;
-            document.getElementById('column-page-subtitle').innerText = column.subtitle;
-            document.getElementById('column-page-cover').src = column.cover;
-            document.getElementById('column-page-tag').innerText = column.tag;
-            document.getElementById('column-page-stats').innerText = column.stats;
-            document.getElementById('column-page-desc').innerText = column.desc;
-
-            document.getElementById('column-page-list').innerHTML = column.items.map((item, idx) => `
-                <div class="card-white rounded-2xl p-3 border border-slate-200">
-                    <div class="flex items-start space-x-3">
-                        <div class="w-20 h-20 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100">
-                            ${item.img ? `<img src="${item.img}" class="w-full h-full object-cover">` : `<div class="w-full h-full flex items-center justify-center text-amber-700 bg-amber-50"><i class="fa-solid fa-book-open text-xl"></i></div>`}
-                        </div>
-                        <div class="flex-1 min-w-0 space-y-2">
-                            <p class="text-[10px] text-slate-400">${item.meta}</p>
-                            <h4 class="text-sm font-bold text-slate-900 leading-snug">${item.title}</h4>
-                            <div class="flex items-center justify-between gap-2">
-                                <span class="text-[11px] text-slate-500">${item.kind === 'article' ? '专题图文' : item.kind === 'video' ? '专题视频' : '专题回放'}</span>
-                                <button onclick="handleColumnItemClick('${type}', ${idx})" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white text-[11px] font-bold">
-                                    ${item.action}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function openColumnPage(type) {
-            renderColumnPage(type);
-            document.getElementById('column-page-scroll').scrollTop = 0;
-            document.getElementById('column-page-modal').classList.remove('hidden');
-        }
-
-        function closeColumnPage() {
-            document.getElementById('column-page-modal').classList.add('hidden');
-        }
-
-        function handleColumnItemClick(type, idx) {
-            const column = COLUMN_PAGES[type] || COLUMN_PAGES.taoteacher;
-            const item = column.items[idx];
-            if (!item) return;
-
-            if (item.kind === 'article') {
-                openArticleDetail({
-                    title: item.title,
-                    category: column.title,
-                    time: item.meta,
-                    reads: '',
-                    img: item.img || IMG.banner
-                });
-                return;
-            }
-
-            closeColumnPage();
-            openLiveRoom(item.title, item.speaker || column.title, item.img || IMG.banner);
-        }
-
-        const ARTICLE_BODIES = {
-            '家族办公室': {
-                lead: '家族办公室的落地不是一个注册动作，而是一套身份、税务、资产隔离与传承节奏的同步工程。',
-                sections: [
-                    { h: '选址维度', p: '新加坡、香港与迪拜在税制、监管透明度与身份便利性上各有取舍。选择时应优先看家族资产的所在地、下一代教育与居住计划，而不是单点税率。' },
-                    { h: '架构边界', p: '信托、控股平台与家办主体之间的持股关系一旦错配，后续调整成本极高。建议在落地前先固定受益人范围与分配机制。' },
-                    { h: '合规红线', p: 'CRS 与实质经营要求是两条硬约束。家族成员身份、实际管理地与经济实质三者需要保持一致，否则容易触发穿透审查。' }
-                ]
-            },
-            '香港保险': {
-                lead: '分红保单的核心价值不在收益率本身，而在确定性与资产隔离效力。',
-                sections: [
-                    { h: '收益结构', p: '保证与非保证部分的配比决定了长期现金流的稳定性。评估时建议看 20 年以上的分红实现率，而不是首年演示数字。' },
-                    { h: '隔离效力', p: '通过明确投保人、被保险人与受益人结构，可以在一定程度上实现债务隔离与传承定向，但需要配合信托使用才完整。' },
-                    { h: '配置节奏', p: '建议按家庭成员的年龄与责任分档配置，避免在单一保单上过度集中。' }
-                ]
-            },
-            '高端医疗': {
-                lead: '高端医疗配置的关键不是医院排名，而是从筛查到治疗的可达性。',
-                sections: [
-                    { h: '筛查路径', p: '日本与瑞士在早筛和精准治疗上各有优势。选择前需先明确家族病史，再匹配对应检查项目，而不是按套餐购买。' },
-                    { h: '就医衔接', p: '海外就医最难的是转诊与病历流转。提前建立医疗绿通与翻译支持，能显著缩短从确诊到治疗的时间。' },
-                    { h: '成本测算', p: '除治疗费用外，陪护、转运与后续复查都是长期支出，建议纳入年度健康预算统一管理。' }
-                ]
-            },
-            '港美股': {
-                lead: '美元资产的波动从来不是单一变量驱动的，判断框架比预测点位更重要。',
-                sections: [
-                    { h: '估值切换', p: '当利率预期发生变化时，成长股与价值股的估值切换往往先于财报体现。跟踪资金流向比跟踪盈利预测更及时。' },
-                    { h: '对冲工具', p: '期权与反向 ETF 各有成本与时间损耗。对冲比例建议与持仓集中度挂钩，而不是固定比例。' },
-                    { h: '仓位纪律', p: '单一标的的仓位上限应在建仓前设定。波动放大时，纪律比判断更能保住组合。' }
-                ]
-            },
-            '全球房产': {
-                lead: '海外核心资产的价值取决于持有成本与退出通道，而不是单价。',
-                sections: [
-                    { h: '租息测算', p: '名义租金回报需要扣除税费、管理费与空置期。核心城市的实际到手回报通常低于宣传数据 1-2 个百分点。' },
-                    { h: '持有结构', p: '直接持有与通过公司持有在税务与传承上差异明显，家庭成员身份还会影响可持有的比例。' },
-                    { h: '退出通道', p: '流动性是海外房产最大的隐性成本。购买前应先确认转售周期与资本利得税安排。' }
-                ]
-            },
-            _default: {
-                lead: '本篇文章聚焦高净值家庭在做跨境资产决策时最容易被忽略的判断维度。',
-                sections: [
-                    { h: '核心判断', p: '决策应基于家族资产的真实结构与长期目标，而不是市场短期情绪。' },
-                    { h: '落地要点', p: '方案落地前需明确参与主体、持有结构与退出机制，避免中途调整带来额外成本。' },
-                    { h: '风险提示', p: '跨境安排涉及税务与合规多重约束，建议在专业顾问参与下推进。' }
-                ]
-            }
-        };
-
-        function openArticleDetail(item) {
-            if (typeof item === 'string') {
-                let found = null;
-                Object.values(appState.channelContents).some(list => {
-                    const hit = list.find(x => x.id === item && x.type === 'article');
-                    if (hit) { found = hit; return true; }
-                    return false;
-                });
-                item = found;
-            }
-            if (!item) return;
-
-            const body = ARTICLE_BODIES[item.category] || ARTICLE_BODIES._default;
-
-            document.getElementById('article-detail-category').innerText = item.category;
-            document.getElementById('article-detail-cover').src = item.img;
-            document.getElementById('article-detail-title').innerText = item.title;
-            document.getElementById('article-detail-time').innerText = item.time || '';
-            document.getElementById('article-detail-reads').innerText = item.reads ? `· ${item.reads} 阅读` : '';
-            document.getElementById('article-detail-lead').innerText = body.lead;
-            document.getElementById('article-detail-body').innerHTML = body.sections.map(sec => `
-                <div class="space-y-1.5">
-                    <h3 class="text-sm font-bold text-slate-900">${sec.h}</h3>
-                    <p class="text-[12px] text-slate-600 leading-relaxed">${sec.p}</p>
-                </div>
-            `).join('');
-
-            document.getElementById('article-detail-scroll').scrollTop = 0;
-            document.getElementById('article-detail-modal').classList.remove('hidden');
-        }
-
-        function closeArticleDetail() {
-            document.getElementById('article-detail-modal').classList.add('hidden');
-        }
-
-        function filterContent(type) {
-            openColumnPage(type);
-        }
     </script>
+    <script src="./ai-experience.js?v=20261121-ai6"></script>
 </body>
 </html>
