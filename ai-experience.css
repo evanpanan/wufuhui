@@ -71,11 +71,18 @@ body.experience-modal-open { overflow: hidden; }
 .teacher-text-panel[hidden], .teacher-call-panel[hidden] { display: none; }
 .teacher-text-panel .teacher-chat-box { min-height: 0; }
 .teacher-portrait-actions { display: flex; gap: 6px; flex-wrap: wrap; }
-.teacher-text-panel .teacher-input { padding: 10px 14px 6px; }
+.teacher-text-panel .teacher-input { padding: 10px 14px max(12px,env(safe-area-inset-bottom)); }
 .teacher-input .teacher-input-mic { padding: 10px; background: #f0e9da; color: #927039; }
 .listening .teacher-input .teacher-input-mic { color: white; background: #947039; }
 .teacher-chat-toolbar { display: flex; align-items: center; gap: 8px; justify-content: space-between; padding: 6px 14px max(12px,env(safe-area-inset-bottom)); background: white; flex-shrink: 0; }
 .teacher-chat-toolbar p { font-size: 10px; line-height: 1.5; color: #697586; flex: 1; }
+.teacher-chat-toolbar:not(:has(p:not(:empty))),
+.teacher-call-transcript:not(:has(p:not(:empty))),
+.teacher-call-status:empty,
+#teacher-call-question:empty,
+#teacher-call-caption:empty,
+#teacher-portrait-source:empty,
+#teacher-call-source:empty { display: none; }
 .teacher-dialog.voice-mode { background: #101c2b; color: #f6e8cd; }
 .voice-mode .teacher-switch { background: #ffffff0d; }
 .voice-mode .teacher-switch button { color: #b7c3d1; }

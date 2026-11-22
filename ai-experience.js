@@ -24,10 +24,10 @@ const TEACHER_AVATARS = {
     }
 };
 const HOME_COLUMNS = {
-    tao: { title: '陶老师专栏', description: '家庭保障与传承规划 · 视频回放', replayIds: ['rp1', 'rp3'] },
-    mudi: { title: '牧笛专栏', description: '全球视野与市场观察 · 视频回放', replayIds: ['rp4'] },
-    closed: { title: '闭门专题', description: '闭门研讨与交流精华 · 视频回放', replayIds: ['rp1', 'rp6'] },
-    harbour: { title: '维港夜话', description: '全球市场与健康议题 · 视频回放', replayIds: ['rp4', 'rp2'] }
+    tao: { title: '陶老师专栏', description: '家庭保障与传承规划', edition: '01', topics: ['家庭保障', '传承规划'], replayIds: ['rp1', 'rp3'] },
+    mudi: { title: '牧笛专栏', description: '全球视野与市场观察', edition: '02', topics: ['全球视野', '市场观察'], replayIds: ['rp4'] },
+    closed: { title: '闭门专题', description: '闭门研讨与交流精华', edition: '03', topics: ['闭门研讨', '游学交流'], replayIds: ['rp1', 'rp6'] },
+    harbour: { title: '维港夜话', description: '全球市场与健康议题', edition: '04', topics: ['全球市场', '健康议题'], replayIds: ['rp4', 'rp2'] }
 };
 function getHomeColumnReplays(key) {
     const column = HOME_COLUMNS[key];
@@ -36,27 +36,57 @@ function getHomeColumnReplays(key) {
 function openHomeColumn(key) {
     const column = HOME_COLUMNS[key];
     if (!column) return;
+    const page = document.getElementById('home-column-modal');
+    page.dataset.column = key;
     document.getElementById('home-column-title').textContent = column.title;
+    document.getElementById('home-column-cover-title').textContent = column.title;
     document.getElementById('home-column-description').textContent = column.description;
+    document.getElementById('home-column-edition').textContent = column.edition;
+    const replays = getHomeColumnReplays(key);
+    document.getElementById('home-column-count').textContent = `${replays.length} 部回放`;
+    const topics = document.getElementById('home-column-topics');
+    topics.replaceChildren();
+    column.topics.forEach(topic => {
+        const label = document.createElement('span');
+        label.textContent = topic;
+        topics.append(label);
+    });
     const list = document.getElementById('home-column-list');
     list.replaceChildren();
-    getHomeColumnReplays(key).forEach(item => {
+    replays.forEach((item, index) => {
         const card = document.createElement('button');
+        card.type = 'button';
         card.className = 'home-column-replay';
+        card.setAttribute('aria-label', `播放回放：${item.title}`);
         card.onclick = () => {
-            closeExperienceModal('home-column-modal');
-            openLiveRoom(item.title, item.speaker, item.img);
+            openReplayRoom(item.id);
         };
+        const visual = document.createElement('span');
+        visual.className = 'column-replay-visual';
         const image = document.createElement('img');
         image.src = item.img;
-        image.alt = item.title;
+        image.alt = '';
+        image.loading = 'lazy';
+        const play = document.createElement('span');
+        play.className = 'column-replay-play';
+        play.setAttribute('aria-hidden', 'true');
+        play.innerHTML = '<i class="fa-solid fa-play"></i>';
+        const duration = document.createElement('span');
+        duration.className = 'column-replay-duration';
+        duration.textContent = item.duration;
+        visual.append(image, play, duration);
         const copy = document.createElement('span');
+        copy.className = 'column-replay-copy';
+        const label = document.createElement('span');
+        label.className = 'column-replay-label';
+        label.textContent = `${String(index + 1).padStart(2, '0')} / ${item.tag}`;
         const title = document.createElement('strong');
         title.textContent = item.title;
         const detail = document.createElement('span');
-        detail.textContent = `${item.speaker} · ${item.duration} · ${item.views}`;
-        copy.append(title, detail);
-        card.append(image, copy);
+        detail.className = 'column-replay-meta';
+        detail.textContent = `${item.speaker} · ${item.publishText}`;
+        copy.append(label, title, detail);
+        card.append(visual, copy);
         list.append(card);
     });
     if (!list.childElementCount) list.textContent = '该专栏暂无回放内容。';
@@ -104,7 +134,7 @@ function importTeacherPortrait(file) {
             renderTeacherCards();
             if (currentTeacher === key) {
                 updateTeacherPortrait();
-                setVoiceStatus(saved ? '形象已更新，同一浏览器三期共用。' : '形象已更新；存储不可用，本次会话有效。');
+                setVoiceStatus(saved ? '形象已更新' : '形象已更新，但无法保存；刷新后需重新选择。');
             }
         };
         image.src = reader.result;
@@ -179,13 +209,7 @@ const teacherConversations = { mudi: [], tao: [] };
 const modalFocus = {};
 function openExperienceModal(id) {
     if (PHASE < 3 && ['ai-chat-modal', 'teacher-reference-modal', 'wealth-assessment-modal'].includes(id)) return;
-    modalFocus[id] = document.activeElement;
-    const modal = document.getElementById(id);
-    document.querySelectorAll('.experience-overlay:not(.hidden)').forEach(overlay => { overlay.inert = true; });
-    modal.inert = false;
-    modal.classList.remove('hidden');
-    document.body.classList.add('experience-modal-open');
-    modal.querySelector('button, input')?.focus({ preventScroll: true });
+    openAppPage(id);
 }
 function closeExperienceModal(id) {
     if (id === 'teacher-reference-modal') stopTeacherReference();
@@ -196,11 +220,7 @@ function closeExperienceModal(id) {
         stopTeacherVoice();
         setTeacherMode('text');
     }
-    document.getElementById(id).classList.add('hidden');
-    const visible = [...document.querySelectorAll('.experience-overlay:not(.hidden)')];
-    visible.forEach((overlay, index) => { overlay.inert = index !== visible.length - 1; });
-    if (!document.querySelector('.experience-overlay:not(.hidden)')) document.body.classList.remove('experience-modal-open');
-    modalFocus[id]?.focus({ preventScroll: true });
+    closeAppPage(id);
 }
 function stopTeacherReference() {
     const audio = document.getElementById('teacher-reference-audio');
@@ -211,6 +231,7 @@ function stopTeacherReference() {
     }
 }
 function openTeacherReference() {
+    if (PHASE < 3) return;
     stopVoiceRecognition();
     stopTeacherVoice();
     const teacher = TEACHER_AVATARS[currentTeacher];
@@ -309,9 +330,11 @@ function switchTeacher(key) {
 function renderTeacherChat() {
     const teacher = TEACHER_AVATARS[currentTeacher];
     document.getElementById('teacher-chat-name').textContent = `${teacher.name} · AI 分身`;
+    const pageTitle = document.getElementById('app-page-title-ai-chat-modal');
+    if (pageTitle) pageTitle.textContent = `${teacher.name} · AI 分身`;
     document.getElementById('teacher-chat-focus').textContent = teacher.focus;
     updateTeacherPortrait();
-    setVoiceStatus('点击麦克风开始说话，也可以随时打字。');
+    setVoiceStatus('');
     document.querySelectorAll('[data-teacher]').forEach(button => {
         const active = button.dataset.teacher === currentTeacher;
         button.classList.toggle('active', active);
@@ -332,9 +355,9 @@ function updateTeacherPortrait() {
         portrait.src = teacher.image;
         portrait.alt = `${teacher.name}${teacher.hasPhoto ? '照片形象' : '概念形象'}`;
     });
-    document.getElementById('teacher-portrait-source').textContent = teacher.hasPhoto ? '照片形象 · AI 分身' : '概念形象 · 待接入老师原图';
+    document.getElementById('teacher-portrait-source').textContent = teacher.hasPhoto ? '' : '概念形象';
     document.getElementById('teacher-call-name').textContent = teacher.name;
-    document.getElementById('teacher-call-source').textContent = teacher.hasPhoto ? '照片形象展示，尚未接入口型驱动' : '概念形象演示，尚未接入老师原图';
+    document.getElementById('teacher-call-source').textContent = teacher.hasPhoto ? '' : '概念形象';
 }
 function appendTeacherMessage(role, text) {
     const box = document.getElementById('chat-box');
@@ -391,6 +414,7 @@ function handleChatKeyPress(event) {
     }
 }
 function sendMessage(readAloud = false) {
+    if (PHASE < 3) return;
     const input = document.getElementById('chat-input');
     const text = input.value.trim().slice(0, 1000);
     if (!text) return;
@@ -428,26 +452,32 @@ function updateCallCaption() {
     const history = teacherConversations[currentTeacher];
     const user = [...history].reverse().find(message => message.role === 'user');
     const reply = [...history].reverse().find(message => message.role === 'assistant');
-    document.getElementById('teacher-call-question').textContent = user ? `你：${user.text}` : '聊聊你的目标，我在这里听。';
-    document.getElementById('teacher-call-caption').textContent = reply?.text || TEACHER_AVATARS[currentTeacher].greeting;
+    document.getElementById('teacher-call-question').textContent = user ? `你：${user.text}` : '';
+    document.getElementById('teacher-call-caption').textContent = reply?.text || '';
 }
 function setTeacherMode(mode) {
     teacherMode = mode === 'voice' ? 'voice' : 'text';
-    const dialog = document.querySelector('.teacher-dialog');
+    const dialog = teacherDialog();
     if (!dialog) return;
     dialog.classList.toggle('voice-mode', teacherMode === 'voice');
     document.getElementById('teacher-text-panel').hidden = teacherMode === 'voice';
     document.getElementById('teacher-call-panel').hidden = teacherMode !== 'voice';
 }
+function teacherDialog() {
+    return document.querySelector(teacherMode === 'voice'
+        ? '#teacher-call-page .teacher-dialog' : '#ai-chat-modal .teacher-dialog');
+}
 function startTeacherCall() {
+    if (PHASE < 3) return;
     callReadyToFinish = false;
     callTranscript = '';
     stopVoiceRecognition();
     stopTeacherVoice();
     setTeacherMode('voice');
-    document.getElementById('teacher-call-question').textContent = '点击说话，再点击“说完了”。';
-    document.getElementById('teacher-call-caption').textContent = '说完后播放老师原声素材，体验语音对话流程；素材内容不随问题生成。';
-    setVoiceStatus('点击下方麦克风开始说话');
+    openAppPage('teacher-call-page');
+    document.getElementById('teacher-call-question').textContent = '';
+    document.getElementById('teacher-call-caption').textContent = '';
+    setVoiceStatus('');
     document.getElementById('teacher-call-mic').focus({ preventScroll: true });
 }
 function endTeacherCall() {
@@ -456,19 +486,20 @@ function endTeacherCall() {
     stopVoiceRecognition();
     stopTeacherVoice();
     setTeacherMode('text');
-    setVoiceStatus('已结束语音，聊天记录已保留。');
+    closeAppPage('teacher-call-page');
+    setVoiceStatus('');
     document.getElementById('chat-input').focus({ preventScroll: true });
 }
 function toggleVoiceMuted() {
     voiceMuted = !voiceMuted;
     document.getElementById('teacher-call-audio').muted = voiceMuted;
-    if (voiceMuted && !document.querySelector('.teacher-dialog').classList.contains('original-playing')) stopTeacherVoice();
+    if (voiceMuted && !teacherDialog().classList.contains('original-playing')) stopTeacherVoice();
     const button = document.getElementById('teacher-call-speaker');
     button.setAttribute('aria-pressed', String(voiceMuted));
     button.innerHTML = `<i class="fa-solid ${voiceMuted ? 'fa-volume-xmark' : 'fa-volume-high'}"></i><span>${voiceMuted ? '已静音' : '原声开启'}</span>`;
 }
 function setListeningUI(listening) {
-    document.querySelector('.teacher-dialog')?.classList.toggle('listening', listening);
+    teacherDialog()?.classList.toggle('listening', listening);
     ['teacher-call-mic', 'teacher-input-mic'].forEach(id => {
         const button = document.getElementById(id);
         if (!button) return;
@@ -476,7 +507,7 @@ function setListeningUI(listening) {
         button.setAttribute('aria-label', id === 'teacher-call-mic' && callReadyToFinish ? '说完了，播放老师原声' : listening ? '结束说话' : '开始语音输入');
     });
     const label = document.querySelector('#teacher-call-mic span');
-    if (label) label.textContent = callReadyToFinish ? '说完了' : '点击说话';
+    if (label) label.textContent = callReadyToFinish ? '说完了' : '说话';
 }
 function toggleTeacherCallInput() {
     if (callReadyToFinish) {
@@ -488,7 +519,7 @@ function toggleTeacherCallInput() {
             appendTeacherMessage('user', text);
             document.getElementById('teacher-call-question').textContent = `你：${text}`;
         } else {
-            document.getElementById('teacher-call-question').textContent = '你已说完 · 语音流程演示';
+            document.getElementById('teacher-call-question').textContent = '';
         }
         playTeacherOriginal();
         return;
@@ -498,7 +529,7 @@ function toggleTeacherCallInput() {
     callTranscript = '';
     toggleVoiceInput();
     setListeningUI(Boolean(recognition));
-    if (!recognition) setVoiceStatus('当前无法识别语音；仍可点击“说完了”体验原声播放。');
+    if (!recognition) setVoiceStatus('当前无法识别语音，请改用打字。');
 }
 function playTeacherOriginal() {
     callReadyToFinish = false;
@@ -511,27 +542,28 @@ function playTeacherOriginal() {
     audio.muted = voiceMuted;
     document.getElementById('teacher-call-badge').textContent = '老师正在回复 · 原声演示';
     document.getElementById('teacher-call-replay').hidden = false;
-    document.getElementById('teacher-call-caption').textContent = '正在为你播放老师的声音，模拟语音回复。本次使用预录原声，内容不随问题生成。';
+    document.getElementById('teacher-call-caption').textContent = '';
     audio.onplaying = () => {
         if (session !== speechSequence) return;
         teacherSpeaking = true;
-        document.querySelector('.teacher-dialog').classList.add('speaking', 'original-playing');
-        setVoiceStatus('老师正在回复 · 原声演示');
+        teacherDialog().classList.add('speaking', 'original-playing');
+        setVoiceStatus('');
     };
     audio.onended = () => {
         if (session !== speechSequence) return;
         teacherSpeaking = false;
-        document.querySelector('.teacher-dialog').classList.remove('speaking');
-        setVoiceStatus('原声播放结束，可以继续说话或重播。');
+        teacherDialog().classList.remove('speaking', 'original-playing');
+        document.getElementById('teacher-call-badge').textContent = 'AI 分身 · 语音对话';
+        setVoiceStatus('');
     };
     const unavailable = () => {
         if (session !== speechSequence) return;
         teacherSpeaking = false;
-        document.querySelector('.teacher-dialog').classList.remove('speaking');
-        setVoiceStatus('原声暂未播放，请点击“播放 / 重播原声”重试。');
+        teacherDialog().classList.remove('speaking', 'original-playing');
+        setVoiceStatus('原声播放失败，请重试。');
     };
     audio.onerror = unavailable;
-    setVoiceStatus('正在准备老师原声…');
+    setVoiceStatus('加载中…');
     try { audio.play()?.catch(unavailable); } catch (_) { unavailable(); }
 }
 function stopVoiceRecognition() {
@@ -547,7 +579,7 @@ function stopVoiceRecognition() {
 function toggleVoiceInput() {
     if (recognition) {
         recognition.stop();
-        setVoiceStatus('正在整理你说的话…');
+        setVoiceStatus('识别中…');
         return;
     }
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -568,7 +600,7 @@ function toggleVoiceInput() {
     active.onstart = () => {
         if (session !== recognitionSequence) return;
         setListeningUI(true);
-        setVoiceStatus('正在听，请说话；说完可点击麦克风结束。');
+        setVoiceStatus('正在聆听…');
     };
     active.onresult = event => {
         if (session !== recognitionSequence || currentTeacher !== key) return;
@@ -596,7 +628,7 @@ function toggleVoiceInput() {
             network: '语音识别网络不可用，请检查网络或切回打字。',
             aborted: '已停止语音输入。'
         };
-        setVoiceStatus((errors[event.error] || '语音识别暂不可用，请继续打字。') + (mode === 'voice' ? '也可点击“说完了”播放老师原声。' : ''));
+        setVoiceStatus(errors[event.error] || '语音识别暂不可用，请改用打字。');
         recognition = null;
         setListeningUI(false);
     };
@@ -606,14 +638,14 @@ function toggleVoiceInput() {
         setListeningUI(false);
         if (failed) return;
         if (mode === 'voice') {
-            setVoiceStatus('点击“说完了”，直接播放老师原声素材。');
+            setVoiceStatus('');
             return;
         }
         if (!finalText.trim()) {
             setVoiceStatus('没有识别到完整语句，请重试或切回打字。');
             return;
         }
-        setVoiceStatus('已转为文字，请确认后发送。');
+        setVoiceStatus('');
         document.getElementById('chat-input').focus({ preventScroll: true });
     };
     try { active.start(); } catch (_) {
@@ -631,7 +663,7 @@ function stopTeacherVoice() {
     if (badge) badge.textContent = 'AI 分身 · 语音对话';
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     teacherSpeaking = false;
-    document.querySelector('.teacher-dialog')?.classList.remove('speaking', 'original-playing');
+    document.querySelectorAll('.teacher-dialog').forEach(dialog => dialog.classList.remove('speaking', 'original-playing'));
     const button = document.getElementById('teacher-voice-button');
     if (button) button.textContent = '朗读回答';
 }
@@ -651,14 +683,14 @@ function speakTeacherText(text) {
     utterance.onstart = () => {
         if (session !== speechSequence) return;
         teacherSpeaking = true;
-        document.querySelector('.teacher-dialog').classList.add('speaking');
+        teacherDialog().classList.add('speaking');
         document.getElementById('teacher-voice-button').textContent = '停止朗读';
         setVoiceStatus('正在朗读 · 浏览器系统声线');
     };
     utterance.onend = () => {
         if (session !== speechSequence) return;
         stopTeacherVoice();
-        setVoiceStatus('点击麦克风继续说话，也可以切回打字。');
+        setVoiceStatus('');
     };
     utterance.onerror = () => {
         if (session !== speechSequence) return;
@@ -690,7 +722,8 @@ function getSavedAssessment() {
     if (memoryAssessment) return memoryAssessment;
     try {
         const stored = JSON.parse(localStorage.getItem(ASSESSMENT_STORAGE_KEY));
-        if (stored?.version === 1 && stored.answers?.length === 5 && stored.answers.every(answer => Number.isInteger(answer) && answer >= 0 && answer <= 2)) return stored;
+        if (stored?.version === 1 && typeof stored.date === 'string' && /^[\d/.-]{6,20}$/.test(stored.date) &&
+            stored.answers?.length === 5 && stored.answers.every(answer => Number.isInteger(answer) && answer >= 0 && answer <= 2)) return stored;
     } catch (_) { /* 禁用本地存储时仍可完成本次评估。 */ }
     return null;
 }
@@ -702,7 +735,7 @@ function openWealthAssessment() {
     if (PHASE < 3) return;
     const report = getSavedAssessment();
     if (report) renderAssessmentReport(report);
-    else startWealthAssessment();
+    else renderAssessmentQuestion();
     openExperienceModal('wealth-assessment-modal');
 }
 function startWealthAssessment() {
@@ -734,6 +767,7 @@ function pinAssessmentActions() {
     content.scrollTop = 0;
 }
 function selectAssessmentAnswer(answer) {
+    if (PHASE < 3 || !Number.isInteger(answer) || answer < 0 || answer > 2) return;
     assessmentDraft[assessmentStep] = answer;
     renderAssessmentQuestion();
     document.querySelector('.assessment-options button.selected')?.focus();
@@ -783,13 +817,12 @@ function renderAssessmentReport(report) {
         ${priorities.slice(0, 2).map(dimension => `<div class="assessment-priority"><strong>${dimension.name}</strong><p>${dimension.action}</p></div>`).join('')}
         <div class="assessment-actions">
             <button onclick="startWealthAssessment()">重新评估</button>
-            <button class="primary" onclick="consultAssessment()">与 AI 分身聊规划</button>
+            <button class="primary" onclick="consultAssessment()">咨询 AI 分身</button>
         </div>
         <p class="assessment-footnote">本地自评演示；与会员徽章无关，不构成投资、税务或医疗建议。</p>`;
     pinAssessmentActions();
 }
 function consultAssessment() {
-    closeExperienceModal('wealth-assessment-modal');
     openTeacherChat('tao', '根据我的五富评估，下一步优先补齐什么？');
 }
 function updateAssessmentEntry() {
@@ -807,7 +840,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h2 id="home-column-title">专栏回放</h2>
                     <button onclick="closeExperienceModal('home-column-modal')" aria-label="关闭专栏"><i class="fa-solid fa-xmark"></i></button>
                 </header>
-                <p id="home-column-description" class="home-column-description"></p>
+                <div class="column-cover">
+                    <div class="column-cover-masthead"><span>TDH / JOURNAL</span><span id="home-column-edition">01</span></div>
+                    <div class="column-cover-art" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                    <div class="column-cover-copy">
+                        <span class="column-cover-eyebrow">陶笛汇 · 专栏精选</span>
+                        <h2 id="home-column-cover-title">专栏回放</h2>
+                        <p id="home-column-description" class="home-column-description"></p>
+                    </div>
+                    <div id="home-column-topics" class="column-cover-topics"></div>
+                    <div class="column-cover-baseline"><span>观点 · 对话 · 洞察</span><span aria-hidden="true">TDH COLLECTION</span></div>
+                </div>
+                <div class="column-list-heading"><h3>专栏回放</h3><span id="home-column-count"></span></div>
                 <div id="home-column-list" class="home-column-list"></div>
             </section>
         </div>
@@ -862,11 +906,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <form class="teacher-input" onsubmit="event.preventDefault(); sendMessage()">
                     <button id="teacher-input-mic" class="teacher-input-mic" type="button" onclick="toggleVoiceInput()" aria-label="开始语音输入" aria-pressed="false"><i class="fa-solid fa-microphone"></i></button>
                     <label class="sr-only" for="chat-input">输入问题</label>
-                    <input id="chat-input" maxlength="1000" autocomplete="off" placeholder="输入问题，或点击麦克风…" onkeydown="handleChatKeyPress(event)">
+                    <input id="chat-input" maxlength="1000" autocomplete="off" placeholder="输入问题…" onkeydown="handleChatKeyPress(event)">
                     <button type="submit">发送 <i class="fa-solid fa-arrow-up"></i></button>
                 </form>
                 <div class="teacher-chat-toolbar">
-                    <p id="teacher-voice-status" role="status">支持打字与语音输入</p>
+                    <p id="teacher-voice-status" role="status"></p>
                 </div>
                 </div>
                 <section id="teacher-call-panel" class="teacher-call-panel" aria-label="老师分身语音对话" hidden>
@@ -886,27 +930,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p id="teacher-call-question"></p>
                         <p id="teacher-call-caption"></p>
                     </div>
-                    <p id="teacher-call-status" class="teacher-call-status" role="status">点击麦克风开始说话</p>
+                    <p id="teacher-call-status" class="teacher-call-status" role="status"></p>
                     <button id="teacher-call-replay" class="teacher-call-keyboard" onclick="playTeacherOriginal()" hidden>播放 / 重播原声</button>
                     <div class="teacher-call-controls">
                         <button id="teacher-call-speaker" onclick="toggleVoiceMuted()" aria-pressed="false"><i class="fa-solid fa-volume-high"></i><span>原声开启</span></button>
-                        <button id="teacher-call-mic" class="call-mic" onclick="toggleTeacherCallInput()" aria-label="开始语音输入" aria-pressed="false"><i class="fa-solid fa-microphone"></i><span>点击说话</span></button>
+                        <button id="teacher-call-mic" class="call-mic" onclick="toggleTeacherCallInput()" aria-label="开始语音输入" aria-pressed="false"><i class="fa-solid fa-microphone"></i><span>说话</span></button>
                         <button class="call-end" onclick="endTeacherCall()"><i class="fa-solid fa-phone-slash"></i><span>结束语音</span></button>
                     </div>
-                    <button class="teacher-call-keyboard" onclick="endTeacherCall()"><i class="fa-solid fa-keyboard"></i> 切回打字，保留对话</button>
-                    <p class="teacher-call-disclaimer">播放预录老师原声，非实时回答 · 语音识别需麦克风授权</p>
+                    <button class="teacher-call-keyboard" onclick="endTeacherCall()"><i class="fa-solid fa-keyboard"></i> 切回打字</button>
+                    <p class="teacher-call-disclaimer">预录老师原声，非实时回答。</p>
                 </section>
             </section>
         </div>
         <div id="teacher-reference-modal" role="dialog" aria-modal="true" aria-labelledby="teacher-reference-title" class="experience-overlay reference-overlay hidden">
             <section class="experience-dialog teacher-reference-dialog">
                 <header class="experience-modal-header">
-                    <h2 id="teacher-reference-title">老师原声素材</h2>
+                    <h2 id="teacher-reference-title">原声试听</h2>
                     <button onclick="closeExperienceModal('teacher-reference-modal')" aria-label="关闭原声试听"><i class="fa-solid fa-xmark"></i></button>
                 </header>
                 <audio id="teacher-reference-audio" controls preload="metadata" aria-label="老师原声试听" onerror="document.getElementById('teacher-reference-topic').textContent = '音频暂不可用，请关闭后继续对话。'"></audio>
                 <p id="teacher-reference-topic" class="teacher-reference-topic"></p>
-                <p class="teacher-reference-note">从用户提供视频第 5 至 20 秒提取的纯音频，保留老师原声，仅模拟回复交互，不是实时生成的回答。</p>
+                <p class="teacher-reference-note">预录老师原声，仅演示回复，非实时回答。</p>
             </section>
         </div>
         <div data-ph="3" id="wealth-assessment-modal" role="dialog" aria-modal="true" aria-labelledby="wealth-assessment-title" class="experience-overlay hidden">
@@ -919,18 +963,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 <footer id="wealth-assessment-footer" class="assessment-footer" aria-label="评估操作"></footer>
             </section>
         </div>`);
-    updateAssessmentEntry();
-    document.querySelectorAll('.experience-overlay').forEach(modal => {
-        modal.addEventListener('click', event => { if (event.target === modal) closeExperienceModal(modal.id); });
-        modal.addEventListener('keydown', event => {
-            if (event.key === 'Escape') closeExperienceModal(modal.id);
-            if (event.key !== 'Tab') return;
-            const elements = [...modal.querySelectorAll('button:not(:disabled), input, [tabindex="0"]')].filter(element => element.getClientRects().length);
-            const first = elements[0], last = elements[elements.length - 1];
-            if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-        });
+    const callPage = document.createElement('div');
+    callPage.id = 'teacher-call-page';
+    callPage.className = 'experience-overlay hidden';
+    callPage.setAttribute('data-ph', '3');
+    const callContent = document.createElement('section');
+    callContent.className = 'experience-dialog teacher-dialog flex flex-col';
+    callContent.append(document.getElementById('teacher-call-panel'));
+    callPage.append(callContent);
+    document.body.append(callPage);
+    callPage.addEventListener('app-page-enter', () => {
+        setTeacherMode('voice');
+        setVoiceStatus('');
     });
+    callPage.addEventListener('app-page-leave', () => {
+        callReadyToFinish = false;
+        stopVoiceRecognition();
+        stopTeacherVoice();
+        // A reference subpage may return to the same voice session.
+        if (!MobileNavigation.getRoute().pages.includes('teacher-call-page')) setTeacherMode('text');
+    });
+    updateAssessmentEntry();
+    document.getElementById('ai-chat-modal').addEventListener('app-page-leave', () => {
+        stopVoiceRecognition();
+        stopTeacherVoice();
+    });
+    document.getElementById('teacher-reference-modal').addEventListener('app-page-leave', stopTeacherReference);
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
             stopVoiceRecognition();
@@ -939,4 +997,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     window.addEventListener('pagehide', () => { stopVoiceRecognition(); stopTeacherVoice(); stopTeacherReference(); });
+    MobileNavigation.registerPages();
 });

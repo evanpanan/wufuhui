@@ -1,0 +1,143 @@
+html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+body { background: #e9e5dd; }
+#mobile-app-shell {
+    height: var(--app-height, 100dvh);
+    min-height: 0;
+    width: 100%;
+    max-width: 448px;
+    padding-top: env(safe-area-inset-top);
+}
+#app-body { min-height: 0; padding-bottom: 20px; overscroll-behavior-y: contain; }
+#app-tab-bar {
+    position: relative;
+    bottom: auto;
+    flex-shrink: 0;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+}
+.has-app-page > :not(.app-page):not(#toast):not(#login-gate) { visibility: hidden; }
+#toast { z-index: 100; max-width: calc(100vw - 32px); width: max-content; white-space: normal; }
+#login-gate > div { height: var(--app-height, 100dvh); min-height: 0; overflow-y: auto; }
+.app-page {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 50 !important;
+    width: 100%;
+    height: 100%;
+    padding: env(safe-area-inset-top) 0 0 !important;
+    background: #faf8f3 !important;
+    backdrop-filter: none !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    overflow: hidden;
+}
+.app-page.hidden { display: none !important; }
+.app-page.app-overlay {
+    padding: max(18px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom)) !important;
+    background: #101a2b99 !important;
+    backdrop-filter: blur(3px) !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.app-overlay > .app-overlay-content {
+    flex: 0 1 auto;
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    max-height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: 18px;
+    background: #fffdf8;
+    box-shadow: 0 22px 70px #07101f50;
+    animation: none !important;
+}
+#e-ticket-modal.app-overlay > .app-overlay-content { max-width: 330px; }
+.app-page.app-overlay .experience-modal-header { display: flex; }
+.app-overlay .app-overlay-dismiss { min-width: 44px; min-height: 44px; }
+.app-overlay .teacher-reference-dialog { padding: 20px; }
+.app-overlay .teacher-reference-dialog audio { width: 100%; margin: 20px 0 16px; }
+.app-page.app-overlay #badge-modal-body { max-height: 50dvh !important; }
+.app-page-header {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr) 76px;
+    align-items: center;
+    min-height: 58px;
+    flex-shrink: 0;
+    padding: 4px 12px;
+    background: #faf8f3;
+    color: #172235;
+    border-bottom: 1px solid #e6dfd1;
+}
+.app-page-header h1 {
+    font-family: "Songti SC", "Noto Serif SC", serif;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 700;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.app-page-back {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 44px;
+    color: #816332;
+    font-size: 13px;
+    text-align: left;
+}
+.app-page > .app-page-content {
+    flex: 1;
+    min-height: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    animation: none !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+}
+.app-page-structured > .app-page-content { overflow: hidden !important; }
+.app-page .app-obsolete-close { display: none !important; }
+.app-page .experience-modal-header { display: none; }
+.app-page:not(.app-page-structured) [class*="max-h-"] { max-height: none !important; }
+.app-page input:not([type="checkbox"]), .app-page textarea, .app-page select { font-size: 16px; }
+.app-page button { touch-action: manipulation; }
+.app-page input, .app-page textarea { scroll-margin-top: 16px; }
+.app-page .home-column-list { flex: 1; align-content: start; }
+.app-page .teacher-reference-dialog { display: block; }
+.app-page .teacher-reference-dialog audio { margin-top: 28px; }
+.app-page .teacher-dialog { background: #faf8f3; }
+.app-page .teacher-dialog.voice-mode { background: #101c2b; }
+.app-page .teacher-call-panel { padding-top: 4px; }
+.app-page .teacher-chat-toolbar { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+.app-page .teacher-portrait p, .app-page .teacher-portrait #teacher-portrait-source { padding-right: 0; }
+.app-page .teacher-portrait > div:not(.teacher-wave) { padding-top: 46px; }
+.app-page .teacher-portrait > img { align-self: stretch; height: auto; min-height: 150px; }
+.app-page .teacher-portrait-actions { gap: 8px; }
+.app-page .teacher-portrait button { min-height: 32px; }
+.app-page .teacher-input input { min-width: 0; }
+.app-page .teacher-chat-box { min-height: 64px; }
+.app-page .customer-service-dialog { height: auto; }
+.app-page .customer-service-dialog .teacher-chat-box { min-height: 100px; }
+.app-page .app-page-content > [class*="border-t"] { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+#live-modal.app-page { background: #0a1220 !important; }
+#live-modal .app-page-header { background: #0a1220; color: #f6e8cd; border-color: #263347; }
+#live-modal .app-page-back { color: #ead0a1; }
+#live-modal .app-page-content { background: #0a1220; padding-bottom: env(safe-area-inset-bottom); }
+@media (max-width: 448px) {
+    #mobile-app-shell { border: 0; box-shadow: none; }
+}
+@media (max-height: 640px) {
+    .app-page .teacher-portrait { margin-bottom: 8px; }
+    .app-page .teacher-portrait > img { min-height: 128px; width: 82px; }
+    .app-page .teacher-switch { margin-top: 8px; margin-bottom: 8px; }
+}
