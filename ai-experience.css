@@ -37,6 +37,11 @@ body.experience-modal-open { overflow: hidden; }
 .teacher-message-label { display: block; font-size: 9px; color: #9b783a; margin-bottom: 4px; }
 .teacher-message.user { align-self: flex-end; border-radius: 15px 15px 3px 15px; background: #18263b; color: #fff; border-color: #18263b; }
 .teacher-message.user .teacher-message-label { color: #d2be94; }
+.teacher-message-actions { display: flex; align-items: center; gap: 12px; margin-top: 10px; padding-top: 4px; border-top: 1px solid #e4dfd580; }
+.teacher-message-actions button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 54px; min-height: 36px; color: #7b8591; font-size: 10px; border-radius: 6px; transition: color .15s, background .15s; }
+.teacher-message-actions button:hover { color: #172235; background: #f5f3ee; }
+.teacher-message-actions button[aria-pressed="true"] { color: #9b783a; background: #f7f1e4; }
+.teacher-message-actions i { font-size: 12px; }
 .teacher-prompts { display: flex; gap: 7px; padding: 10px 16px; overflow-x: auto; flex-shrink: 0; scrollbar-width: none; border-top: 1px solid #e6dfd1; }
 .teacher-prompts button { border: 1px solid #d9c9a8; color: #75603b; border-radius: 20px; padding: 6px 10px; font-size: 10px; white-space: nowrap; background: #fffdf7; }
 .teacher-input { display: flex; gap: 8px; padding: 10px 14px max(14px,env(safe-area-inset-bottom)); background: white; flex-shrink: 0; }

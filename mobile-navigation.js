@@ -12,20 +12,20 @@
         'compliance-modal': '投资者认证', 'password-modal': '修改密码',
         'e-ticket-modal': '电子票', 'after-sales-modal': '售后申请',
         'home-column-modal': '专栏回放', 'customer-service-modal': '专属客服',
-        'ai-chat-modal': '老师 AI 分身', 'teacher-reference-modal': '原声试听',
-        'teacher-call-page': '语音对话',
+        'ai-chat-modal': '老师 AI 分身',
+        'teacher-call-page': '语音通话',
         'wealth-assessment-modal': 'AI 五富评估'
     };
     const minimumPhase = {
         'mall-detail-modal': 2, 'mall-buy-modal': 2, 'badge-modal': 2,
         'all-previews-modal': 2, 'preview-detail-modal': 2, 'notification-modal': 2,
         'activity-calendar-modal': 2, 'special-access-modal': 2,
-        'ai-chat-modal': 3, 'teacher-reference-modal': 3, 'wealth-assessment-modal': 3,
+        'ai-chat-modal': 3, 'wealth-assessment-modal': 3,
         'teacher-call-page': 3,
         'compliance-modal': 3, 'after-sales-modal': 3
     };
     const overlays = new Set([
-        'e-ticket-modal', 'badge-modal', 'special-access-modal', 'teacher-reference-modal'
+        'e-ticket-modal', 'badge-modal', 'special-access-modal'
     ]);
     const pages = new Map();
     const positions = new Map();
@@ -144,7 +144,7 @@
             if (overlays.has(nextTop)) {
                 page.querySelector('.app-overlay-dismiss')?.focus({ preventScroll: true });
             } else {
-                const originalTitle = page.querySelector('#home-column-title, #teacher-chat-name, #teacher-reference-title, #teacher-call-name');
+                const originalTitle = page.querySelector('#home-column-title, #teacher-chat-name, #teacher-call-name');
                 page.querySelector('.app-page-header h1').textContent = page.dataset.navigationTitle || originalTitle?.textContent || titles[nextTop];
                 page.querySelector('.app-page-back').focus({ preventScroll: true });
             }
